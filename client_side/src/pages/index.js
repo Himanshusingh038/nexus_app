@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { Logo } from '../components/logo';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 
-const Login = () => {
+const Page = () => {
   const formik = useFormik({
     initialValues: {
       email: 'admin@nexuscards.in',
@@ -106,4 +106,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Page;
