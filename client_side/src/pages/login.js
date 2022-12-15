@@ -7,10 +7,6 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 
 const Login = () => {
   const formik = useFormik({
-    initialValues: {
-      email: 'admin@nexuscards.in',
-      password: 'password'
-    },
     validationSchema: Yup.object({
       email: Yup
         .string()
@@ -71,7 +67,7 @@ const Login = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="email"
-              value={formik.values.email}
+              value=""
               variant="outlined"
             />
             <TextField
@@ -84,7 +80,7 @@ const Login = () => {
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
               type="password"
-              value={formik.values.password}
+              value=""
               variant="outlined"
             />
             <Box sx={{ pt: 5 }}>
