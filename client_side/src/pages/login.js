@@ -40,23 +40,24 @@ const Login = () => {
           alignItems: 'center',
           display: 'flex',
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: '100%',
+          bgcolor: "background.paper"
         }}
       >
         <Container maxWidth="sm"
           sx={{
             pt: 6,
             pb: 8,
-            bgcolor: 'background.paper',
             borderRadius: '10px'
           }}
         >
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ mb: 5 }}>
+            <Box 
+              align="center"
+              sx={{ mb: 8 }}>
               <Logo
                 sx={{
-                  height: 42,
-                  width: 42
+                  width: 120
                 }}
               />
             </Box>
