@@ -1,18 +1,15 @@
 import Head from 'next/head';
-import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { Logo } from '../components/logo';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
 
 const Login = () => {
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: 'admin@nexuscards.in',
+      password: 'password'
     },
     validationSchema: Yup.object({
       email: Yup
@@ -39,22 +36,29 @@ const Login = () => {
       </Head>
       <Box
         component="main"
-        sx={{
+        sx={{        
           alignItems: 'center',
           display: 'flex',
           flexGrow: 1,
           minHeight: '100%'
         }}
       >
-        <Container maxWidth="sm">
+        <Container maxWidth="sm"
+          sx={{
+            pt: 6,
+            pb: 8,
+            bgcolor: 'background.paper',
+            borderRadius: '10px'
+          }}
+        >
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
-              <Typography
-                color="textPrimary"
-                variant="h4"
-              >
-                Admin Login
-              </Typography>
+            <Box sx={{ mb: 5 }}>
+              <Logo
+                sx={{
+                  height: 42,
+                  width: 42
+                }}
+              />
             </Box>
             <TextField
               error={Boolean(formik.touched.email && formik.errors.email)}
@@ -82,7 +86,7 @@ const Login = () => {
               value={formik.values.password}
               variant="outlined"
             />
-            <Box sx={{ py: 2 }}>
+            <Box sx={{ pt: 5 }}>
               <Button
                 color="primary"
                 disabled={formik.isSubmitting}

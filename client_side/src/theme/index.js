@@ -152,12 +152,12 @@ export const theme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
+      default: '#ecf0f4',
       paper: '#FFFFFF'
     },
     divider: '#E6E8F0',
     primary: {
-      main: '#5048E5',
+      main: '#000000',
       light: '#828DF8',
       dark: '#3832A0',
       contrastText: '#FFFFFF'
