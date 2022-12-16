@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
 import { PeopleAltOutlined, CreditCardOutlined, CreditScoreOutlined, CreditCardOffOutlined, PersonAddAltOutlined, ContactPageOutlined } from '@mui/icons-material';
-import { LatestOrders } from '../components/dashboard/latest-orders';
+import { AllCards } from '../components/dashboard/all-cards';
 import { StatisticsCard } from '../components/dashboard/statistics-card';
 import { DashboardLayout } from '../components/dashboard-layout';
 
@@ -112,7 +112,7 @@ const Dashboard = () => (
             item
             xs={12}
           >
-            <LatestOrders />
+            <AllCards />
           </Grid>
         </Grid>
       </Container>
