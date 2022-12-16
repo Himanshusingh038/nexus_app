@@ -1,41 +1,53 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { Component } from 'react';
 
-export const StatisticsCard = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Grid
-        container
-        spacing={3}
-        sx={{ justifyContent: 'space-between' }}
+export const StatisticsCard = ({title, value, icon, bg}) => {
+  var ComponentName = icon;
+  return (
+    <>
+      <Card
+        sx = {{
+          backgroundColor: bg
+        }}
       >
-        <Grid item>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="overline"
+        <CardContent>
+          <Grid
+            container
+            spacing={3}
+            sx={{ justifyContent: 'space-between' }}
           >
-            TOTAL PROFIT
-          </Typography>
-          <Typography
-            color="textPrimary"
-            variant="h4"
-          >
-            $23k
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: 'primary.main',
-              height: 56,
-              width: 56
-            }}
-          >
-            <AttachMoneyIcon />
-          </Avatar>
-        </Grid>
-      </Grid>
-    </CardContent>
-  </Card>
-);
+            <Grid item>
+            <Typography
+                color="primary.contrastText"
+                variant="h4"
+              >
+                {value}
+              </Typography>
+              <Typography
+                color="primary.contrastText"
+                gutterBottom
+                variant="overline"
+              >
+                {title}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Avatar
+                sx={{
+                  border: 2,
+                  borderColor: 'primary.contrastText',
+                  borderRadius: '50%',
+                  backgroundColor: 'transparent',
+                  height: 56,
+                  width: 56
+                }}
+              >
+                <ComponentName />
+              </Avatar>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </>
+  );
+};

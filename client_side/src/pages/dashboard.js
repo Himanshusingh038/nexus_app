@@ -1,23 +1,9 @@
 import Head from 'next/head';
 import { Box, Container, Grid } from '@mui/material';
+import { HomeOutlined } from '@mui/icons-material';
 import { LatestOrders } from '../components/dashboard/latest-orders';
 import { StatisticsCard } from '../components/dashboard/statistics-card';
 import { DashboardLayout } from '../components/dashboard-layout';
-
-const items = [
-  {
-    title: 'Total Customers'
-  },
-	{
-    title: 'Home'
-  },
-	{
-    title: 'Home'
-  },
-	{
-    title: 'Home'
-  }
-];
 
 const Dashboard = () => (
   <>
@@ -38,17 +24,34 @@ const Dashboard = () => (
           container
           spacing={3}
         >
-					{items.map((item) => (
-            <Grid
-							item
-							xl={3}
-							lg={3}
-							sm={6}
-							xs={12}
-						>
-							<StatisticsCard sx={{ height: '100%' }} />
-						</Grid>
-          ))}
+					<Grid
+            item
+            xl={3}
+            lg={3}
+            sm={6}
+            xs={12}
+          >
+            <StatisticsCard 
+              title="Total Customers"
+              value="170"
+              icon={HomeOutlined}
+              bg='#d14343'
+            />
+          </Grid>
+          <Grid
+            item
+            xl={3}
+            lg={3}
+            sm={6}
+            xs={12}
+          >
+            <StatisticsCard 
+              title="Total Cards"
+              value="156"
+              icon={HomeOutlined}
+              bg='#14b8a6'
+            />
+          </Grid>
           <Grid
             item
             xs={12}

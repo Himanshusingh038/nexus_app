@@ -3,43 +3,39 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
-import { Home as HomeIcon } from '../icons/home';
-import { Card as CardIcon } from '../icons/card';
-import { Users as CustomersIcon } from '../icons/users';;
-import { Cog as CogIcon } from '../icons/cog';
-import { Logout as LogoutIcon } from '../icons/logout';
+import { HomeOutlined, AddCard, CreditCard, PeopleAltOutlined, SettingsOutlined, LogoutOutlined } from '@mui/icons-material';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
 const items = [
   {
     href: '/dashboard',
-    icon: (<HomeIcon />),
+    icon: (<HomeOutlined />),
     title: 'Dashboard'
   },
   {
     href: '/customers',
-    icon: (<CardIcon />),
+    icon: (<AddCard />),
     title: 'Generate Card'
   },
   {
     href: '/customers',
-    icon: (<CardIcon />),
+    icon: (<CreditCard />),
     title: 'Manage Cards'
   },
   {
     href: '/products',
-    icon: (<CustomersIcon />),
+    icon: (<PeopleAltOutlined />),
     title: 'Manage Customers'
   },
   {
     href: '/settings',
-    icon: (<CogIcon />),
+    icon: (<SettingsOutlined />),
     title: 'Change Password'
   },
   {
     href: '/settings',
-    icon: (<LogoutIcon />),
+    icon: (<LogoutOutlined />),
     title: 'Logout'
   }
 ];
