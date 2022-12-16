@@ -31,7 +31,7 @@ const items = [
   {
     href: '/settings',
     icon: (<SettingsOutlined />),
-    title: 'Change Password'
+    title: 'Account Settings'
   },
   {
     href: '/settings',

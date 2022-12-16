@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import { Grid, Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
 
 export const SettingsPassword = (props) => {
   const [values, setValues] = useState({
@@ -18,45 +18,81 @@ export const SettingsPassword = (props) => {
     <form {...props}>
       <Card>
         <CardHeader
-          subheader="Update password"
-          title="Password"
+          title="Change Password"
         />
         <Divider />
         <CardContent>
-          <TextField
-            fullWidth
-            label="Password"
-            margin="normal"
-            name="password"
-            onChange={handleChange}
-            type="password"
-            value={values.password}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="Confirm password"
-            margin="normal"
-            name="confirm"
-            onChange={handleChange}
-            type="password"
-            value={values.confirm}
-            variant="outlined"
-          />
+          <Grid
+            container
+            spacing={3}
+          >
+            <Grid
+              item
+              lg={4}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Current Password"
+                name="current_password"
+                onChange={handleChange}
+                type="password"
+                value={values.current_password}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="New Password"
+                name="new_password"
+                onChange={handleChange}
+                type="password"
+                value={values.new_password}
+                variant="outlined"
+              />
+            </Grid>
+            <Grid
+              item
+              lg={4}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Password"
+                name="confirm_password"
+                onChange={handleChange}
+                type="password"
+                value={values.confirm_password}
+                variant="outlined"
+              />
+            </Grid>
+          </Grid>
         </CardContent>
         <Divider />
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'flex-end',
-            p: 2
+            py: 2,
+            px: 3
           }}
         >
           <Button
             color="primary"
             variant="contained"
+            sx={{ mr: 2 }}
           >
-            Update
+            Update Password
+          </Button>
+          <Button
+            color="primary"
+            variant="outlined"
+          >
+            Cancel
           </Button>
         </Box>
       </Card>
