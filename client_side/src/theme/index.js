@@ -153,7 +153,7 @@ export const theme = createTheme({
       paper: '#FFFFFF',
       blue: '#e5f8fa'
     },
-    divider: '#E6E8F0',
+    divider: '#f4f4f4',
     primary: {
       main: '#000000',
       light: '#828DF8',

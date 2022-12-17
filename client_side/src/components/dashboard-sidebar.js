@@ -14,7 +14,7 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/customers',
+    href: '/generate-card',
     icon: (<AddCard />),
     title: 'Generate Card'
   },
@@ -34,7 +34,7 @@ const items = [
     title: 'Account Settings'
   },
   {
-    href: '/settings',
+    href: '/',
     icon: (<LogoutOutlined />),
     title: 'Logout'
   }
