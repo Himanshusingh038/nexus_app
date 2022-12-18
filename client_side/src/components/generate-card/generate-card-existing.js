@@ -3,9 +3,17 @@ import { Box, Button, Card, CardContent, CardHeader, Divider, Select, InputLabel
 
 export const GenerateExisting = (props) => {
   const [value, setValue] = useState({
-    customers: ''
+    customers: [
+      {
+        id: '1',
+        name: 'Jahanvi Jasani'
+      },
+      {
+        id: '2',
+        name: 'Himanshu Singh'
+      }
+    ]
   });
-
 
   const handleChange = (event) => {
     setValue({
@@ -20,23 +28,23 @@ export const GenerateExisting = (props) => {
         <CardHeader
           title="Generate cards for existing users"
 					sx = {{
-						color: "secondary.dark"
+						color: "primary.dark"
 					}}
         />
 				<Divider />
         <CardContent>
 					<FormControl fullWidth>
-						<InputLabel id="existing-customers">Age</InputLabel>
+						<InputLabel id="existing-customers">Customers</InputLabel>
 						<Select
 							labelId="existing-customers"
-							id="demo-simple-select"
-							value={value.customers}
-							label="Age"
+							label="Customers"
 							onChange={handleChange}
 						>
-							<MenuItem value={10}>Ten</MenuItem>
-							<MenuItem value={20}>Twenty</MenuItem>
-							<MenuItem value={30}>Thirty</MenuItem>
+              {value.customers.map((customer) => (
+                <MenuItem value={customer.id}>
+                  {customer.name}
+                </MenuItem>
+              ))}
 						</Select>
 					</FormControl>
         </CardContent>
