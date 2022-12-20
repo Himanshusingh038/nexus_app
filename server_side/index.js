@@ -11,10 +11,18 @@ const pg = require('pg').Pool
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const isAuth = require("./middleware/is-auth");
+const cors = require('cors');
+const { log } = require("console");
+const cookieParser = require('cookie-parser');
+
+
 /**
  * App Variables
  */
 const app = express();
+
+app.use(cookieParser());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 const port = process.env.PORT || "8000";
 const pgPool = new pg({
   user: 'postgres',
@@ -45,12 +53,15 @@ const pgPool = new pg({
   }),
   secret: 'secret',
   resave: false,
-  cookie: { maxAge: 4 * 60 * 60 * 1000 } // 4 hours 
+  cookie: { maxAge: 4 * 60 * 60 * 1000 ,
+    'domain' : 'localhost'
+  } // 4 hours 
   // Insert express-session options here
 }));
 /**
  * Routes Definitions
  */
+console.log(isAuth);
 app.get('/users', db.getUsers)
 app.get('/users/:id', db.getUserById)
 app.post('/users', db.createUser)
@@ -67,7 +78,7 @@ app.get('/get_customers', isAuth,  db.getCustomers)
 app.get('/get_customers/:cst_id', isAuth,  db.getCustomerById)
 app.get('/check_customer_exists', isAuth,  db.checkCustomerExists)
 app.post('/activate_card',isAuth, db.activateCards)
-app.get('/dashboard_stats', isAuth, db.dashboardStats)
+app.get('/dashboard_stats',isAuth, db.dashboardStats)
 app.get('/update_remarks',  isAuth, db.updateRemark)
 app.post('/login', db.login)
 app.post('/logout', db.logout)

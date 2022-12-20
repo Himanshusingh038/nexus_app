@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const { response } = require("express");
 const md5 = require("md5")
 const Pool = require('pg').Pool
 const pool = new Pool({
@@ -421,6 +422,7 @@ const activateCards = (req, res) => {
 }
 
 const dashboardStats = async (req, res) => {
+    console.log('dashboard stats');
     try{
         sql_cst_count = `select * from customers`
         var data = await pool.query(sql_cst_count)
@@ -501,7 +503,6 @@ const login = async(req,res) =>{
             const user_password = data.rows[0]['password']
             console.log(user_password);
             const isMatch = await bcrypt.compare(password, user_password);
-            console.log(isMatch);
             if (!isMatch){
                 req.session.error = "Invalid Credentials";
                 console.log('wrong place');
@@ -509,8 +510,17 @@ const login = async(req,res) =>{
             }else{
                 req.session.isAuth = true;
                 req.session.username = email;
-                console.log(req.session);
-                res.redirect("/dashboard");
+                console.log(req.headers);
+                // req.setHeader('Cookie', 'loggedIn=true; max-age=86400; path=/; domain=localhost');
+                res.cookie('cookieName','12345678', { maxAge: 900000, httpOnly: true });
+                res.cookie('loggedIn','true',{ maxAge:8640000*12, path:'/'});
+                res.cookie('auth', '123456', {
+                    path: '/',  // Make the cookie available to all routes
+                    maxAge: 60 * 60 * 1000  // Set the cookie to expire in one hour
+                  })
+                
+                res.send({'status': 'success'})
+                // res.redirect("/dashboard_stats");
             }
         }
     }catch(err){
@@ -520,11 +530,12 @@ const login = async(req,res) =>{
 }
 
 const logout = (req, res) => {
-    console.log(req.session)
-    req.session.destroy((err) => {
-      if (err) throw err;
-      res.redirect("/login");
-    });
+  console.log(req.session);
+  req.session.destroy((err) => {
+    res.setHeader("set-cookie", "loggedIn=true; max-age=0");
+    if (err) throw err;
+    res.redirect("/login");
+  });
 };
 const getCustomer = async(req, res) => {
     const cst_id = req.query.cst_id;
