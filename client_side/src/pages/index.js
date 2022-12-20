@@ -4,7 +4,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Logo } from '../components/logo';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 
+axios.defaults.withCredentials = true
 const Page = () => {
   const formik = useFormik({
     initialValues: {
@@ -22,11 +24,42 @@ const Page = () => {
         .max(255)
         .required('Password is required')
     }),
-    onSubmit: () => {
-      Router
-        .push('/dashboard')
-        .catch(console.error);
-    }
+    onSubmit: async (values, { setSubmitting, setErrors }) => {
+      try {
+        const {email, password} = values;
+        let datad = JSON.stringify({
+          email: email,
+          password: password
+        });
+        console.log({email: email, password: password});
+        const response = await axios.post(
+          "http://localhost:8000/login",
+          datad,
+          { headers: { "Content-Type": "application/json"}}
+        );
+        const {data} = response;
+        console.log(data);
+        const sessionCookie =data;
+        document.cookie = sessionCookie;
+        console.log(response.statusText);
+        if (response.statusText=='OK') {
+          console.log('success');
+          // Login was successful, redirect the user or show a success message
+          Router.push('/dashboard');
+        } else {
+          // Login failed, show an error message
+          setErrors({ password: "Incorrect user ID or password" });
+        }
+      } catch (error) {
+        console.error(error);
+        // An error occurred, show an error message
+        setErrors({ password: 'An error occurred while logging in' });
+        return { props: { error: error.message } };
+      } finally {
+        setSubmitting(false);
+        
+      }
+    },
   });
 
   return (
