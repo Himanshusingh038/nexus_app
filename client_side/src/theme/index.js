@@ -150,12 +150,11 @@ export const theme = createTheme({
     },
     background: {
       default: '#F9F9F9',
-      paper: '#FFFFFF',
-      blue: '#e5f8fa'
+      paper: '#FFFFFF'
     },
     divider: '#f4f4f4',
     primary: {
-      main: '#000000',
+      main: '#121828',
       light: '#828DF8',
       dark: '#3832A0',
       contrastText: '#FFFFFF'
