@@ -44,6 +44,14 @@ export const theme = createTheme({
         disableRipple: true
       }
     },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          minWidth: 'auto',
+          marginRight: '10px'
+        }
+      }
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {

@@ -22,7 +22,6 @@ const items = [
   },
   {
     collapse: true,
-    href: '/customers',
     icon: (<CreditCard />),
     title: 'Manage Cards',
     links: [
@@ -115,14 +114,32 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
-          ))}
+          {
+            items.map((item) => {
+              if(item.collapse) {
+                return (
+                  <NavItem
+                    key={item.title}
+                    icon={item.icon}
+                    href={item.href}
+                    title={item.title}
+                    collapse={item.collapse}
+                    links={item.links}
+                  />
+                )
+              }
+              else {
+                return (
+                  <NavItem
+                    key={item.title}
+                    icon={item.icon}
+                    href={item.href}
+                    title={item.title}
+                  />
+                )
+              }
+            })
+          }
         </Box>
       </Box>
     </>
