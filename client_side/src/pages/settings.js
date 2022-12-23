@@ -17,7 +17,7 @@ const Page = () => (
         py: 8
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth={false}>
         <Typography
           sx={{ mb: 3 }}
           variant="h4"

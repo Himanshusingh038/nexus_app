@@ -9,31 +9,47 @@ import { NavItem } from './nav-item';
 
 const items = [
   {
+    collapse: false,
     href: '/dashboard',
     icon: (<HomeOutlined />),
     title: 'Dashboard'
   },
   {
+    collapse: false,
     href: '/generate-card',
     icon: (<AddCard />),
     title: 'Generate Card'
   },
   {
+    collapse: true,
     href: '/customers',
     icon: (<CreditCard />),
-    title: 'Manage Cards'
+    title: 'Manage Cards',
+    links: [
+      {
+        title: 'Active Cards',
+        href: '/active-cards'
+      },
+      {
+        title: 'Inactive Cards',
+        href: '/inactive-cards'
+      }
+  ]
   },
   {
+    collapse: false,
     href: '/products',
     icon: (<PeopleAltOutlined />),
     title: 'Manage Customers'
   },
   {
+    collapse: false,
     href: '/settings',
     icon: (<SettingsOutlined />),
     title: 'Account Settings'
   },
   {
+    collapse: false,
     href: '/',
     icon: (<LogoutOutlined />),
     title: 'Logout'
