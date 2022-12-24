@@ -22,30 +22,31 @@ const items = [
   },
   {
     collapse: true,
+    href: '',
     icon: (<CreditCard />),
-    title: 'Manage Cards',
+    title: 'Manage Cards',    
     links: [
       {
-        title: 'Active Cards',
-        href: '/dashboard'
+        href: '/active-cards',
+        title: 'Active'
       },
       {
-        title: 'Inactive Cards',
-        href: '/inactive-cards'
+        href: '/inactive-cards',
+        title: 'Inactive'
       },
       {
-        title: 'Incomplete Cards',
-        href: '/incomplete-cards'
+        href: '/incomplete-cards',
+        title: 'Incomplete'
       },
       {
-        title: 'Unassigned Cards',
-        href: '/unassigned-cards'
+        href: '/unassigned-cards',
+        title: 'Unassigned'
       }
   ]
   },
   {
     collapse: false,
-    href: '/dashboard',
+    href: '/customers',
     icon: (<PeopleAltOutlined />),
     title: 'Manage Customers'
   },

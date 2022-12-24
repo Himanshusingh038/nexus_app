@@ -11,7 +11,7 @@ export const NavItem = (props) => {
   const active = href ? (router.pathname === href) : false;
   const [open, setOpen] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     setOpen(!open);
   };
 
@@ -20,64 +20,50 @@ export const NavItem = (props) => {
     return (
       <ListItem
         sx = {{
-          display: 'block'
+          display: 'block',
+          mb: 0.5
         }}
         {...others}
       >
         <ListItemButton 
           sx={{
-            backgroundColor: active && 'rgba(255,255,255, 0.08)',
             borderRadius: 1,
-            color: active ? 'secondary.main' : 'neutral.300',
+            color: open ? 'secondary.main' : 'neutral.300',
             justifyContent: 'flex-start',
-            px: 3,
+            px: 2,
             width: '100%',
-            '& .MuiButton-startIcon': {
-              color: active ? 'secondary.main' : 'neutral.400'
-            },
             '&:hover': {
               backgroundColor: active ? 'rgba(255,255,255, 0.08)' : 'rgba(255,255,255, 0.04)'
             }
           }}
           onClick={handleClick}
         >
-          <ListItemIcon>
+          <ListItemIcon
+            sx = {{
+              color: open ? 'secondary.main' : 'neutral.400'
+            }}
+            minwidth = {false}
+          >
             {icon}
           </ListItemIcon>
           <ListItemText primary={title} />
           {open ? <ExpandMore /> : <ChevronRight />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <List disablePadding>
+          <List 
+            disablePadding
+            sx = {{
+              mt: 0.5
+            }}
+          >
             {
               subnav.map((link) => (
-                <NextLink
+                <NavItem
+                  key={link.title}
+                  icon={(<Remove />)}
                   href={link.href}
-                  passHref
-                >
-                  <ListItemButton
-                    sx={{
-                      backgroundColor: active && 'rgba(255,255,255, 0.08)',
-                      borderRadius: 1,
-                      color: active ? 'secondary.main' : 'neutral.300',
-                      justifyContent: 'flex-start',
-                      px: 3,
-                      pl: 5,
-                      width: '100%',
-                      '& .MuiButton-startIcon': {
-                        color: active ? 'secondary.main' : 'neutral.400'
-                      },
-                      '&:hover': {
-                        backgroundColor: active ? 'rgba(255,255,255, 0.08)' : 'rgba(255,255,255, 0.04)'
-                      }
-                    }}
-                  >
-                    <ListItemIcon>
-                      <Remove />
-                    </ListItemIcon>
-                    <ListItemText primary={link.title} />
-                  </ListItemButton>
-                </NextLink>
+                  title={link.title}
+                />
               ))
             }
           </List>
@@ -107,7 +93,7 @@ export const NavItem = (props) => {
               borderRadius: 1,
               color: active ? 'secondary.main' : 'neutral.300',
               justifyContent: 'flex-start',
-              px: 3,
+              px: 2,
               width: '100%',
               '& .MuiButton-startIcon': {
                 color: active ? 'secondary.main' : 'neutral.400'
@@ -119,6 +105,9 @@ export const NavItem = (props) => {
           >
             <ListItemIcon
               minwidth = {false}
+              sx = {{
+                color: active ? 'secondary.main' : 'neutral.400'
+              }}
             >
               {icon}
             </ListItemIcon>
@@ -150,7 +139,7 @@ export const NavItem = (props) => {
     //           borderRadius: 1,
     //           color: active ? 'secondary.main' : 'neutral.300',
     //           justifyContent: 'flex-start',
-    //           px: 3,
+    //           px: 2,
     //           width: '100%',
     //           '& .MuiButton-startIcon': {
     //             color: active ? 'secondary.main' : 'neutral.400'
