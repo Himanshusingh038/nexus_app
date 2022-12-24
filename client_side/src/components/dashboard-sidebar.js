@@ -27,17 +27,25 @@ const items = [
     links: [
       {
         title: 'Active Cards',
-        href: '/active-cards'
+        href: '/dashboard'
       },
       {
         title: 'Inactive Cards',
         href: '/inactive-cards'
+      },
+      {
+        title: 'Incomplete Cards',
+        href: '/incomplete-cards'
+      },
+      {
+        title: 'Unassigned Cards',
+        href: '/unassigned-cards'
       }
   ]
   },
   {
     collapse: false,
-    href: '/products',
+    href: '/dashboard',
     icon: (<PeopleAltOutlined />),
     title: 'Manage Customers'
   },

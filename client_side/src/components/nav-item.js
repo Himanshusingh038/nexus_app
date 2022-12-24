@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material';
-import { ChevronRight, ExpandMore, LinkSharp } from '@mui/icons-material';
+import { ChevronRight, ExpandMore, Remove } from '@mui/icons-material';
 
 export const NavItem = (props) => {
   const { href, icon, title, ...others } = props;
@@ -19,6 +19,9 @@ export const NavItem = (props) => {
     const subnav = props.links;
     return (
       <ListItem
+        sx = {{
+          display: 'block'
+        }}
         {...others}
       >
         <ListItemButton 
@@ -59,6 +62,7 @@ export const NavItem = (props) => {
                       color: active ? 'secondary.main' : 'neutral.300',
                       justifyContent: 'flex-start',
                       px: 3,
+                      pl: 5,
                       width: '100%',
                       '& .MuiButton-startIcon': {
                         color: active ? 'secondary.main' : 'neutral.400'
@@ -68,6 +72,9 @@ export const NavItem = (props) => {
                       }
                     }}
                   >
+                    <ListItemIcon>
+                      <Remove />
+                    </ListItemIcon>
                     <ListItemText primary={link.title} />
                   </ListItemButton>
                 </NextLink>
