@@ -115,22 +115,27 @@ export const theme = createTheme({
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F3F4F6',
           '.MuiTableCell-root': {
             color: '#374151'
           },
-          borderBottom: 'none',
           '& .MuiTableCell-root': {
-            borderBottom: 'none',
             fontSize: '12px',
             fontWeight: 600,
             lineHeight: 1,
+            padding: '24px 16px',
             letterSpacing: 0.5,
             textTransform: 'uppercase'
-          },
-          '& .MuiTableCell-paddingCheckbox': {
-            paddingTop: 4,
-            paddingBottom: 4
+          }
+        }
+      }
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '& .MuiTableCell-root': {
+            borderBottom: '1px dashed #E1E3EA',
+            verticalAlign: 'top',
+            padding: '22px 16px'
           }
         }
       }
@@ -169,7 +174,7 @@ export const theme = createTheme({
     },
     secondary: {
       main: '#bdedf2',
-      light: '#3FC79A',
+      light: '#14b8a6',
       dark: '#0B815A',
       contrastText: '#FFFFFF'
     },

@@ -22,24 +22,24 @@ const items = [
   },
   {
     collapse: true,
-    href: '',
+    href: 'cards',
     icon: (<CreditCard />),
     title: 'Manage Cards',    
     links: [
       {
-        href: '/active-cards',
+        href: 'active-cards',
         title: 'Active'
       },
       {
-        href: '/inactive-cards',
+        href: 'inactive-cards',
         title: 'Inactive'
       },
       {
-        href: '/incomplete-cards',
+        href: 'incomplete-cards',
         title: 'Incomplete'
       },
       {
-        href: '/unassigned-cards',
+        href: 'unassigned-cards',
         title: 'Unassigned'
       }
   ]

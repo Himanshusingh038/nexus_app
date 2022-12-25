@@ -61,7 +61,7 @@ export const NavItem = (props) => {
                 <NavItem
                   key={link.title}
                   icon={(<Remove />)}
-                  href={link.href}
+                  href={`/${href}/${link.href}`}
                   title={link.title}
                 />
               ))
@@ -115,46 +115,6 @@ export const NavItem = (props) => {
         </ListItemButton>
         </NextLink>
       </ListItem>
-      
-    //  <ListItem
-    //     disableGutters
-    //     sx={{
-    //       display: 'flex',
-    //       mb: 0.5,
-    //       py: 0,
-    //       px: 2
-    //     }}
-    //     {...others}
-    //   >
-    //     <NextLink
-    //       href={href}
-    //       passHref
-    //     >
-    //       <Button
-    //         component="a"
-    //         startIcon={icon}
-    //         disableRipple
-    //         sx={{
-    //           backgroundColor: active && 'rgba(255,255,255, 0.08)',
-    //           borderRadius: 1,
-    //           color: active ? 'secondary.main' : 'neutral.300',
-    //           justifyContent: 'flex-start',
-    //           px: 2,
-    //           width: '100%',
-    //           '& .MuiButton-startIcon': {
-    //             color: active ? 'secondary.main' : 'neutral.400'
-    //           },
-    //           '&:hover': {
-    //             backgroundColor: active ? 'rgba(255,255,255, 0.08)' : 'rgba(255,255,255, 0.04)'
-    //           }
-    //         }}
-    //       >
-    //         <Box sx={{ flexGrow: 1 }}>
-    //           {title}
-    //         </Box>
-    //       </Button>
-    //     </NextLink>
-    //   </ListItem>
     )
   }
 };
