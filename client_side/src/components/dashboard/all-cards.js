@@ -80,7 +80,7 @@ const orders = [
   }
 ];
 
-export const LatestOrders = (props) => (
+export const AllCards = (props) => (
   <Card {...props}>
     <CardHeader title="Latest Orders" />
     <PerfectScrollbar>

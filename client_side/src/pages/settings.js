@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { SettingsNotifications } from '../components/settings/settings-notifications';
 import { SettingsPassword } from '../components/settings/settings-password';
 
 const Page = () => (
   <>
     <Head>
       <title>
-        Settings | Material Kit
+        Account Settings | Nexus
       </title>
     </Head>
     <Box
@@ -18,17 +17,14 @@ const Page = () => (
         py: 8
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth={false}>
         <Typography
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Settings
+          Account Settings
         </Typography>
-        <SettingsNotifications />
-        <Box sx={{ pt: 3 }}>
-          <SettingsPassword />
-        </Box>
+        <SettingsPassword />        
       </Container>
     </Box>
   </>

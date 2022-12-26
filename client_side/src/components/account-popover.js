@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import Router from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
+import { MenuItem, MenuList, Popover, ListItemIcon, Typography } from '@mui/material';
+import { SettingsOutlined, LogoutOutlined } from '@mui/icons-material';
 import { AuthContext } from '../contexts/auth-context';
 import { auth, ENABLE_AUTH } from '../lib/auth';
 
@@ -60,40 +61,27 @@ export const AccountPopover = (props) => {
       onClose={onClose}
       open={open}
       PaperProps={{
-        sx: { width: '300px' }
+        sx: { width: '280px' }
       }}
       {...other}
     >
-      <Box
-        sx={{
-          py: 1.5,
-          px: 2
-        }}
-      >
-        <Typography variant="overline">
-          Account
-        </Typography>
-        <Typography
-          color="text.secondary"
-          variant="body2"
-        >
-          John Doe
-        </Typography>
-      </Box>
       <MenuList
-        disablePadding
         sx={{
           '& > *': {
-            '&:first-of-type': {
-              borderTopColor: 'divider',
-              borderTopStyle: 'solid',
-              borderTopWidth: '1px'
-            },
-            padding: '12px 16px'
+            padding: '15px 16px'
           }
         }}
       >
         <MenuItem onClick={handleSignOut}>
+          <ListItemIcon>
+            <SettingsOutlined fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem onClick={handleSignOut}>
+          <ListItemIcon>
+            <LogoutOutlined fontSize="small" />
+          </ListItemIcon>
           Sign out
         </MenuItem>
       </MenuList>

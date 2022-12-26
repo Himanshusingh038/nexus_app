@@ -9,32 +9,56 @@ import { NavItem } from './nav-item';
 
 const items = [
   {
+    collapse: false,
     href: '/dashboard',
     icon: (<HomeOutlined />),
     title: 'Dashboard'
   },
   {
-    href: '/customers',
+    collapse: false,
+    href: '/generate-card',
     icon: (<AddCard />),
     title: 'Generate Card'
   },
   {
-    href: '/customers',
+    collapse: true,
+    href: 'cards',
     icon: (<CreditCard />),
-    title: 'Manage Cards'
+    title: 'Manage Cards',    
+    links: [
+      {
+        href: 'active-cards',
+        title: 'Active'
+      },
+      {
+        href: 'inactive-cards',
+        title: 'Inactive'
+      },
+      {
+        href: 'incomplete-cards',
+        title: 'Incomplete'
+      },
+      {
+        href: 'unassigned-cards',
+        title: 'Unassigned'
+      }
+  ]
   },
   {
-    href: '/products',
+    collapse: false,
+    href: '/customers',
     icon: (<PeopleAltOutlined />),
     title: 'Manage Customers'
   },
   {
+    collapse: false,
     href: '/settings',
     icon: (<SettingsOutlined />),
-    title: 'Change Password'
+    title: 'Account Settings'
   },
   {
-    href: '/settings',
+    collapse: false,
+    href: '/',
     icon: (<LogoutOutlined />),
     title: 'Logout'
   }
@@ -99,14 +123,32 @@ export const DashboardSidebar = (props) => {
           }}
         />
         <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
-          ))}
+          {
+            items.map((item) => {
+              if(item.collapse) {
+                return (
+                  <NavItem
+                    key={item.title}
+                    icon={item.icon}
+                    href={item.href}
+                    title={item.title}
+                    collapse={item.collapse}
+                    links={item.links}
+                  />
+                )
+              }
+              else {
+                return (
+                  <NavItem
+                    key={item.title}
+                    icon={item.icon}
+                    href={item.href}
+                    title={item.title}
+                  />
+                )
+              }
+            })
+          }
         </Box>
       </Box>
     </>
