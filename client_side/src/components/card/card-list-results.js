@@ -2,24 +2,11 @@ import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import {
-  Box,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  TextField
-} from '@mui/material';
+import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField } from '@mui/material';
 
 export const CardListResults = ({ cards, status, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
-  // const filteredCards = cards.filter(card => card.status === status)
   
   const handleCopyText = (event) => {
     if ("clipboard" in navigator) {
@@ -269,7 +256,9 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {card.status}
+                    <Box className={`badge badge--${status}`}>
+                      {card.status}
+                    </Box>
                   </TableCell>
                   <TableCell>
                     {format(card.reg_date, 'dd/MM/yyyy')}

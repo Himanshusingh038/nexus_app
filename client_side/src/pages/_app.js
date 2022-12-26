@@ -8,6 +8,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { AuthConsumer, AuthProvider } from '../contexts/auth-context';
 import { createEmotionCache } from '../utils/create-emotion-cache';
 import { theme } from '../theme';
+import '../styles/style.css';
 
 const clientSideEmotionCache = createEmotionCache();
 
