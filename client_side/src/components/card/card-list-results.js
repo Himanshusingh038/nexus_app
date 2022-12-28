@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField } from '@mui/material';
+import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField, Button } from '@mui/material';
+import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export const CardListResults = ({ cards, status, ...rest }) => {
   const [limit, setLimit] = useState(10);
@@ -264,6 +266,36 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                     {format(card.reg_date, 'dd/MM/yyyy')}
                   </TableCell>
                   <TableCell>
+                  <Box>
+                    <a href={`http://nexuscards.in/profile/?id=${card.card_id}`} target="_blank">
+                      <Button
+                        color="primary"
+                        sx= {{
+                          minWidth: 'unset',
+                          p: 1
+                        }}
+                      >
+                        <RemoveRedEyeOutlined 
+                          sx= {{
+                            fontSize: '20px'
+                          }}
+                        />
+                      </Button>
+                    </a>
+                    <Button
+                      color="primary"
+                      sx= {{
+                        minWidth: 'unset',
+                        p: 1
+                      }}
+                    >
+                      <DeleteOutlineOutlined 
+                        sx= {{
+                          fontSize: '20px'
+                        }}
+                      />
+                    </Button>
+                  </Box>
                   </TableCell>
                 </TableRow>
               ))}

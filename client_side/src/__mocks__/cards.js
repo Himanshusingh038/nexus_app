@@ -2,7 +2,7 @@ export const cards = [
   {
     id: 1,
 		card_no: '7977732157',
-		card_id: 'Nzk3NzczMjE1Nw==',
+		card_id: 'Nzk3NzczMjE1Nww=',
 		views: 35,
 		custom_url: 'AayushLath21',
 		status: 'active',
@@ -16,7 +16,7 @@ export const cards = [
 	{
     id: 2,
 		card_no: '9022403403',
-		card_id: 'OTAyMjQwMzQwMw==',
+		card_id: 'OTAyMjQwMzQwww==',
 		views: 49,
 		custom_url: 'Abhi0907',
 		status: 'active',
