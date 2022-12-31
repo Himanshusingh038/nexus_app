@@ -5,7 +5,7 @@ import { CardListToolbar } from '../../components/card/card-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { cards } from '../../__mocks__/cards';
 
-const inactiveCards = cards.filter(card => card.status === 'inactive')
+const unassignedCards = cards.filter(card => card.status === 'unassigned')
 
 const Page = () => (
   <>
@@ -22,9 +22,9 @@ const Page = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CardListToolbar cards={inactiveCards} title='Inactive Cards' />
+        <CardListToolbar cards={unassignedCards} title='Unassigned Cards' />
         <Box sx={{ mt: 3 }}>
-          <CardListResults cards={inactiveCards} status='inactive' />
+          <CardListResults cards={unassignedCards} status='unassigned' />
         </Box>
       </Container>
     </Box>

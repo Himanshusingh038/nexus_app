@@ -5,7 +5,7 @@ export const cards = [
 		card_id: 'Nzk3NzczMjE1Nww=',
 		views: 35,
 		custom_url: 'AayushLath21',
-		status: 'inactive',
+		status: 'unassigned',
 		reg_date: 1554325200000,
     customer: {
       name: 'Ayush Lath',
@@ -19,7 +19,7 @@ export const cards = [
 		card_id: 'OTAyMjQwMzQwww==',
 		views: 49,
 		custom_url: 'Abhi0907',
-		status: 'inactive',
+		status: 'active',
 		reg_date: 1523048400000,
     customer: {
       name: 'Abhishek Parmar',
