@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import NextLink from 'next/link';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField } from '@mui/material';
+import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField, Button } from '@mui/material';
+import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export const CardListResults = ({ cards, status, ...rest }) => {
   const [limit, setLimit] = useState(10);
@@ -32,9 +35,12 @@ export const CardListResults = ({ cards, status, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  Customer Info
-                </TableCell>
+								{
+									status !== 'unassigned' &&
+									<TableCell>
+										Customer Info
+									</TableCell>
+								}
                 <TableCell>
                   Card Info
                 </TableCell>
@@ -55,73 +61,75 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                   hover
                   key={card.id}
                 >
-                  <TableCell>
-                    <Box
-                      sx = {{
-                        display: 'flex',
-                        mb: 1
-                      }}  
-                    >
-                      <Typography
-                        color="primary.dark"
-                        variant="body1"
+									{
+										status !== 'unassigned' &&
+										<TableCell>
+											<Box
+												sx = {{
+													display: 'flex',
+													mb: 1
+												}}  
+											>
+												<Typography
+													color="primary.dark"
+													variant="body1"
+													sx = {{
+														fontWeight: 'bold'
+													}}
+												>
+													{card.customer.name}
+												</Typography>
+											</Box>
+											<Box
+												sx = {{
+													display: 'flex'
+												}}  
+											>
+												<Typography
+														color="textPrimary"
+														variant="body2"
+														sx= {{
+															fontWeight: 'bold',
+															mr: 1
+														}}
+													>
+														Phone:
+													</Typography>
+												<Typography
+													color="textPrimary"
+													variant="body2"
+												>
+													{card.customer.phone}
+												</Typography>
+											</Box>
+											<Box
+												sx = {{
+													display: 'flex'
+												}}  
+											>
+												<Typography
+														color="textPrimary"
+														variant="body2"
+														sx= {{
+															fontWeight: 'bold',
+															mr: 1
+														}}
+													>
+														Email:
+													</Typography>
+												<Typography
+													color="textPrimary"
+													variant="body2"
+												>
+													{card.customer.email}
+												</Typography>
+											</Box>
+											<Box
                         sx = {{
-                          fontWeight: 'bold'
-                        }}
+                          display: 'flex'
+                        }} 
                       >
-                        {card.customer.name}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx = {{
-                        display: 'flex'
-                      }}  
-                    >
-                      <Typography
-                          color="textPrimary"
-                          variant="body2"
-                          sx= {{
-                            fontWeight: 'bold',
-                            mr: 1
-                          }}
-                        >
-                          Phone:
-                        </Typography>
-                      <Typography
-                        color="textPrimary"
-                        variant="body2"
-                      >
-                        {card.customer.phone}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx = {{
-                        display: 'flex'
-                      }}  
-                    >
-                      <Typography
-                          color="textPrimary"
-                          variant="body2"
-                          sx= {{
-                            fontWeight: 'bold',
-                            mr: 1
-                          }}
-                        >
-                          Email:
-                        </Typography>
-                      <Typography
-                        color="textPrimary"
-                        variant="body2"
-                      >
-                        {card.customer.email}
-                      </Typography>
-                    </Box>
-                    <Box
-                      sx = {{
-                        display: 'flex'
-                      }}  
-                    >
-                      <Typography
+                        <Typography
                           color="textPrimary"
                           variant="body2"
                           sx= {{
@@ -131,40 +139,16 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                         >
                           Custom URL:
                         </Typography>
-                      <Typography
-                        color="textPrimary"
-                        variant="body2"
-                      >
-                        {card.custom_url}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                  <Box
-                      sx = {{
-                        display: 'flex'
-                      }}  
-                    >
-                      <Typography
+                        <Typography
                           color="textPrimary"
                           variant="body2"
-                          sx= {{
-                            fontWeight: 'bold',
-                            mr: 1
-                          }}
                         >
-                          Views:
+                          {card.custom_url}
                         </Typography>
-                      <Typography
-                        color="primary.dark"
-                        variant="body2"
-                        sx= {{
-                          fontWeight: 'bold'
-                        }}
-                      >
-                        {card.views}
-                      </Typography>
-                    </Box>
+                      </Box>
+                  	</TableCell>
+									}
+                  <TableCell>
                     <Box
                       sx = {{
                         display: 'flex'
@@ -209,28 +193,58 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                         {card.card_id}
                       </Typography>
                     </Box>
-                    <Box
-                      sx = {{
-                        display: 'flex'
-                      }}  
-                    >
-                      <Typography
-                          color="textPrimary"
-                          variant="body2"
-                          sx= {{
-                            fontWeight: 'bold',
-                            mr: 1
-                          }}
-                        >
-                          Username:
-                        </Typography>
-                      <Typography
-                        color="textPrimary"
-                        variant="body2"
-                      >
-                        {card.custom_url}
-                      </Typography>
-                    </Box>
+										{
+											status !== 'unassigned' &&
+											<Box>
+												<Box
+													sx = {{
+														display: 'flex'
+													}}  
+												>
+													<Typography
+														color="textPrimary"
+														variant="body2"
+														sx= {{
+															fontWeight: 'bold',
+															mr: 1
+														}}
+													>
+														Username:
+													</Typography>
+													<Typography
+														color="textPrimary"
+														variant="body2"
+													>
+														{card.custom_url}
+													</Typography>
+												</Box>
+												<Box
+													sx = {{
+														display: 'flex'
+													}}  
+												>
+													<Typography
+														color="textPrimary"
+														variant="body2"
+														sx= {{
+															fontWeight: 'bold',
+															mr: 1
+														}}
+													>
+														Views:
+													</Typography>
+													<Typography
+														color="primary.dark"
+														variant="body2"
+														sx= {{
+															fontWeight: 'bold'
+														}}
+													>
+														{card.views}
+													</Typography>
+												</Box>
+											</Box>
+										}
                     <Box
                       sx = {{
                         mt: 1
@@ -259,11 +273,106 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                     <Box className={`badge badge--${status}`}>
                       {card.status}
                     </Box>
+										{
+											status === 'unassigned' &&
+											<Box
+												sx = {{
+													mt: 3
+												}}  
+											>
+												<TextField
+													fullWidth
+													type="text"
+													value=''
+													placeholder="Enter remarks (if any)"
+													variant="outlined"
+													onChange=''
+												/>
+                    	</Box>
+										}
                   </TableCell>
                   <TableCell>
                     {format(card.reg_date, 'dd/MM/yyyy')}
                   </TableCell>
                   <TableCell>
+										<Box
+											sx= {{
+												display: 'flex',	
+												alignItems: 'center'
+											}}
+										>
+											{
+												status === 'active' &&
+												<a href={`http://nexuscards.in/profile/?id=${card.card_id}`} target="_blank">
+													<Button
+														color="primary"
+														sx= {{
+															minWidth: 'unset',
+															p: 1
+														}}
+													>
+														<RemoveRedEyeOutlined 
+															sx= {{
+																fontSize: '20px'
+															}}
+														/>
+													</Button>
+												</a>
+											}
+											{
+												status === 'inactive' &&
+												<a href="http://nexuscards.in" target="_blank">
+													<Button
+														color="primary"
+														sx= {{
+															minWidth: 'unset',
+															p: 1
+														}}
+													>
+														<RemoveRedEyeOutlined 
+															sx= {{
+																fontSize: '20px'
+															}}
+														/>
+													</Button>
+												</a>
+											}
+											{
+												status === 'unassigned' &&
+												<NextLink
+													href="/activate-card"
+													passHref
+												>
+													<Typography
+														variant= "overline"
+														color="success.main"
+														sx= {{
+															cursor: 'pointer',
+															mr: 1.5,
+															textDecoration: 'underline',
+															'&:hover': {
+																color: 'success.dark'
+															}
+														}}
+													>
+														ACTIVATE
+													</Typography>
+												</NextLink>
+											}
+											<Button
+												color="primary"
+												sx= {{
+													minWidth: 'unset',
+													p: 1
+												}}
+											>
+												<DeleteOutlineOutlined 
+													sx= {{
+														fontSize: '20px'
+													}}
+												/>
+											</Button>
+										</Box>
                   </TableCell>
                 </TableRow>
               ))}

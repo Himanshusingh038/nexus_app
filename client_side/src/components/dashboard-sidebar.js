@@ -31,16 +31,12 @@ const items = [
         title: 'Active'
       },
       {
-        href: 'inactive-cards',
-        title: 'Inactive'
-      },
-      {
-        href: 'incomplete-cards',
-        title: 'Incomplete'
-      },
-      {
         href: 'unassigned-cards',
         title: 'Unassigned'
+      },
+      {
+        href: 'inactive-cards',
+        title: 'Inactive'
       }
   ]
   },
