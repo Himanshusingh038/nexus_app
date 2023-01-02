@@ -11,7 +11,7 @@ const Page = () => {
   const formik = useFormik({
     initialValues: {
       email: 'admin@nexuscards.in',
-      password: 'password'
+      password: '**********'
     },
     validationSchema: Yup.object({
       email: Yup
@@ -35,7 +35,7 @@ const Page = () => {
         const response = await axios.post(
           "http://localhost:8000/login",
           datad,
-          { headers: { "Content-Type": "application/json"}}
+          { headers: { "Content-Type": "application/json"},withCredentials:true}
         );
         const {data} = response;
         console.log(data);
@@ -57,7 +57,6 @@ const Page = () => {
         return { props: { error: error.message } };
       } finally {
         setSubmitting(false);
-        
       }
     },
   });

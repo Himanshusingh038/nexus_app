@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import axios from 'axios';
 
 export const GenerateNew = (props) => {
-  const [values, setValues] = useState({
-    quantity: ''
-  });
+  const [values, setValues] = useState(0);
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
+  const handleChange = async (event) => {
+    setValues(event.target.value);
   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const body = {'card_count':values}
+    const res = await axios.post('http://localhost:8000/generate_promotional',body);
+    console.log(res.data);
+  };
+
 
   return (
     <form {...props}>
@@ -42,10 +45,11 @@ export const GenerateNew = (props) => {
             px: 3
           }}
         >
-          <Button
+          <Button  
             color="primary"
             variant="contained"
             sx={{ mr: 2 }}
+            onClick={handleSubmit}
           >
             Generate
           </Button>

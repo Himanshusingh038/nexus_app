@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, Select, InputLabel, MenuItem, FormControl } from '@mui/material';
+import axios from 'axios';
 
-export const GenerateExisting = (props) => {
+export const 
+GenerateExisting = ({data}) => {
+  console.log(data);
   const [value, setValue] = useState({
     customers: [
       {
@@ -22,8 +25,15 @@ export const GenerateExisting = (props) => {
     });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const url = 'http://localhost:8000/generate_existing'
+    // const data = {'cst_unq_id':value.customers[0].id}
+    // const res = await axios.post(url,data)
+  }
+
   return (
-    <form {...props}>
+    <form {...data}>
       <Card>
         <CardHeader
           title="Generate cards for existing users"
@@ -41,7 +51,7 @@ export const GenerateExisting = (props) => {
 							onChange={handleChange}
 						>
               {value.customers.map((customer) => (
-                <MenuItem value={customer.id}>
+                <MenuItem value={customer.id} key={customer.id}>
                   {customer.name}
                 </MenuItem>
               ))}
@@ -60,6 +70,7 @@ export const GenerateExisting = (props) => {
             color="primary"
             variant="contained"
             sx={{ mr: 2 }}
+            onClick={handleSubmit}
           >
             Generate
           </Button>
@@ -73,4 +84,15 @@ export const GenerateExisting = (props) => {
       </Card>
     </form>
   );
+};
+
+export const getStaticProps = async () => {
+  const res = await axios.get("http://localhost:8000/get_customers");
+  const data = res.data;
+  console.log(data)
+  return {
+    props: {
+      data: data,
+    },
+  };
 };
