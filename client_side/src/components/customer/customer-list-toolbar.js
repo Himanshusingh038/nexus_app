@@ -8,7 +8,6 @@ import {
   SvgIcon, Typography
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
-import { Upload as UploadIcon } from '../../icons/upload';
 import { Download as DownloadIcon } from '../../icons/download';
 
 export const CustomerListToolbar = (props) => (
@@ -29,12 +28,6 @@ export const CustomerListToolbar = (props) => (
         Customers
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
         <Button
           startIcon={(<DownloadIcon fontSize="small" />)}
           sx={{ mr: 1 }}
