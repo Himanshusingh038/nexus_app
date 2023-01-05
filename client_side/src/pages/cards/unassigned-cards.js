@@ -3,9 +3,7 @@ import { Box, Container } from '@mui/material';
 import { CardListResults } from '../../components/card/card-list-results';
 import { CardListToolbar } from '../../components/card/card-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
-import { cards } from '../../__mocks__/cards';
-
-const unassignedCards = cards.filter(card => card.status === 'unassigned')
+import { unassigned_cards } from '../../__mocks__/unassigned-cards';
 
 const Page = () => (
   <>
@@ -22,9 +20,9 @@ const Page = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CardListToolbar cards={unassignedCards} title='Unassigned Cards' />
+        <CardListToolbar cards={unassigned_cards} title='Unassigned Cards' />
         <Box sx={{ mt: 3 }}>
-          <CardListResults cards={unassignedCards} status='unassigned' />
+          <CardListResults cards={unassigned_cards} status='unassigned' />
         </Box>
       </Container>
     </Box>

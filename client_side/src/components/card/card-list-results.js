@@ -190,7 +190,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                         color="textPrimary"
                         variant="body2"
                       >
-                        {card.card_id}
+                        {card.id}
                       </Typography>
                     </Box>
 										{
@@ -253,7 +253,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                       <TextField
                         fullWidth
                         type="text"
-                        value={`http://www.nexuscards.in/profile/?id=${card.card_id}`}
+                        value={`http://www.nexuscards.in/profile/?id=${card.id}`}
                         variant="outlined"
                         onClick={handleCopyText} 
                         inputProps={{ readOnly: true, }}
@@ -303,7 +303,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 										>
 											{
 												status === 'active' &&
-												<a href={`http://nexuscards.in/profile/?id=${card.card_id}`} target="_blank">
+												<a href={`http://nexuscards.in/profile/?id=${card.id}`} target="_blank">
 													<Button
 														color="primary"
 														sx= {{
