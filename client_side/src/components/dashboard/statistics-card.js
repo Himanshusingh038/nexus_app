@@ -1,5 +1,4 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import { Component } from 'react';
 
 export const StatisticsCard = ({title, value, icon, bg}) => {
   var ComponentName = icon;
