@@ -45,7 +45,6 @@ export const CardListToolbar = ({title}) => (
             </Box>
             <Button
               startIcon={(<FileDownloadOutlined />)}
-              sx={{ mr: 1 }}
             >
               Export
             </Button>

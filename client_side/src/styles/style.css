@@ -1,3 +1,7 @@
+a {
+	text-decoration: none;
+}
+
 .badge {
 	display: inline-flex;
 	align-items: center;
