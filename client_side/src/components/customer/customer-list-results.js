@@ -1,58 +1,14 @@
 import { useState } from 'react';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
-import {
-  Avatar,
-  Box,
-  Card,
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography
-} from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
+import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, Button } from '@mui/material';
+import { LockOpenOutlined, ModeEditOutlineOutlined, DeleteOutlineOutlined } from '@mui/icons-material';
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export const CustomerListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -69,17 +25,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
                 <TableCell>
                   Name
                 </TableCell>
@@ -87,13 +32,13 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   Email
                 </TableCell>
                 <TableCell>
-                  Location
+                  Mobile
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Reg Date
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  Action
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -102,47 +47,123 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                 <TableRow
                   hover
                   key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
-                      value="true"
-                    />
-                  </TableCell>
                   <TableCell>
                     <Box
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex'
-                      }}
+                      sx = {{
+                        display: 'flex',
+                        mb: 1
+                      }}  
                     >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
                       <Typography
-                        color="textPrimary"
+                        color="primary.dark"
                         variant="body1"
+                        sx = {{
+                          fontWeight: 'bold'
+                        }}
                       >
                         {customer.name}
                       </Typography>
                     </Box>
+                    <Box
+                      sx = {{
+                        display: 'flex',
+                        mb: 3
+                      }}  
+										>
+                      <Typography
+                        color="textPrimary"
+                        variant="body2"
+                        sx= {{
+                          fontWeight: 'bold',
+                          mr: 1
+                        }}
+                      >
+                        ID:
+                      </Typography>
+                      <Typography
+                        color="textPrimary"
+                        variant="body2"
+                      >
+                        {customer.cust_id}
+                      </Typography>
+                    </Box>
+                    <a href={`http://nexuscards.in`} target="_blank">
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        startIcon={
+                          <LockOpenOutlined 
+                            sx= {{
+                              width: '16px'
+                            }}
+                          />
+                        }
+                        sx= {{
+                          fontSize: '13px'
+                        }}
+                      >
+                        Access Panel
+                      </Button>
+                    </a>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    <Box>
+                      <Typography
+                        color="textPrimary"
+                        variant="body2"
+                      >
+                        {customer.email}
+                      </Typography>
+                    </Box>
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    <Box>
+                      <Typography
+                        color="textPrimary"
+                        variant="body2"
+                      >
+                        {customer.phone}
+                      </Typography>
+                    </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {format(customer.reg_date, 'dd/MM/yyyy')}
                   </TableCell>
                   <TableCell>
-                    {format(customer.createdAt, 'dd/MM/yyyy')}
+										<Box
+											sx= {{
+												display: 'flex',	
+												alignItems: 'center'
+											}}
+										>
+                      <Button
+                        color="primary"
+                        sx= {{
+                          minWidth: 'unset',
+                          p: 1
+                        }}
+                      >
+                        <ModeEditOutlineOutlined 
+                          sx= {{
+                            fontSize: '20px'
+                          }}
+                        />
+                      </Button>
+											<Button
+												color="primary"
+												sx= {{
+													minWidth: 'unset',
+													p: 1
+												}}
+											>
+												<DeleteOutlineOutlined 
+													sx= {{
+														fontSize: '20px'
+													}}
+												/>
+											</Button>
+										</Box>
                   </TableCell>
                 </TableRow>
               ))}

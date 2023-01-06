@@ -112,7 +112,7 @@ export const NavItem = (props) => {
               {icon}
             </ListItemIcon>
             <ListItemText primary={title} />
-        </ListItemButton>
+          </ListItemButton>
         </NextLink>
       </ListItem>
     )
