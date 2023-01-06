@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, Select, InputLabel, MenuItem, FormControl } from '@mui/material';
 import axios from 'axios';
 
-export const 
-GenerateExisting = ({data}) => {
+export const GenerateExisting = ({data}) => {
   console.log(data);
   const [value, setValue] = useState({
     customers: [
