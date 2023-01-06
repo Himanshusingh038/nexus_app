@@ -172,9 +172,6 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           mr: 1,
                         }}
                       >
-                        Card Id:
-                      </Typography>
-                      <Typography color="textPrimary" variant="body2">
                         {card.id}
                       </Typography>
                     </Box>
@@ -270,81 +267,87 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                   </TableCell>
                   <TableCell>{format(card.reg_date, "dd/MM/yyyy")}</TableCell>
                   <TableCell>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      {status === "active" && (
-                        <a
-                          href={`http://nexuscards.in/profile/?id=${card.id}`}
-                          target="_blank"
-                        >
-                          <Button
-                            color="primary"
-                            sx={{
-                              minWidth: "unset",
-                              p: 1,
-                            }}
-                          >
-                            <RemoveRedEyeOutlined
-                              sx={{
-                                fontSize: "20px",
-                              }}
-                            />
-                          </Button>
-                        </a>
-                      )}
-                      {status === "inactive" && (
-                        <a href="http://nexuscards.in" target="_blank">
-                          <Button
-                            color="primary"
-                            sx={{
-                              minWidth: "unset",
-                              p: 1,
-                            }}
-                          >
-                            <RemoveRedEyeOutlined
-                              sx={{
-                                fontSize: "20px",
-                              }}
-                            />
-                          </Button>
-                        </a>
-                      )}
-                      {status === "unassigned" && (
-                        <NextLink href="/activate-card" passHref>
-                          <Typography
-                            variant="overline"
-                            color="success.main"
-                            sx={{
-                              cursor: "pointer",
-                              mr: 1.5,
-                              textDecoration: "underline",
-                              "&:hover": {
-                                color: "success.dark",
-                              },
-                            }}
-                          >
-                            ACTIVATE
-                          </Typography>
-                        </NextLink>
-                      )}
-                      <Button
-                        color="primary"
-                        sx={{
-                          minWidth: "unset",
-                          p: 1,
-                        }}
-                      >
-                        <DeleteOutlineOutlined
-                          sx={{
-                            fontSize: "20px",
-                          }}
-                        />
-                      </Button>
-                    </Box>
+                    {format(card.reg_date, 'dd/MM/yyyy')}
+                  </TableCell>
+                  <TableCell>
+										<Box
+											sx= {{
+												display: 'flex',	
+												alignItems: 'center'
+											}}
+										>
+											{
+												status === 'active' &&
+												<a href={`http://nexuscards.in/profile/?id=${card.id}`} target="_blank">
+													<Button
+														color="primary"
+														sx= {{
+															minWidth: 'unset',
+															p: 1
+														}}
+													>
+														<RemoveRedEyeOutlined 
+															sx= {{
+																fontSize: '20px'
+															}}
+														/>
+													</Button>
+												</a>
+											}
+											{
+												status === 'inactive' &&
+												<a href="http://nexuscards.in" target="_blank">
+													<Button
+														color="primary"
+														sx= {{
+															minWidth: 'unset',
+															p: 1
+														}}
+													>
+														<RemoveRedEyeOutlined 
+															sx= {{
+																fontSize: '20px'
+															}}
+														/>
+													</Button>
+												</a>
+											}
+											{
+												status === 'unassigned' &&
+												<NextLink
+													href="/activate-card"
+													passHref
+												>
+													<Typography
+														variant= "overline"
+														color="success.main"
+														sx= {{
+															cursor: 'pointer',
+															mr: 1.5,
+															textDecoration: 'underline',
+															'&:hover': {
+																color: 'success.dark'
+															}
+														}}
+													>
+														ACTIVATE
+													</Typography>
+												</NextLink>
+											}
+											<Button
+												color="primary"
+												sx= {{
+													minWidth: 'unset',
+													p: 1
+												}}
+											>
+												<DeleteOutlineOutlined 
+													sx= {{
+														fontSize: '20px'
+													}}
+												/>
+											</Button>
+										</Box>
                   </TableCell>
                 </TableRow>
               ))}

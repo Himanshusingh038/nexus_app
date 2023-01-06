@@ -5,11 +5,9 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon,
   Typography
 } from '@mui/material';
-import { Download as DownloadIcon } from '../../icons/download';
-import { Search as SearchIcon } from '../../icons/search';
+import { SearchOutlined, FileDownloadOutlined } from '@mui/icons-material';
 
 export const CardListToolbar = ({title}) => (
   <Box>
@@ -37,12 +35,7 @@ export const CardListToolbar = ({title}) => (
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SvgIcon
-                        fontSize="small"
-                        color="action"
-                      >
-                        <SearchIcon />
-                      </SvgIcon>
+                      <SearchOutlined />
                     </InputAdornment>
                   )
                 }}
@@ -51,8 +44,7 @@ export const CardListToolbar = ({title}) => (
               />
             </Box>
             <Button
-              startIcon={(<DownloadIcon fontSize="small" />)}
-              sx={{ mr: 1 }}
+              startIcon={(<FileDownloadOutlined />)}
             >
               Export
             </Button>
