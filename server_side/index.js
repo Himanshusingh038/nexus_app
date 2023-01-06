@@ -71,8 +71,8 @@ app.post('/generate_promotional',db.generatePromotional)
 app.post('/generate_existing',db.generateExisting)
 app.get('/get_unassigned_card',db.getUnassignedCard)
 app.get('/unassigned_action', isAuth, db.unassignedCardsAction)
-app.get('/active', isAuth, db.getActiveCards)
-app.get('/inactive', isAuth, db.getInactiveCards)
+app.get('/active', db.getActiveCards)
+app.get('/inactive', db.getInactiveCards)
 app.get('/incompete', isAuth, db.getIncompleteCards)
 app.get('/get_customers',  db.getCustomers)
 app.get('/get_customers/:cst_id', isAuth,  db.getCustomerById)
@@ -85,7 +85,8 @@ app.post('/logout', db.logout)
 app.get('/customer_actions', isAuth, db.customerAction)
 app.get('/get_customers', isAuth, db.getCustomer)
 app.post('/edit_customer', isAuth, db.editCustomer)
-
+app.get('/all_cards', db.getAllCards)
+app.get('/rubbish',db.rubbish)
 
 
 /**

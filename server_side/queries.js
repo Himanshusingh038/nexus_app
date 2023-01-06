@@ -9,7 +9,7 @@ const pool = new Pool({
   password: 'pass@123',
   port: 5432,
 })
-
+const axios = require("axios");
 
 
 const getUsers = (req, res) => {
@@ -20,6 +20,29 @@ const getUsers = (req, res) => {
       res.status(200).json(results.rows)
     })
 }
+
+const getAllCards = (req, res) => {
+    console.log('all cards');
+    url =`select c.card_id id,
+            c.card_unique_id card_no,
+            c.card_views as views,
+            c.website custom_url,
+            c.card_status status,
+            c.card_reg_date reg_date,
+            c.remarks,
+            cs.customer_name  c_name,
+            cs.customer_email c_email,
+            cs.customer_mobile c_phone
+        from customers as cs 
+            join cards c on
+                cs.customer_num=c.cst_unique_id limit 10`
+    pool.query(url, (error, results) => {
+        if (error) {
+            throw error
+        }
+        res.status(200).json(results.rows)
+    })
+};
 
 
 const getUserById = (req, res) => {
@@ -127,7 +150,16 @@ const generateExisting = (req,res)=>{
 }
 
 const getUnassignedCard = (req,res)=>{
-    sql = `select * from cards where card_status='unassigned' order by card_id DESC`
+    sql = `select 
+    c.card_id id,
+    c.card_unique_id card_no,
+    c.card_views as views,
+    c.website custom_url,
+    c.card_status status,
+    date_part('epoch', c.card_reg_date) reg_date,
+    c.remarks
+from cards c
+      where  c.card_status='unassigned'`
     pool.query(sql,(err,results)=>{
         if (err){
             throw err
@@ -178,9 +210,20 @@ const unassignedCardsAction = (req,res)=>{
 }
 
 const getActiveCards = (req, res) => {
-    sql = `select * from cards c
-                INNER JOIN customers cst on 
-                c.cst_unique_id=cst.customer_num and 
+    sql =`select 
+            c.card_id id,
+            c.card_unique_id card_no,
+            c.card_views as views,
+            c.website custom_url,
+            c.card_status status,
+            date_part('epoch', c.card_reg_date) reg_date,
+            c.remarks,
+            cs.customer_name  c_name,
+            cs.customer_email c_email,
+            cs.customer_mobile c_phone 
+        from cards c
+            INNER JOIN customers cs on 
+                c.cst_unique_id=cs.customer_num and 
                 c.card_status='active'`
     pool.query(sql,(err,results)=>{
         if (err){
@@ -191,10 +234,21 @@ const getActiveCards = (req, res) => {
 }
 
 const getInactiveCards = (req, res) => {
-    sql = `select * from cards c
-                INNER JOIN customers cst on 
-                c.cst_unique_id=cst.customer_num and 
-                c.card_status='inactive'`
+    sql = `select 
+    c.card_id id,
+    c.card_unique_id card_no,
+    c.card_views as views,
+    c.website custom_url,
+    c.card_status status,
+    date_part('epoch', c.card_reg_date) reg_date,
+    c.remarks,
+    cs.customer_name  c_name,
+    cs.customer_email c_email,
+    cs.customer_mobile c_phone 
+from cards c
+    INNER JOIN customers cs on 
+        c.cst_unique_id=cs.customer_num and 
+        c.card_status='inactive'`
     pool.query(sql,(err,results)=>{
         if (err){
             throw err
@@ -560,6 +614,16 @@ const editCustomer = async(req, res) => {
     }
 }
 
+const rubbish = async(req, res)=>{
+    const url = "http://localhost:8000/all_cards";
+    const resp = await axios.get(url);
+    const data = await resp.data;
+    // console.log(data);
+    var keys = Object.values(data);
+    console.log(keys);
+    res.status(200).json({data:data});
+}
+
 
 module.exports = {
     getUsers,
@@ -585,5 +649,7 @@ module.exports = {
     logout,
     customerAction,
     getCustomer,
-    editCustomer
+    editCustomer,
+    getAllCards,
+    rubbish
   }
