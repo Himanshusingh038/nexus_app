@@ -4,6 +4,7 @@ import { CardListResults } from '../../components/card/card-list-results';
 import { CardListToolbar } from '../../components/card/card-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import { unassigned_cards } from '../../__mocks__/unassigned-cards';
+import axios from 'axios'
 
 const Page = () => (
   <>
@@ -38,7 +39,7 @@ Page.getLayout = (page) => (
 export default Page;
 
 export const getStaticProps = async () => {
-  const url = "http://localhost:8000/all_cards";
+  const url = "http://localhost:8000/get_unassigned_card";
   const res = await axios.get(url);
   const data = await res.data;
   var cards = Object.values(data);
