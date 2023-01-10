@@ -315,7 +315,14 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 											{
 												status === 'unassigned' &&
 												<NextLink
-													href="/activate-card"
+													href={{
+                              pathname: '/activate-card',
+                              query: {
+                                id: card.id,
+                                num: card.id,
+                                reg: card.reg_date
+                              }
+                            }}
 													passHref
 												>
 													<Typography

@@ -3,10 +3,7 @@ import { Box, Container } from '@mui/material';
 import { CardListResults } from '../../components/card/card-list-results';
 import { CardListToolbar } from '../../components/card/card-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
-import { cards } from '../../__mocks__/cards';
 import axios from 'axios'
-
-const inactiveCards = cards.filter(card => card.status === 'inactive')
 
 const Page = ({cards}) => {
   return (

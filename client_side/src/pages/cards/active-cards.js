@@ -41,9 +41,9 @@ Page.getLayout = (page) => (
 
 export default Page;
 
-export const getStaticProps = async () => {
+export const getStaticProps = async (context) => {
   const url = "http://localhost:8000/active";
-  const res = await axios.get(url);
+  const res = await axios.get(url,{ headers: { "Content-Type": "application/json"},withCredentials:true });
   const data = await res.data;
   var cards = Object.values(data);
   return {
