@@ -21,6 +21,7 @@ import {
 } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import axios from "axios";
 
 export const CardListResults = ({ cards, status, ...rest }) => {
   const [limit, setLimit] = useState(10);
@@ -41,6 +42,12 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const handleDelete = async(card_id) =>{
+    const res = await axios.get(`http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`);
+    window.location.reload();
+    console.log(res);
   };
 
   return (
@@ -349,6 +356,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 												}}
 											>
 												<DeleteOutlineOutlined 
+                          onClick = {()=> handleDelete(card.id)}
 													sx= {{
 														fontSize: '20px'
 													}}

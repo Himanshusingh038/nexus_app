@@ -68,6 +68,18 @@ export const DashboardSidebar = (props) => {
     noSsr: false
   });
 
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:8000/logout');
+      // clear the user data from the client
+      // redirect to login page
+      router.push('/login');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
   useEffect(
     () => {
       if (!router.isReady) {

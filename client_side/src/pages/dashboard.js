@@ -12,19 +12,14 @@ import { AllCards } from "../components/dashboard/all-cards";
 import { StatisticsCard } from "../components/dashboard/statistics-card";
 import { DashboardLayout } from "../components/dashboard-layout";
 import axios from "axios";
-// import { getStaticProps } from "next";
 
-const Dashboard = ({ data }) => {
-  
+const Dashboard = ({ data}) => {
   const total_cst = data.total_cst;
   const total_cards = data.total_cards;
   const active_cards = data.active_cards;
   const incomplete_cards  = data.incomplete_cards;
   const inactive_cards = data.inactive_cards;
   const unassigned_cards = data.unassigned_cards;
-  console.log(total_cst);
-  console.log(total_cards);
-
   return (
     <>
       <Head>
@@ -42,7 +37,7 @@ const Dashboard = ({ data }) => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <StatisticsCard
                 title="Total Customers"
-                value={total_cst}
+                value= {total_cst}
                 icon={PeopleAltOutlined}
                 bg="#b19cd9"
               />
@@ -58,7 +53,7 @@ const Dashboard = ({ data }) => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <StatisticsCard
                 title="Active Cards"
-                value={active_cards}
+                value= {active_cards}
                 icon={CreditScoreOutlined}
                 bg="#4e9c81"
               />
@@ -66,7 +61,7 @@ const Dashboard = ({ data }) => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <StatisticsCard
                 title="Incomplete Cards"
-                value={incomplete_cards}
+                value= {incomplete_cards}
                 icon={ContactPageOutlined}
                 bg="#ffb836"
               />
@@ -74,7 +69,7 @@ const Dashboard = ({ data }) => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <StatisticsCard
                 title="Unassigned Cards"
-                value={unassigned_cards}
+                value= {unassigned_cards}
                 icon={PersonAddAltOutlined}
                 bg="#e69690"
               />
@@ -82,7 +77,7 @@ const Dashboard = ({ data }) => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <StatisticsCard
                 title="Inactive Cards"
-                value={inactive_cards}
+                value= {inactive_cards}
                 icon={CreditCardOffOutlined}
                 bg="#adaea5"
               />
@@ -104,11 +99,12 @@ Dashboard.getLayout = (dashboard) => (
 export default Dashboard;
 
 export const getStaticProps = async () => {
-  const res = await axios.get("http://localhost:8000/dashboard_stats");
-  const data = res.data;
+  const url = "http://localhost:8000/dashboard_stats";
+  const res = await axios.get(url);
+  const data = await res.data;
   return {
     props: {
-      data: data,
+      data,
     },
   };
 };
