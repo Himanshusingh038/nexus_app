@@ -31,7 +31,6 @@ export const SettingsPassword = (props) => {
     console.log(data);
     const url = 'http://localhost:8000/update_password'
     const res = await axios.post(url,data)
-   
     if(res.statusCode === 200) {
       router.push('/update_password')
     }
