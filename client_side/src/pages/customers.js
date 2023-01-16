@@ -3,9 +3,9 @@ import { Box, Container } from '@mui/material';
 import { CustomerListResults } from '../components/customer/customer-list-results';
 import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { customers } from '../__mocks__/customers';
+import axios from 'axios';
 
-const Page = () => (
+const Page = ({customers}) => (
   <>
     <Head>
       <title>
@@ -36,3 +36,15 @@ Page.getLayout = (page) => (
 );
 
 export default Page;
+
+export const getStaticProps = async() => {
+  const url = `http://localhost:8000/get_customers`
+  const res = await axios.get(url)
+  const data = await res.data;
+  var customers = Object.values(data);
+  return {
+    props: {
+      customers
+    },
+  }
+}

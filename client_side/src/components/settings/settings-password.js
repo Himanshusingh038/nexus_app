@@ -1,21 +1,44 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Grid, Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
+import axios from 'axios';
 
 export const SettingsPassword = (props) => {
   const [values, setValues] = useState({
     password: '',
     confirm: ''
   });
-
   const handleChange = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
   };
+  const router = useRouter();
+  const handleSubmit = async(event)=>{
+    event.preventDefault();
+    const email = event.target.email.value
+    const current_password = event.target.current_password.value
+    const new_password = event.target.new_password.value
+    const confirm_password = event.target.confirm_password.value
+    console.log(email, current_password,new_password, confirm_password);
+    const data = {
+      email: email,
+      current_password: current_password,
+      new_password: new_password,
+      confirm_password: confirm_password
+    } 
+    console.log(data);
+    const url = 'http://localhost:8000/update_password'
+    const res = await axios.post(url,data)
+   
+    if(res.statusCode === 200) {
+      router.push('/update_password')
+    }
+  }
 
   return (
-    <form {...props}>
+    <form {...props} onSubmit={handleSubmit}>
       <Card>
         <CardHeader
           title="Change Password"
@@ -26,6 +49,21 @@ export const SettingsPassword = (props) => {
             container
             spacing={3}
           >
+            <Grid
+              item
+              lg={4}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Email Id"
+                name="email"
+                onChange={handleChange}
+                type="email"
+                value={values.email}
+                variant="outlined"
+              />
+            </Grid>
             <Grid
               item
               lg={4}
@@ -85,6 +123,8 @@ export const SettingsPassword = (props) => {
             color="primary"
             variant="contained"
             sx={{ mr: 2 }}
+            type="submit"
+            
           >
             Update Password
           </Button>

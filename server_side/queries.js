@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { response } = require("express");
+const { response, request } = require("express");
 const md5 = require("md5")
 const Pool = require('pg').Pool
 const pool = new Pool({
@@ -11,15 +11,6 @@ const pool = new Pool({
 })
 const axios = require("axios");
 
-
-const getUsers = (req, res) => {
-    pool.query('SELECT * FROM accounts', (error, results) => {
-      if (error) {
-        throw error
-      }
-      res.status(200).json(results.rows)
-    })
-}
 
 const getAllCards = (req, res) => {
     console.log('all cards');
@@ -45,53 +36,6 @@ const getAllCards = (req, res) => {
 };
 
 
-const getUserById = (req, res) => {
-    const user_id = parseInt(req.params.id)
-  
-    pool.query('SELECT * FROM accounts WHERE user_id = $1', [user_id], (error, results) => {
-      if (error) {
-        throw error
-      }
-      res.status(200).json(results.rows)
-    })
-  }
-  
-  const createUser = (req, res) => {
-    const { user_id, username,password,email } = req.body
-    pool.query('INSERT INTO accounts (user_id,username,password,email,created_on) VALUES ($1, $2,$3,$4,current_timestamp)', [user_id, username,password,email], (error, results) => {
-      if (error) {
-        throw error
-      }
-      res.status(201).send(`User added with ID: ${results.insertId}`)
-    })
-  }
-  
-  const updateUser = (req, res) => {
-    const id = parseInt(req.params.id)
-    const { user_id, username,password,email,created_on } = req.body
-  
-    pool.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-      [user_id, username,password,email,created_on],
-      (error, results) => {
-        if (error) {
-          throw error
-        }
-        res.status(200).send(`User modified with ID: ${id}`)
-      }
-    )
-  }
-  
-  const deleteUser = (req, res) => {
-    const id = parseInt(req.params.id)
-  
-    pool.query('DELETE FROM accounts WHERE user_id = $1', [id], (error, results) => {
-      if (error) {
-        throw error
-      }
-      res.status(200).send(`User deleted with ID: ${id}`)
-    })
-  }
 
 const generatePromotional = (req,res)=>{
     var {card_count} = req.body
@@ -270,14 +214,20 @@ const getIncompleteCards = (req, res) => {
 }
 
 const getCustomers = (req, res) => {
-    sql = `select * from customers`
-    pool.query(sql,(err,results)=>{
-        if (err){
-            throw err
-        }
-        res.status(200).json(results.rows)
-    })
-}
+  sql = ` select customer_id id,
+                customer_num cust_id,
+                customer_name as name,
+                customer_email email,
+                customer_mobile phone,
+                date_part('epoch',customer_reg_date ) reg_date 
+            from customers`;
+  pool.query(sql, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.status(200).json(results.rows);
+  });
+};
 
 const customerAction = (req, res) => {
     const {action,cst_id} = req.query
@@ -617,8 +567,9 @@ const getCustomer = async(req, res) => {
 }
 const editCustomer = async(req, res) => {
     try{
+        console.log('\edit_customer');
         const {name,designation,email,mobile,cst_id} = req.body
-        sql = `update customers set customer_name='${name}',customer_designation='${designation}',customer_mobile='${mobile}',customer_email='${email}' where customer_id='${cst_id}' returning *`
+        sql = `update customers set customer_name='${name}',customer_designation='${designation}',customer_mobile='${mobile}',customer_email='${email}' where customer_num='${cst_id}' returning *`
         var data = await pool.query(sql)
         const row = data.rows
         if (row.length>0){
@@ -628,6 +579,34 @@ const editCustomer = async(req, res) => {
         }
     }catch{
         res.status(500).json({'message': 'Internal Server Error'})
+    }
+}
+
+const updatePassword = async(req, res) => {
+    const {email, current_password,new_password,confirm_password} = req.body
+    const sql =  `select password from admin where email='${email}'`
+    var status = 'failed'
+    try {
+        console.log(sql);
+        var data = await pool.query(sql)
+        if (data.rows.length==0){
+            res.status(500).json({"error":"incorrect mail address"})
+        }
+        const old_password = data.rows[0].password
+        const isMatch = await bcrypt.compare(current_password, old_password);
+        if(isMatch && new_password==confirm_password){
+            new_pass = await bcrypt.hash(new_password, 10)
+            const sql = `update admin set password='${new_pass}' where email='${email}'`
+            var data = await pool.query(sql)
+            status = 'password changed'
+        }
+    }catch (error) {
+        console.log(error);
+        status = 'error: check in console'
+        res.status(500).json({"error":error})
+    }finally{
+        console.log(status);
+        res.send({'status':status})
     }
 }
 
@@ -643,11 +622,6 @@ const rubbish = async(req, res)=>{
 
 
 module.exports = {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser,
     generatePromotional,
     generateExisting,
     getUnassignedCard,
@@ -668,5 +642,6 @@ module.exports = {
     getCustomer,
     editCustomer,
     getAllCards,
+    updatePassword,
     rubbish
   }

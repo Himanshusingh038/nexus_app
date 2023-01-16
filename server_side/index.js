@@ -62,16 +62,11 @@ const pgPool = new pg({
  * Routes Definitions
  */
 console.log(isAuth);
-app.get('/users', db.getUsers)
-app.get('/users/:id', db.getUserById)
-app.post('/users', db.createUser)
-app.put('/users/:id', db.updateUser)
-app.delete('/users/:id', db.deleteUser)
 app.post('/generate_promotional',db.generatePromotional)
 app.post('/generate_existing',db.generateExisting)
 app.get('/get_unassigned_card',db.getUnassignedCard)
-app.get('/unassigned_action', isAuth, db.unassignedCardsAction)
-app.get('/active', db.getActiveCards)
+app.get('/unassigned_action', db.unassignedCardsAction)
+app.get('/active',isAuth, db.getActiveCards)
 app.get('/inactive', db.getInactiveCards)
 app.get('/incompete', isAuth, db.getIncompleteCards)
 app.get('/get_customers',  db.getCustomers)
@@ -81,10 +76,11 @@ app.post('/activate_card', db.activateCards)
 app.get('/dashboard_stats', db.dashboardStats)
 app.get('/update_remarks',  isAuth, db.updateRemark)
 app.post('/login', db.login)
-app.post('/logout', db.logout)
-app.get('/customer_actions', isAuth, db.customerAction)
-app.post('/edit_customer', isAuth, db.editCustomer)
+app.get('/logout', db.logout)
+app.get('/customer_actions', db.customerAction)
+app.post('/edit_customer', db.editCustomer)
 app.get('/all_cards', db.getAllCards)
+app.post('/update_password',db.updatePassword)
 app.get('/rubbish',db.rubbish)
 
 

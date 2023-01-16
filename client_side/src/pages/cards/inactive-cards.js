@@ -42,6 +42,7 @@ export const getStaticProps = async() => {
   const res = await axios.get(url);
   const data = await res.data;
   var cards = Object.values(data);
+  console.log('adfs',data);
   return {
     props: {
       cards
