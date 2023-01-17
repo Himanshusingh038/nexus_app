@@ -1,18 +1,9 @@
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
-import {
-  PeopleAltOutlined,
-  CreditCardOutlined,
-  CreditScoreOutlined,
-  CreditCardOffOutlined,
-  PersonAddAltOutlined,
-  ContactPageOutlined,
-} from "@mui/icons-material";
-import { AllCards } from "../components/dashboard/all-cards";
+import { PeopleAltOutlined, CreditCardOutlined, CreditScoreOutlined, CreditCardOffOutlined, PersonAddAltOutlined, ContactPageOutlined } from "@mui/icons-material";
 import { StatisticsCard } from "../components/dashboard/statistics-card";
 import { DashboardLayout } from "../components/dashboard-layout";
 import axios from "axios";
-// import { getStaticProps } from "next";
 
 const Dashboard = ({ data }) => {
   
@@ -86,9 +77,6 @@ const Dashboard = ({ data }) => {
                 icon={CreditCardOffOutlined}
                 bg="#adaea5"
               />
-            </Grid>
-            <Grid item xs={12}>
-              <AllCards />
             </Grid>
           </Grid>
         </Container>
