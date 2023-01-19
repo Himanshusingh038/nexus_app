@@ -11,7 +11,8 @@ import axios from "axios";
 
 const Page = ({data}) => {
   const cust_data= data;
-  const { query } = useRouter();
+  const router = useRouter();
+  const { query } = router
   const formik = useFormik({
     initialValues: {
       fname: "",
@@ -58,7 +59,7 @@ const Page = ({data}) => {
 			);
 			if (response.statusText=='OK') {
 				console.log('success');
-				Router.push('/cards/active-cards');
+				router.push('/cards/active-cards');
 			  } else {
                 console.log(response)
 			  }

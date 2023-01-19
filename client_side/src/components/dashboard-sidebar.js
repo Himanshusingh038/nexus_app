@@ -55,7 +55,7 @@ const items = [
   {
     collapse: false,
     href: '/',
-    icon: (<LogoutOutlined />),
+    icon: (<LogoutOutlined/>),
     title: 'Logout'
   }
 ];

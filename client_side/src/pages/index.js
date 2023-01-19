@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Logo } from '../components/logo';
 import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 import axios from 'axios';
+var bcrypt = require('bcryptjs');
 
 axios.defaults.withCredentials = true
 const Page = () => {
@@ -27,11 +28,13 @@ const Page = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const {email, password} = values;
+        const enpassword =  await bcrypt.hash(password, 10)
         let datad = JSON.stringify({
           email: email,
           password: password
         });
-        console.log({email: email, password: password});
+        
+        console.log(JSON.stringify({email: email, password: password}));
         const response = await axios.post(
           "http://localhost:8000/login",
           datad,

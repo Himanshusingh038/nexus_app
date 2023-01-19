@@ -5,7 +5,8 @@ import { GenerateNew } from "../components/generate-card/generate-card-new";
 import { GenerateExisting } from "../components/generate-card/generate-card-existing";
 import axios from "axios";
 
-const Page = () => {
+const Page = ({customers}) => {
+
   return (
     <>
       <Head>
@@ -27,7 +28,7 @@ const Page = () => {
               <GenerateNew />
             </Grid>
             <Grid item lg={6} xs={12}>
-              <GenerateExisting />
+              <GenerateExisting customers={customers}/>
             </Grid>
           </Grid>
         </Container>
@@ -40,3 +41,14 @@ Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
 
+export const getStaticProps = async() => {
+  const url = `http://localhost:8000/get_customers`
+  const res = await axios.get(url)
+  const data = await res.data;
+  var customers = Object.values(data);
+  return {
+    props: {
+      customers
+    },
+  }
+}

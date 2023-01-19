@@ -214,6 +214,7 @@ const getIncompleteCards = (req, res) => {
 }
 
 const getCustomers = (req, res) => {
+  console.log('getcustomers');
   sql = ` select customer_id id,
                 customer_num cust_id,
                 customer_name as name,
@@ -512,6 +513,7 @@ const updateRemark = async (req, res) => {
 const login = async(req,res) =>{
     try{
         const {email,password} = req.body
+        console.log('password:-> ' + password);
         if (email == null || password == null){
             res.status(400).json({'status':'failed'})
         }else{

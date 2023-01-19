@@ -2,20 +2,10 @@ import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, Select, InputLabel, MenuItem, FormControl } from '@mui/material';
 import axios from 'axios';
 
-export const GenerateExisting = ({data}) => {
-  console.log(data);
-  const [value, setValue] = useState({
-    customers: [
-      {
-        id: '1',
-        name: 'Jahanvi Jasani'
-      },
-      {
-        id: '2',
-        name: 'Himanshu Singh'
-      }
-    ]
-  });
+export const GenerateExisting = ({customers = []}) => {
+  console.log('cust-->',customers);
+  const [value, setValue] = useState([]);
+
 
   const handleChange = (event) => {
     setValue({
@@ -24,15 +14,18 @@ export const GenerateExisting = ({data}) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const url = 'http://localhost:8000/generate_existing'
-    // const data = {'cst_unq_id':value.customers[0].id}
-    // const res = await axios.post(url,data)
+    console.log('hello existing');
+    const data = {'cst_unq_id':customers[0].id}
+    const res = await axios.post(url,data)
+    console.log('res=>',res);
+    alert('card generated successfully');
   }
 
   return (
-    <form {...data}>
+    <form {...customers}>
       <Card>
         <CardHeader
           title="Generate cards for existing users"
@@ -49,7 +42,7 @@ export const GenerateExisting = ({data}) => {
 							label="Customers"
 							onChange={handleChange}
 						>
-              {value.customers.map((customer) => (
+              {customers.map((customer) => (
                 <MenuItem value={customer.id} key={customer.id}>
                   {customer.name}
                 </MenuItem>
@@ -85,13 +78,4 @@ export const GenerateExisting = ({data}) => {
   );
 };
 
-export const getStaticProps = async () => {
-  const res = await axios.get("http://localhost:8000/get_customers");
-  const data = res.data;
-  console.log(data)
-  return {
-    props: {
-      data: data,
-    },
-  };
-};
+

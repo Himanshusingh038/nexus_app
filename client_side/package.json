@@ -37,11 +37,16 @@
     "react-perfect-scrollbar": "^1.5.8",
     "react-router-dom": "^6.6.1",
     "uuid": "9.0.0",
-    "yup": "0.32.11"
+    "yup": "0.32.11",
+    "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "eslint": "8.23.1",
     "eslint-config-next": "12.3.0"
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8000",
+  "main": "next.config.js",
+  "keywords": [],
+  "license": "ISC",
+  "description": ""
 }
