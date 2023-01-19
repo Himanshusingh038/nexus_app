@@ -553,11 +553,11 @@ const login = async(req,res) =>{
 }
 
 const logout = (req, res) => {
-  console.log(req.session);
   req.session.destroy((err) => {
     res.setHeader("set-cookie", "loggedIn=true; max-age=0");
     if (err) throw err;
-    res.redirect("/login");
+    res.json({'message': 'logout successful'});
+    // res.redirect("/login");
   });
 };
 const getCustomer = async(req, res) => {
