@@ -51,12 +51,6 @@ const items = [
     href: '/settings',
     icon: (<SettingsOutlined />),
     title: 'Account Settings'
-  },
-  {
-    collapse: false,
-    href: '/',
-    icon: (<LogoutOutlined/>),
-    title: 'Logout'
   }
 ];
 
