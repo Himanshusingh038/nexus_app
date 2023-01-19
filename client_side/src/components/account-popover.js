@@ -12,42 +12,14 @@ export const AccountPopover = (props) => {
 
   const handleSignOut = async () => {
     onClose?.();
-
-    // Check if authentication with Zalter is enabled
-    // If not enabled, then redirect is not required
-    if (!ENABLE_AUTH) {
-      return;
-    }
-
-    // Check if auth has been skipped
-    // From sign-in page we may have set "skip-auth" to "true"
-    // If this has been skipped, then redirect to "sign-in" directly
-    const authSkipped = globalThis.sessionStorage.getItem('skip-auth') === 'true';
-
-    if (authSkipped) {
-      // Cleanup the skip auth state
-      globalThis.sessionStorage.removeItem('skip-auth');
-
-      // Redirect to sign-in page
-      Router
-        .push('/sign-in')
-        .catch(console.error);
-      return;
-    }
-
+    
     try {
-      // This can be call inside AuthProvider component, but we do it here for simplicity
-      await auth.signOut();
-
-      // Update Auth Context state
-      authContext.signOut();
-
-      // Redirect to sign-in page
-      Router
-        .push('/sign-in')
-        .catch(console.error);
-    } catch (err) {
-      console.error(err);
+      await axios.get('http://localhost:8000/logout');
+      // clear the user data from the client
+      // redirect to login page
+      router.push('/login');
+    } catch (error) {
+      console.error(error);
     }
   };
 
