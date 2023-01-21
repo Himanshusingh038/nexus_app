@@ -37,9 +37,11 @@ Page.getLayout = (page) => (
 
 export default Page;
 
-export const getStaticProps = async() => {
+export const getServerSideProps = async(context) => {
   const url = `http://localhost:8000/get_customers`
-  const res = await axios.get(url)
+  const cookie = context.req.cookies
+  const val = (cookie.loggedIn).toString()
+  const res = await axios.get(url,{ headers: { Cookie: `loggedIn=${val};` }});
   const data = await res.data;
   var customers = Object.values(data);
   return {

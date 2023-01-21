@@ -45,7 +45,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
   };
 
   const handleDelete = async(card_id) =>{
-    const res = await axios.get(`http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`);
+    const res = await axios.get(`http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`,{withCredentials:true});
     window.location.reload();
     console.log(res);
   };
@@ -84,7 +84,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                             fontWeight: "bold",
                           }}
                         >
-                          {card.status}
+                          {card.c_name}
                         </Typography>
                       </Box>
                       <Box
@@ -103,7 +103,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           Phone:
                         </Typography>
                         <Typography color="textPrimary" variant="body2">
-                          {card.reg_date}
+                          {card.c_phone}
                         </Typography>
                       </Box>
                       <Box
@@ -122,7 +122,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           Email:
                         </Typography>
                         <Typography color="textPrimary" variant="body2">
-                          {card.card_no}
+                          {card.c_email}
                         </Typography>
                       </Box>
                       <Box
@@ -163,7 +163,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                         Card No:
                       </Typography>
                       <Typography color="textPrimary" variant="body2">
-                        {card.c_phone}
+                        {card.card_no}
                       </Typography>
                     </Box>
                     <Box
@@ -179,30 +179,14 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           mr: 1,
                         }}
                       >
+                        Card ID:
+                      </Typography>
+                      <Typography color="textPrimary" variant="body2">
                         {card.id}
                       </Typography>
                     </Box>
                     {status !== "unassigned" && (
                       <Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                          }}
-                        >
-                          <Typography
-                            color="textPrimary"
-                            variant="body2"
-                            sx={{
-                              fontWeight: "bold",
-                              mr: 1,
-                            }}
-                          >
-                            Username:
-                          </Typography>
-                          <Typography color="textPrimary" variant="body2">
-                            {card.c_name}
-                          </Typography>
-                        </Box>
                         <Box
                           sx={{
                             display: "flex",
@@ -225,7 +209,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                               fontWeight: "bold",
                             }}
                           >
-                            {card.c_name}
+                            {card.views}
                           </Typography>
                         </Box>
                       </Box>
@@ -272,9 +256,8 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                       </Box>
                     )}
                   </TableCell>
-                  <TableCell>{format(card.reg_date, "dd/MM/yyyy")}</TableCell>
                   <TableCell>
-                    {format(card.reg_date, 'dd/MM/yyyy')}
+                    {format(new Date(card.reg_date),'dd-MM-yyyy')}
                   </TableCell>
                   <TableCell>
 										<Box

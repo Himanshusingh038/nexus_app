@@ -28,26 +28,21 @@ const Page = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
         const {email, password} = values;
-        const enpassword =  await bcrypt.hash(password, 10)
         let datad = JSON.stringify({
           email: email,
           password: password
         });
         
-        console.log(JSON.stringify({email: email, password: password}));
         const response = await axios.post(
           "http://localhost:8000/login",
           datad,
           { headers: { "Content-Type": "application/json"},withCredentials:true}
         );
         const {data} = response;
-        console.log(data);
         const sessionCookie =data;
         document.cookie = sessionCookie;
-        console.log(response.statusText);
         if (response.statusText=='OK') {
           console.log('success');
-          // Login was successful, redirect the user or show a success message
           Router.push('/dashboard');
         } else {
           // Login failed, show an error message

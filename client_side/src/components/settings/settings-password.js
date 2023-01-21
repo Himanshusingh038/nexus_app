@@ -34,7 +34,8 @@ export const SettingsPassword = (props) => {
    
     if(res.statusCode === 200) {
       router.push('/update_password')
-    }
+      
+    }window.location.reload()
   }
 
   return (

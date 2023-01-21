@@ -100,10 +100,12 @@ const getUnassignedCard = (req,res)=>{
     c.card_views as views,
     c.website custom_url,
     c.card_status status,
-    date_part('epoch', c.card_reg_date) reg_date,
+    c.card_reg_date reg_date,
+    ROUND(date_part('epoch', c.card_reg_date)) regg_date,
     c.remarks
 from cards c
-      where  c.card_status='unassigned'`
+      where  c.card_status='unassigned'
+      order by c.card_reg_date desc`
     pool.query(sql,(err,results)=>{
         if (err){
             throw err
@@ -160,7 +162,8 @@ const getActiveCards = (req, res) => {
             c.card_views as views,
             c.website custom_url,
             c.card_status status,
-            date_part('epoch', c.card_reg_date) reg_date,
+            c.card_reg_date reg_date,
+            round(date_part('epoch', c.card_reg_date)) regg_date,
             c.remarks,
             cs.customer_name  c_name,
             cs.customer_email c_email,
@@ -168,7 +171,8 @@ const getActiveCards = (req, res) => {
         from cards c
             INNER JOIN customers cs on 
                 c.cst_unique_id=cs.customer_num and 
-                c.card_status='active'`
+                c.card_status='active'
+                order by cs.customer_name`
     pool.query(sql,(err,results)=>{
         if (err){
             throw err
@@ -184,7 +188,8 @@ const getInactiveCards = (req, res) => {
     c.card_views as views,
     c.website custom_url,
     c.card_status status,
-    date_part('epoch', c.card_reg_date) reg_date,
+    c.card_reg_date reg_date,
+    date_part('epoch', c.card_reg_date) regg_date,
     c.remarks,
     cs.customer_name  c_name,
     cs.customer_email c_email,
@@ -192,7 +197,8 @@ const getInactiveCards = (req, res) => {
 from cards c
     INNER JOIN customers cs on 
         c.cst_unique_id=cs.customer_num and 
-        c.card_status='inactive'`
+        c.card_status='inactive'
+        order by cs.customer_name`
     pool.query(sql,(err,results)=>{
         if (err){
             throw err
@@ -220,8 +226,10 @@ const getCustomers = (req, res) => {
                 customer_name as name,
                 customer_email email,
                 customer_mobile phone,
-                date_part('epoch',customer_reg_date ) reg_date 
-            from customers`;
+                customer_reg_date reg_date,
+                date_part('epoch',customer_reg_date ) regg_date 
+            from customers
+            order by lower(customer_name)`;
   pool.query(sql, (err, results) => {
     if (err) {
       throw err;

@@ -1,11 +1,12 @@
-import Head from 'next/head';
-import { Box, Container } from '@mui/material';
-import { CardListResults } from '../../components/card/card-list-results';
-import { CardListToolbar } from '../../components/card/card-list-toolbar';
-import { DashboardLayout } from '../../components/dashboard-layout';
-import axios from 'axios';
+import Head from "next/head";
+import { Box, Container } from "@mui/material";
+import { CardListResults } from "../../components/card/card-list-results";
+import { CardListToolbar } from "../../components/card/card-list-toolbar";
+import { DashboardLayout } from "../../components/dashboard-layout";
+import axios from "axios";
 
 const Page = ({ cards }) => {
+
   return (
     <>
       <Head>
@@ -28,19 +29,16 @@ const Page = ({ cards }) => {
     </>
   );
 };
-  
 
-Page.getLayout = (page) => (
-  <DashboardLayout>
-    {page}
-  </DashboardLayout>
-);
+Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
 
-export const getStaticProps = async (context) => {
+export const getServerSideProps = async (context) => {
   const url = "http://localhost:8000/active";
-  const res = await axios.get(url,{ headers: { "Content-Type": "application/json"},withCredentials:true });
+  const cookie = context.req.cookies
+  const val = (cookie.loggedIn).toString()
+  const res = await axios.get(url,{ headers: { Cookie: `loggedIn=${val};` }});
   const data = await res.data;
   var cards = Object.values(data);
   return {
@@ -49,3 +47,5 @@ export const getStaticProps = async (context) => {
     },
   };
 };
+/* Sending a cookie to the server. */
+// {headers:{Cookie: "loggedIn=${val}"}}  `${JSON.stringify(cookie)};`

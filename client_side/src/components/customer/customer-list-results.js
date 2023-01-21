@@ -36,8 +36,9 @@ export const CustomerListResults = ({ customers, ...rest }) => {
   };
 
   const handleDelete = async (cst_id) => {
+    console.log('helper delete');
     const res = await axios.get(
-      `http://localhost:8000/customer_actions?action=delete&cst_id=${cst_id}`
+      `http://localhost:8000/customer_actions?action=delete&cst_id=${cst_id}`, {withCredentials: true}
     );
     window.location.reload();
     console.log(res);
@@ -131,7 +132,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {format(customer.reg_date, "dd/MM/yyyy")}
+                    {format(new Date(customer.reg_date), "dd/MM/yyyy")}
                   </TableCell>
                   <TableCell>
                     <Box

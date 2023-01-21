@@ -39,7 +39,7 @@ export const AccountPopover = (props) => {
           }
         }}
       >
-        <MenuItem onClick={handleLogout}>
+        <MenuItem>
           <ListItemIcon>
             <SettingsOutlined fontSize="small" />
           </ListItemIcon>

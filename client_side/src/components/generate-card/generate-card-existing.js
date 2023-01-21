@@ -17,9 +17,8 @@ export const GenerateExisting = ({customers = []}) => {
   const handleSubmit = async(event) => {
     event.preventDefault();
     const url = 'http://localhost:8000/generate_existing'
-    console.log('hello existing');
     const data = {'cst_unq_id':customers[0].id}
-    const res = await axios.post(url,data)
+    const res = await axios.post(url,data,{ withCredentials: true })
     console.log('res=>',res);
     alert('card generated successfully');
   }

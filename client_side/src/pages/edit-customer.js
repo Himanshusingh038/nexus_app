@@ -29,6 +29,7 @@ const Page = () => {
     }),
     onSubmit: async(values, {setSubmitting, setErrors}) => {
       try{
+        console.log('hello update');
         const url = `http://localhost:8000/edit_customer`
         const data ={
           name: values.name,

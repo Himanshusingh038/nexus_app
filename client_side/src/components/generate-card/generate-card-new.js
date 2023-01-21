@@ -11,8 +11,8 @@ export const GenerateNew = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const body = {'card_count':values}
-    const res = await axios.post('http://localhost:8000/generate_promotional',body);
-    console.log(res.data);
+    const res = await axios.post('http://localhost:8000/generate_promotional',body,{ withCredentials: true });
+    window.location.reload();
   };
 
 
