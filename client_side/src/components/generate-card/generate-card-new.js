@@ -1,23 +1,26 @@
-import { useState } from 'react';
+import { useFormik } from 'formik';
 import { Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
 import axios from 'axios';
 
 export const GenerateNew = (props) => {
-  const [values, setValues] = useState(0);
+  const formik = useFormik({
+    initialValues: {
+      quantity: ''
+    },
+    onSubmit: async(values, {setSubmitting, setErrors}) => {
+      try {
+        const {quantity} = values;
+        const body = {'card_count':quantity}
+        const response = await axios.post('http://localhost:8000/generate_promotional',body,{ withCredentials: true });
+        
+      } catch {
 
-  const handleChange = async (event) => {
-    setValues(event.target.value);
-  };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const body = {'card_count':values}
-    const res = await axios.post('http://localhost:8000/generate_promotional',body,{ withCredentials: true });
-    window.location.reload();
-  };
-
+      }
+    }
+  });
 
   return (
-    <form {...props}>
+    <form onSubmit={formik.handleSubmit}>
       <Card>
         <CardHeader
           title="Generate cards for new users"
@@ -31,9 +34,9 @@ export const GenerateNew = (props) => {
 						fullWidth
 						label="Quantity"
 						name="quantity"
-						onChange={handleChange}
+						onChange={formik.handleChange}
 						type="number"
-						value={values.quantity}
+						value={formik.values.quantity}
 						variant="outlined"
 					/>
         </CardContent>
@@ -47,9 +50,10 @@ export const GenerateNew = (props) => {
         >
           <Button  
             color="primary"
+            type="submit"
             variant="contained"
             sx={{ mr: 2 }}
-            onClick={handleSubmit}
+            disabled={formik.isSubmitting}
           >
             Generate
           </Button>
