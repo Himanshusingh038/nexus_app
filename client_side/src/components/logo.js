@@ -11,14 +11,14 @@ export const Logo = styled((props) => {
       viewBox="0 0 82.987 45" 
       xmlns="http://www.w3.org/2000/svg"
       {...other}>
-      <g xmlns="http://www.w3.org/2000/svg" clip-path="url(#_clipPath_NYdg33gz3UY8KAI7JlIASis50eWro6sx)">
+      <g xmlns="http://www.w3.org/2000/svg" clipPath="url(#_clipPath_NYdg33gz3UY8KAI7JlIASis50eWro6sx)">
         <clipPath id="_clipPath_WQoqTKrC6lBESwY0aWo7S7XvNmbQOspz">
           <path 
             d=" M 58.544 16.295 L 64.654 16.295 L 64.654 24.442 L 58.544 24.442 L 58.544 16.295 Z"
             fill="rgb(255,255,255)"
           />
         </clipPath>
-        <g clip-path="url(#_clipPath_WQoqTKrC6lBESwY0aWo7S7XvNmbQOspz)">
+        <g clipPath="url(#_clipPath_WQoqTKrC6lBESwY0aWo7S7XvNmbQOspz)">
           <path 
             d="M 63.907 18.929 C 62.928 17.902 61.289 17.854 60.262 18.833 C 59.236 19.804 59.196 21.451 60.175 22.477 C 61.154 23.504 62.793 23.551 63.819 22.581 C 64.861 21.586 64.885 19.963 63.907 18.929 Z"
             fill={color}
@@ -30,7 +30,7 @@ export const Logo = styled((props) => {
             fill="rgb(255,255,255)"
           />
         </clipPath>
-        <g clip-path="url(#_clipPath_p1mG8wk5CyWIsCeuDBlZRXkTKP2bj8w1)">
+        <g clipPath="url(#_clipPath_p1mG8wk5CyWIsCeuDBlZRXkTKP2bj8w1)">
           <path 
             d="M 68.322 14.728 C 66.691 13.009 64.479 12.03 62.132 11.951 C 61.177 11.919 60.39 12.675 60.366 13.622 C 60.358 14.083 60.525 14.537 60.843 14.871 C 61.169 15.205 61.607 15.404 62.069 15.412 C 63.509 15.452 64.845 16.048 65.84 17.091 C 66.835 18.141 67.376 19.517 67.344 20.965 C 67.328 21.419 67.503 21.872 67.821 22.207 C 68.139 22.549 68.585 22.74 69.038 22.748 C 69.993 22.78 70.781 22.024 70.805 21.069 C 70.829 18.706 69.961 16.446 68.322 14.728 Z"
             fill={color}
@@ -41,7 +41,7 @@ export const Logo = styled((props) => {
           fill="rgb(255,255,255)
         "/>
         </clipPath>
-        <g clip-path="url(#_clipPath_ByFAsi7HMYccyyEWiu6P2DOXQnsBVR2G)">
+        <g clipPath="url(#_clipPath_ByFAsi7HMYccyyEWiu6P2DOXQnsBVR2G)">
           <path 
             d="M 82.167 21.411 C 82.294 15.993 80.297 10.829 76.565 6.898 C 72.826 2.968 67.781 0.692 62.363 0.549 C 61.416 0.525 60.62 1.273 60.605 2.228 C 60.589 2.689 60.764 3.135 61.082 3.469 C 61.4 3.811 61.838 4.002 62.299 4.01 C 66.771 4.137 70.948 6.007 74.059 9.277 C 77.17 12.547 78.825 16.82 78.722 21.316 C 78.714 21.777 78.881 22.231 79.199 22.565 C 79.525 22.899 79.963 23.098 80.424 23.106 C 81.355 23.114 82.151 22.366 82.167 21.411 Z"
             fill={color}
@@ -53,7 +53,7 @@ export const Logo = styled((props) => {
             fill="rgb(255,255,255)"
           />
         </clipPath>
-        <g clip-path="url(#_clipPath_mZ56RIvsKg0GZf0wz2FbdUj6A2p7LuXG)">
+        <g clipPath="url(#_clipPath_mZ56RIvsKg0GZf0wz2FbdUj6A2p7LuXG)">
           <path 
             d=" M 72.34 10.908 C 69.683 8.108 66.103 6.5 62.244 6.381 C 61.782 6.365 61.337 6.532 61.002 6.859 C 60.668 7.177 60.477 7.614 60.461 8.076 C 60.453 8.529 60.62 8.983 60.947 9.317 C 61.265 9.659 61.703 9.85 62.164 9.858 C 65.084 9.938 67.821 11.163 69.842 13.287 C 71.863 15.412 72.945 18.205 72.874 21.133 C 72.866 21.586 73.033 22.04 73.359 22.374 C 73.677 22.708 74.115 22.907 74.576 22.915 C 75.038 22.931 75.483 22.764 75.817 22.437 C 76.16 22.119 76.351 21.682 76.359 21.22 C 76.414 17.377 75.006 13.709 72.34 10.908 Z"
             fill={color}
@@ -65,7 +65,7 @@ export const Logo = styled((props) => {
             fill="rgb(255,255,255)"
           />
         </clipPath>
-        <g clip-path="url(#_clipPath_bpOj391OgB9MddbC4KnpLYe7AMy5WbvG)">
+        <g clipPath="url(#_clipPath_bpOj391OgB9MddbC4KnpLYe7AMy5WbvG)">
           <path
             d=" M 3.215 44.777 L 1.146 44.777 L 1.146 24.218 L 4.042 24.218 L 8.816 39.08 L 8.816 24.218 L 10.853 24.218 L 10.853 44.777 L 8.466 44.777 L 3.215 28.164 L 3.215 44.777 Z"
             fill={color}
