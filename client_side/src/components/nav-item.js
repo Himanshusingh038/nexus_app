@@ -23,7 +23,6 @@ export const NavItem = (props) => {
           display: 'block',
           mb: 0.5
         }}
-        {...others}
       >
         <ListItemButton 
           sx={{
@@ -42,7 +41,6 @@ export const NavItem = (props) => {
             sx = {{
               color: open ? 'secondary.main' : 'neutral.400'
             }}
-            minwidth = {false}
           >
             {icon}
           </ListItemIcon>
@@ -104,7 +102,6 @@ export const NavItem = (props) => {
             }}
           >
             <ListItemIcon
-              minwidth = {false}
               sx = {{
                 color: active ? 'secondary.main' : 'neutral.400'
               }}

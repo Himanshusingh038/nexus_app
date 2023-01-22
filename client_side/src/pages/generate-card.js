@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Grid, Box, Container, Typography } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { GenerateNew } from "../components/generate-card/generate-card-new";
-import { GenerateExisting } from "../components/generate-card/generate-card-existing";
+// import { GenerateExisting } from "../components/generate-card/generate-card-existing";
 import axios from "axios";
 
 const Page = ({customers}) => {
@@ -27,9 +27,9 @@ const Page = ({customers}) => {
             <Grid item lg={6} xs={12}>
               <GenerateNew />
             </Grid>
-            <Grid item lg={6} xs={12}>
+            {/* <Grid item lg={6} xs={12}>
               <GenerateExisting customers={customers}/>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>
