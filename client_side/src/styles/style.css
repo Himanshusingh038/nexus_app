@@ -31,3 +31,7 @@ a {
 .badge--unassigned {
 	background: #2196f3;
 }
+
+.swal2-styled.swal2-confirm:focus {
+	box-shadow: none !important;
+}
