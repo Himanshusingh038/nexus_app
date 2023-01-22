@@ -32,7 +32,7 @@ const Page = () => {
           email: email,
           password: password
         });
-        
+        console.log('point 1');
         const response = await axios.post(
           "http://localhost:8000/login",
           datad,
@@ -41,16 +41,17 @@ const Page = () => {
         const {data} = response;
         const sessionCookie =data;
         document.cookie = sessionCookie;
-        if (response.statusText=='OK') {
+        if (response.data.status=='success') {
           console.log('success');
           Router.push('/dashboard');
         } else {
-          // Login failed, show an error message
-          setErrors({ password: "Incorrect user ID or password" });
+          if (response.data.status=='email not found'){
+            setErrors({ email: "Incorrect user ID " });
+          }else{
+            setErrors({ password: "Incorrect password" });
+          }
         }
       } catch (error) {
-        console.error(error);
-        // An error occurred, show an error message
         setErrors({ password: 'An error occurred while logging in' });
         return { props: { error: error.message } };
       } finally {
