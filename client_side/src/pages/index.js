@@ -3,16 +3,15 @@ import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Logo } from '../components/logo';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, TextField } from '@mui/material';
 import axios from 'axios';
-var bcrypt = require('bcryptjs');
 
 axios.defaults.withCredentials = true
 const Page = () => {
   const formik = useFormik({
     initialValues: {
       email: 'admin@nexuscards.in',
-      password: '**********'
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -46,8 +45,8 @@ const Page = () => {
           Router.push('/dashboard');
         } else {
           if (response.data.status=='email not found'){
-            setErrors({ email: "Incorrect user ID " });
-          }else{
+            setErrors({ email: "Incorrect email " });
+          } else {
             setErrors({ password: "Incorrect password" });
           }
         }
