@@ -92,9 +92,7 @@ const Page = () => {
               />
             </Box>
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
               label="Email Address"
               margin="normal"
               name="email"
@@ -103,11 +101,11 @@ const Page = () => {
               type="email"
               value={formik.values.email}
               variant="outlined"
+              error={Boolean(formik.touched.email && formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
             />
             <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
               fullWidth
-              helperText={formik.touched.password && formik.errors.password}
               label="Password"
               margin="normal"
               name="password"
@@ -116,6 +114,8 @@ const Page = () => {
               type="password"
               value={formik.values.password}
               variant="outlined"
+              error={Boolean(formik.touched.password && formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
             />
             <Box sx={{ pt: 5 }}>
               <Button
