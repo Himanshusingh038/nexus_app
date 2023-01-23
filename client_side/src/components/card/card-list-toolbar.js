@@ -8,8 +8,34 @@ import {
   Typography
 } from '@mui/material';
 import { SearchOutlined, FileDownloadOutlined } from '@mui/icons-material';
+import axios from 'axios';
+import json2csv from 'json2csv';
 
-export const CardListToolbar = ({title}) => (
+
+export const CardListToolbar = ({title}) => {
+  const handleDownload = async()=>{
+    let linkk=''
+    if (title =='Inactive Cards'){
+      linkk = 'inactive'
+    }else if(title=='Active Cards'){
+      linkk = 'active'
+    }else if(title=='Unassigned Cards'){
+      linkk = 'get_unassigned_card'
+    }
+    const urll =`http://localhost:8000/${linkk}`
+    const res = await axios.get(urll,{withCredentials:true})
+    const data = await res.data
+    const csv = json2csv.parse(data);
+    const blob = new Blob([csv], { type: 'text/csv' });
+    console.log(blob)
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download',  `${title}.csv`);
+    document.body.appendChild(link);
+    link.click();
+  }
+  return(
   <Box>
     <Box>
       <Typography
@@ -43,7 +69,7 @@ export const CardListToolbar = ({title}) => (
                 variant="outlined"
               />
             </Box>
-            <Button
+            <Button onClick={handleDownload}
               startIcon={(<FileDownloadOutlined />)}
             >
               Export
@@ -54,3 +80,4 @@ export const CardListToolbar = ({title}) => (
     </Box>
   </Box>
 );
+}
