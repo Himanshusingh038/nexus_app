@@ -84,7 +84,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                             fontWeight: "bold",
                           }}
                         >
-                          {card.c_name}
+                          {card.c_name==''? `Customer` : card.c_name}
                         </Typography>
                       </Box>
                       <Box
@@ -103,7 +103,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           Phone:
                         </Typography>
                         <Typography color="textPrimary" variant="body2">
-                          {card.c_phone}
+                          {card.c_phone==null? `-` : card.c_phone}
                         </Typography>
                       </Box>
                       <Box
@@ -141,7 +141,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           Custom URL:
                         </Typography>
                         <Typography color="textPrimary" variant="body2">
-                          {card.custom_url}
+                          {card.c_custom_url==null? `-` : card.c_custom_url}
                         </Typography>
                       </Box>
                     </TableCell>

@@ -16,7 +16,7 @@ export const GenerateNew = (props) => {
         .required('Quantity is required')
         .min(1, 'Quantity must be greater than or equal to 1')
     }),
-    onSubmit: async(values, {setSubmitting, resetForm}) => {
+    onSubmit: async(values, {resetForm}) => {
       try {
         const {quantity} = values;
         const body = {'card_count':quantity}
@@ -36,7 +36,7 @@ export const GenerateNew = (props) => {
             title: 'Oops...',
             text: 'Something went wrong!',
             confirmButtonText: 'Try again'
-          }).then((result) => {
+          }).then(() => {
             resetForm({ values: ''});
           })
         }
