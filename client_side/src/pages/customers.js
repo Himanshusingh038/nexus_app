@@ -20,7 +20,7 @@ const Page = ({customers}) => (
       }}
     >
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <CustomerListToolbar customers={customers} />
         <Box sx={{ mt: 3 }}>
           <CustomerListResults customers={customers} />
         </Box>

@@ -12,22 +12,11 @@ import axios from 'axios';
 import json2csv from 'json2csv';
 
 
-export const CardListToolbar = ({title}) => {
+export const CardListToolbar = ({title,cards}) => {
   const handleDownload = async()=>{
-    let linkk=''
-    if (title =='Inactive Cards'){
-      linkk = 'inactive'
-    }else if(title=='Active Cards'){
-      linkk = 'active'
-    }else if(title=='Unassigned Cards'){
-      linkk = 'get_unassigned_card'
-    }
-    const urll =`http://localhost:8000/${linkk}`
-    const res = await axios.get(urll,{withCredentials:true})
-    const data = await res.data
-    const csv = json2csv.parse(data);
+    const datad =cards
+    const csv = json2csv.parse(datad);
     const blob = new Blob([csv], { type: 'text/csv' });
-    console.log(blob)
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
