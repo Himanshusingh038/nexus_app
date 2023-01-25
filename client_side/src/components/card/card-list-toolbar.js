@@ -42,18 +42,10 @@ export const CardListToolbar = ({cards, title, filename}) => {
               <CsvDownloadButton 
                 data={cards} 
                 filename={filename} 
-                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1v6cirz-MuiButtonBase-root-MuiButton-root"
-                style={{
-
-                }} 
+                className="export_btn"
               >
                 Export CSV
               </CsvDownloadButton>
-              <Button 
-                startIcon={(<FileDownloadOutlined />)}
-              >
-                Export
-              </Button>
             </Box>
           </CardContent>
         </Card>
