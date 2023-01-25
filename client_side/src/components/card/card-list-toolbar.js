@@ -1,83 +1,63 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  Typography
-} from '@mui/material';
+import { Box, Button, Card, CardContent, TextField, InputAdornment, Typography } from '@mui/material';
 import { SearchOutlined, FileDownloadOutlined } from '@mui/icons-material';
+import CsvDownloadButton from 'react-json-to-csv'
 import axios from 'axios';
-import json2csv from 'json2csv';
 
+export const CardListToolbar = ({cards, title, filename}) => {
 
-export const CardListToolbar = ({title}) => {
-  const handleDownload = async()=>{
-    let linkk=''
-    if (title =='Inactive Cards'){
-      linkk = 'inactive'
-    }else if(title=='Active Cards'){
-      linkk = 'active'
-    }else if(title=='Unassigned Cards'){
-      linkk = 'get_unassigned_card'
-    }
-    const urll =`http://localhost:8000/${linkk}`
-    const res = await axios.get(urll,{withCredentials:true})
-    const data = await res.data
-    const csv = json2csv.parse(data);
-    const blob = new Blob([csv], { type: 'text/csv' });
-    console.log(blob)
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download',  `${title}.csv`);
-    document.body.appendChild(link);
-    link.click();
-  }
   return(
-  <Box>
     <Box>
-      <Typography
-        variant="h4"
-      >
-        {title}
-      </Typography>
-    </Box>
-    <Box sx={{ mt: 3 }}>
-      <Card>
-        <CardContent>
-          <Box
-            sx= {{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap'
-            }}
-          >
-            <Box sx={{ width: 500, maxWidth: '100%' }}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchOutlined />
-                    </InputAdornment>
-                  )
-                }}
-                placeholder="Search"
-                variant="outlined"
-              />
-            </Box>
-            <Button onClick={handleDownload}
-              startIcon={(<FileDownloadOutlined />)}
+      <Box>
+        <Typography
+          variant="h4"
+        >
+          {title}
+        </Typography>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Card>
+          <CardContent>
+            <Box
+              sx= {{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap'
+              }}
             >
-              Export
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+              <Box sx={{ width: 500, maxWidth: '100%' }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                  placeholder="Search"
+                  variant="outlined"
+                />
+              </Box>
+              <CsvDownloadButton 
+                data={cards} 
+                filename={filename} 
+                className="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation css-1v6cirz-MuiButtonBase-root-MuiButton-root"
+                style={{
+
+                }} 
+              >
+                Export CSV
+              </CsvDownloadButton>
+              <Button 
+                startIcon={(<FileDownloadOutlined />)}
+              >
+                Export
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
-  </Box>
-);
+  );
 }
