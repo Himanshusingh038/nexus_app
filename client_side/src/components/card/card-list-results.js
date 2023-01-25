@@ -21,7 +21,12 @@ export const CardListResults = ({ cards, status, ...rest }) => {
     } else {
       document.execCommand("copy", true, event.target.value);
     }
-    alert(event.target.value);
+    Swal.fire({
+      icon: 'success',
+      title: 'Link Copied',
+      text: event.target.value,
+      confirmButtonText: 'Great',
+    })
   };
 
   const handleLimitChange = (event) => {
