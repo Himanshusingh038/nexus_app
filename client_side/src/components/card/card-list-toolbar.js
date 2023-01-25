@@ -4,18 +4,6 @@ import CsvDownloadButton from 'react-json-to-csv'
 
 export const CardListToolbar = ({cards, title, filename}) => {
 
-export const CardListToolbar = ({title,cards}) => {
-  const handleDownload = async()=>{
-    const datad =cards
-    const csv = json2csv.parse(datad);
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download',  `${title}.csv`);
-    document.body.appendChild(link);
-    link.click();
-  }
   return(
     <Box>
       <Box>
