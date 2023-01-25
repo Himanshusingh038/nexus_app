@@ -19,7 +19,7 @@ const Page = ({cards}) => {
         }}
       >
         <Container maxWidth={false}>
-          <CardListToolbar cards={cards} title="Unassigned Cards" />
+          <CardListToolbar cards={cards} title="Unassigned Cards" filename="nexus_unassigned_cards" />
           <Box sx={{ mt: 3 }}>
             <CardListResults cards={cards} status="unassigned" />
           </Box>

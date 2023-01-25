@@ -19,7 +19,7 @@ const Page = ({cards}) => {
         }}
       >
         <Container maxWidth={false}>
-          <CardListToolbar cards={cards} title="Inactive Cards" />
+          <CardListToolbar cards={cards} title="Inactive Cards" filename="nexus_inactive_cards" />
           <Box sx={{ mt: 3 }}>
             <CardListResults cards={cards} status="inactive" />
           </Box>

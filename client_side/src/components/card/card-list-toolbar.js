@@ -1,7 +1,6 @@
-import { Box, Button, Card, CardContent, TextField, InputAdornment, Typography } from '@mui/material';
-import { SearchOutlined, FileDownloadOutlined } from '@mui/icons-material';
+import { Box, Card, CardContent, TextField, InputAdornment, Typography } from '@mui/material';
+import { SearchOutlined } from '@mui/icons-material';
 import CsvDownloadButton from 'react-json-to-csv'
-import axios from 'axios';
 
 export const CardListToolbar = ({cards, title, filename}) => {
 
