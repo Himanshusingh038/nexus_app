@@ -11,13 +11,9 @@ import { SearchOutlined, FileDownloadOutlined } from "@mui/icons-material";
 import axios from "axios";
 import json2csv from "json2csv";
 
-export const CustomerListToolbar = ({title}) => {
-  console.log(title);
+export const CustomerListToolbar = ({title,customers}) => {
   const handleDownload = async () => {
-    const res = await axios.get("http://localhost:8000/get_customers", {
-      withCredentials: true,
-    });
-    const data = await res.data;
+    const data = customers;
     const csv = json2csv.parse(data);
     const blob = new Blob([csv], { type: "text/csv" });
     console.log(blob);
