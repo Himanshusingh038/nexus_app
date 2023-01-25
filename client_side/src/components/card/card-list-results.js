@@ -1,29 +1,17 @@
 import { useState } from "react";
+import { useRouter } from "next/router"
 import NextLink from "next/link";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-import {
-  Box,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  TextField,
-  Button,
-} from "@mui/material";
-import {
-  RemoveRedEyeOutlined,
-  DeleteOutlineOutlined,
-} from "@mui/icons-material";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField, Button } from "@mui/material";
+import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import Swal from 'sweetalert2';
 import axios from "axios";
 
 export const CardListResults = ({ cards, status, ...rest }) => {
+  const router = useRouter();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -44,11 +32,48 @@ export const CardListResults = ({ cards, status, ...rest }) => {
     setPage(newPage);
   };
 
-  const handleDelete = async(card_id) =>{
-    const res = await axios.get(`http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`,{withCredentials:true});
-    window.location.reload();
-    console.log(res);
+  const handleDelete = (card_id) =>{
+    Swal.fire({
+      icon: 'question',
+      title: 'Are you sure?',
+      text: "Deleted card cannot be recovered",
+      showCancelButton: true,
+      cancelButtonText: 'No, keep it',
+      confirmButtonText: 'Yes, delete it',
+    }).then((result) => {
+      if(result.isConfirmed) {
+        deleteCard(card_id);
+      }
+    });
   };
+
+  const deleteCard = async(card_id) => {
+    try {
+      await axios.get(
+        `http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`,{withCredentials:true}
+      ).then(function (response) {
+        if (response.statusText=='OK') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Yeah...',
+            text: 'Card deleted successfully',
+            confirmButtonText: 'Great',
+          }).then(() => {
+            router.reload();
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            confirmButtonText: 'Try again'
+          })
+        }
+      });
+    } catch(error) {
+			console.error(error);
+		}
+  }
 
   return (
     <Card {...rest}>
@@ -251,7 +276,6 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           value=""
                           placeholder="Enter remarks (if any)"
                           variant="outlined"
-                          onChange=""
                         />
                       </Box>
                     )}

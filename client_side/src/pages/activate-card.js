@@ -5,7 +5,7 @@ import { Grid, Box, Container, Typography, Button, Card, CardHeader, CardContent
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useRouter } from "next/router";
 import { format } from "date-fns";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import axios from "axios";
 
 const Page = ({data}) => {
@@ -35,7 +35,6 @@ const Page = ({data}) => {
     onSubmit: async(values, {setSubmitting, setErrors, resetForm}) => {
 		try{
 			const {fname, lname, email, password} = values;
-			console.log(values);
 			const card_id = query.id
 			const old_email = cust_data.email;
 			const cst_exists = cust_data.cst_exists;
@@ -52,21 +51,21 @@ const Page = ({data}) => {
 				cst_unq_id,
 			})
 			const url = 'http://localhost:8000/activate_card'
-			const response = await axios.post(
+			await axios.post(
 				url,
         data,
         { headers: { "Content-Type": "application/json"},withCredentials:true}
-			);
-			if (response.statusText=='OK') {
-				Swal.fire({
-          icon: 'success',
-          title: 'Yeah...',
-          text: 'Card activated successfully',
-          confirmButtonText: 'Great',
-        }).then(() => {
-          router.push('/cards/active-cards');
-        })
-			  } else {
+			).then(function (response) {
+        if (response.statusText=='OK') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Yeah...',
+            text: 'Card activated successfully',
+            confirmButtonText: 'Great',
+          }).then(() => {
+            router.push('/cards/active-cards');
+          })
+        } else {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -75,19 +74,18 @@ const Page = ({data}) => {
           }).then(() => {
             resetForm({ values: ''});
           })
-			  }
-
+        }
+      });
 		} catch(error) {
 			console.error(error);
 		} finally {
 			setSubmitting(false);
 			setErrors({});
 		}
-		  Router.push("/cards/active-cards").catch(console.error);
+		  router.push("/cards/active-cards").catch(console.error);
     },
   });
   
-
   return (
     <>
       <Head>
@@ -281,10 +279,9 @@ export const getServerSideProps = async(context) =>{
   const val = (cookie.loggedIn).toString()
   const res = await axios.get(url,{ headers: { Cookie: `loggedIn=${val};` }});
 	const data = await res.data;
-	// console.log(data);
 	return {
-        props: {
-            data
-        },
+    props: {
+      data
+    },
 	}
 }
