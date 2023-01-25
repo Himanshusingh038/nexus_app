@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
-import { HomeOutlined, AddCard, CreditCard, PeopleAltOutlined, SettingsOutlined, LogoutOutlined } from '@mui/icons-material';
+import { Box, Divider, Drawer, useMediaQuery } from '@mui/material';
+import { HomeOutlined, AddCard, CreditCard, PeopleAltOutlined, SettingsOutlined } from '@mui/icons-material';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
