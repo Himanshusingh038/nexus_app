@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router"
 import NextLink from "next/link";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField, Button } from "@mui/material";
+import { CheckOutlined } from '@mui/icons-material';
 import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -79,6 +82,49 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 			console.error(error);
 		}
   }
+
+  const formik = useFormik({
+    initialValues: {
+      remarks: ""
+    },
+    validationSchema: Yup.object({
+      remarks: Yup.string()
+        .max(255)
+        .required("remark is required"),
+    }),
+    onSubmit: async(values) => {
+      try{  
+        const url = ''
+        await axios.post(
+          url,
+          data,
+          { headers: { "Content-Type": "application/json"},withCredentials:true}
+        ).then(function (response) {
+          if (response.statusText=='OK') {
+            Swal.fire({
+              icon: 'success',
+              title: 'Yeah...',
+              text: 'Card activated successfully',
+              confirmButtonText: 'Great',
+            }).then(() => {
+              router.push('/cards/active-cards');
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              confirmButtonText: 'Try again'
+            }).then(() => {
+              resetForm({ values: ''});
+            })
+          }
+        });
+      } catch(error) {
+        console.error(error);
+      }
+    },
+  });
 
   return (
     <Card {...rest}>
@@ -275,13 +321,35 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           mt: 3,
                         }}
                       >
-                        <TextField
-                          fullWidth
-                          type="text"
-                          value=""
-                          placeholder="Enter remarks (if any)"
-                          variant="outlined"
-                        />
+                        <form  onSubmit={formik.handleSubmit}>
+                          <Box
+                            sx= {{
+                              display: 'flex'
+                            }}
+                          >
+                            <TextField
+                              id={card.id}
+                              label="Remarks"
+                              name="remarks"
+                              type="text"
+                              onChange={formik.handleChange}
+                              value={formik.values.remarks}
+                              variant="outlined"
+                              error={Boolean(formik.touched.remarks && formik.errors.remarks)}
+                              helperText={formik.touched.remarks && formik.errors.remarks}
+                            />
+                            <Button
+                              color="primary"
+                              variant="contained"
+                              sx= {{
+                                ml: 1,
+                                height: 'auto'
+                              }}
+                            >
+                              <CheckOutlined fontSize="small"/>
+                            </Button>
+                          </Box>
+                        </form>
                       </Box>
                     )}
                   </TableCell>
