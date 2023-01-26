@@ -79,6 +79,9 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 			console.error(error);
 		}
   }
+  const handleRemark = async() =>{
+    console.log('Remark');
+  }
 
   return (
     <Card {...rest}>
@@ -114,7 +117,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                             fontWeight: "bold",
                           }}
                         >
-                          {card.c_name==''? `Customer` : card.c_name}
+                          {card.c_name == "" ? `Customer` : card.c_name}
                         </Typography>
                       </Box>
                       <Box
@@ -133,7 +136,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           Phone:
                         </Typography>
                         <Typography color="textPrimary" variant="body2">
-                          {card.c_phone==null? `-` : card.c_phone}
+                          {card.c_phone == null ? `-` : card.c_phone}
                         </Typography>
                       </Box>
                       <Box
@@ -171,7 +174,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           Custom URL:
                         </Typography>
                         <Typography color="textPrimary" variant="body2">
-                          {card.c_custom_url==null? `-` : card.c_custom_url}
+                          {card.c_custom_url == null ? `-` : card.c_custom_url}
                         </Typography>
                       </Box>
                     </TableCell>
@@ -275,106 +278,113 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           mt: 3,
                         }}
                       >
-                        <TextField
-                          fullWidth
-                          type="text"
-                          value=""
-                          placeholder="Enter remarks (if any)"
-                          variant="outlined"
-                        />
+                        <form onSubmit={handleRemark}>
+                          <TextField
+                            fullWidth
+                            type="text"
+                            value=""
+                            placeholder="Enter remarks (if any)"
+                            variant="outlined"
+                          />
+                          <Button 
+                          type="submit"
+                          >
+                          Submit
+                          </Button>
+                        </form>
                       </Box>
                     )}
                   </TableCell>
                   <TableCell>
-                    {format(new Date(card.reg_date),'dd-MM-yyyy')}
+                    {format(new Date(card.reg_date), "dd-MM-yyyy")}
                   </TableCell>
                   <TableCell>
-										<Box
-											sx= {{
-												display: 'flex',	
-												alignItems: 'center'
-											}}
-										>
-											{
-												status === 'active' &&
-												<a href={`http://nexuscards.in/profile/?id=${card.id}`} target="_blank">
-													<Button
-														color="primary"
-														sx= {{
-															minWidth: 'unset',
-															p: 1
-														}}
-													>
-														<RemoveRedEyeOutlined 
-															sx= {{
-																fontSize: '20px'
-															}}
-														/>
-													</Button>
-												</a>
-											}
-											{
-												status === 'inactive' &&
-												<a href="http://nexuscards.in" target="_blank">
-													<Button
-														color="primary"
-														sx= {{
-															minWidth: 'unset',
-															p: 1
-														}}
-													>
-														<RemoveRedEyeOutlined 
-															sx= {{
-																fontSize: '20px'
-															}}
-														/>
-													</Button>
-												</a>
-											}
-											{
-												status === 'unassigned' &&
-												<NextLink
-													href={{
-                              pathname: '/activate-card',
-                              query: {
-                                id: card.id,
-                                num: card.id,
-                                reg: card.reg_date
-                              }
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {status === "active" && (
+                        <a
+                          href={`http://nexuscards.in/profile/?id=${card.id}`}
+                          target="_blank"
+                        >
+                          <Button
+                            color="primary"
+                            sx={{
+                              minWidth: "unset",
+                              p: 1,
                             }}
-													passHref
-												>
-													<Typography
-														variant= "overline"
-														color="success.main"
-														sx= {{
-															cursor: 'pointer',
-															mr: 1.5,
-															textDecoration: 'underline',
-															'&:hover': {
-																color: 'success.dark'
-															}
-														}}
-													>
-														ACTIVATE
-													</Typography>
-												</NextLink>
-											}
-											<Button
-												color="primary"
-												sx= {{
-													minWidth: 'unset',
-													p: 1
-												}}
-											>
-												<DeleteOutlineOutlined 
-                          onClick = {()=> handleDelete(card.id)}
-													sx= {{
-														fontSize: '20px'
-													}}
-												/>
-											</Button>
-										</Box>
+                          >
+                            <RemoveRedEyeOutlined
+                              sx={{
+                                fontSize: "20px",
+                              }}
+                            />
+                          </Button>
+                        </a>
+                      )}
+                      {status === "inactive" && (
+                        <a href="http://nexuscards.in" target="_blank">
+                          <Button
+                            color="primary"
+                            sx={{
+                              minWidth: "unset",
+                              p: 1,
+                            }}
+                          >
+                            <RemoveRedEyeOutlined
+                              sx={{
+                                fontSize: "20px",
+                              }}
+                            />
+                          </Button>
+                        </a>
+                      )}
+                      {status === "unassigned" && (
+                        <NextLink
+                          href={{
+                            pathname: "/activate-card",
+                            query: {
+                              id: card.id,
+                              num: card.id,
+                              reg: card.reg_date,
+                            },
+                          }}
+                          passHref
+                        >
+                          <Typography
+                            variant="overline"
+                            color="success.main"
+                            sx={{
+                              cursor: "pointer",
+                              mr: 1.5,
+                              textDecoration: "underline",
+                              "&:hover": {
+                                color: "success.dark",
+                              },
+                            }}
+                          >
+                            ACTIVATE
+                          </Typography>
+                        </NextLink>
+                      )}
+                      <Button
+                        color="primary"
+                        sx={{
+                          minWidth: "unset",
+                          p: 1,
+                        }}
+                      >
+                        <DeleteOutlineOutlined
+                          onClick={() => handleDelete(card.id)}
+                          sx={{
+                            fontSize: "20px",
+                          }}
+                        />
+                      </Button>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
