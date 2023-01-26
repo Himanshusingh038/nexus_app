@@ -17,6 +17,8 @@ export const CardListResults = ({ cards, status, ...rest }) => {
   const router = useRouter();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [remark, setRemark] = useState('')
+  
 
   const handleCopyText = (event) => {
     if ("clipboard" in navigator) {
@@ -92,39 +94,48 @@ export const CardListResults = ({ cards, status, ...rest }) => {
         .max(255)
         .required("remark is required"),
     }),
-    onSubmit: async(values) => {
-      try{  
-        const url = ''
-        await axios.post(
-          url,
-          data,
-          { headers: { "Content-Type": "application/json"},withCredentials:true}
-        ).then(function (response) {
-          if (response.statusText=='OK') {
-            Swal.fire({
-              icon: 'success',
-              title: 'Yeah...',
-              text: 'Card activated successfully',
-              confirmButtonText: 'Great',
-            }).then(() => {
-              router.push('/cards/active-cards');
-            })
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: 'Something went wrong!',
-              confirmButtonText: 'Try again'
-            }).then(() => {
-              resetForm({ values: ''});
-            })
-          }
-        });
-      } catch(error) {
-        console.error(error);
-      }
-    },
   });
+  const validationSchema = Yup.object().shape({
+    remarks: Yup.string()
+      .min(3, 'Remarks must be at least 3 characters long')
+      .required('Remarks is required'),
+  });
+  
+  const handleRemark = async(event,id)=>{
+    event.preventDefault();
+    const url = 'http://localhost:8000/update_remarks'
+    try{
+      const {remarks} = formik.values;
+      validationSchema.validateSync({remarks}, {abortEarly: false});
+      const data ={
+        card_id:id,
+        remarks: remarks,
+      }
+      var res = await axios.post(url, data, {withCredentials:true});
+    }catch(err){
+      console.log(err.inner);
+    }
+    if (res && res.statusText=='OK') {
+      Swal.fire({
+        icon: 'success',
+        title: 'Yeah...',
+        text: 'Card activated successfully',
+        confirmButtonText: 'Great',
+      }).then(() => {
+        router.push('/cards/unassigned-cards');
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+        confirmButtonText: 'Try again'
+      }).then(() => {
+        setRemark("");
+        router.push('/cards/unassigned-cards');
+      })
+    }
+  }
 
   return (
     <Card {...rest}>
@@ -321,14 +332,14 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                           mt: 3,
                         }}
                       >
-                        <form  onSubmit={formik.handleSubmit}>
+                        <form  onSubmit={(event)=>handleRemark(event,card.id)}>
                           <Box
                             sx= {{
                               display: 'flex'
                             }}
                           >
                             <TextField
-                              id={card.id}
+                              id={card.id.toString()}
                               label="Remarks"
                               name="remarks"
                               type="text"
@@ -338,9 +349,11 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                               error={Boolean(formik.touched.remarks && formik.errors.remarks)}
                               helperText={formik.touched.remarks && formik.errors.remarks}
                             />
+                            <input type="hidden" name="cardId" value={card.id} />
                             <Button
                               color="primary"
                               variant="contained"
+                              type="submit"
                               sx= {{
                                 ml: 1,
                                 height: 'auto'
