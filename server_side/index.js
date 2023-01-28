@@ -81,7 +81,6 @@ app.get('/customer_actions', isAuth,db.customerAction)
 app.post('/edit_customer',isAuth, db.editCustomer)
 app.get('/all_cards', db.getAllCards)
 app.post('/update_password',db.updatePassword)
-app.get('/rubbish',db.rubbish)
 
 
 /**

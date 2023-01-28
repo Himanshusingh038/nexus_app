@@ -625,17 +625,6 @@ const updatePassword = async(req, res) => {
     }
 }
 
-const rubbish = async(req, res)=>{
-    const url = "http://localhost:8000/all_cards";
-    const resp = await axios.get(url);
-    const data = await resp.data;
-    // console.log(data);
-    var keys = Object.values(data);
-    console.log(keys);
-    res.status(200).json({data:data});
-}
-
-
 module.exports = {
     generatePromotional,
     generateExisting,
@@ -657,6 +646,5 @@ module.exports = {
     getCustomer,
     editCustomer,
     getAllCards,
-    updatePassword,
-    rubbish
+    updatePassword
   }
