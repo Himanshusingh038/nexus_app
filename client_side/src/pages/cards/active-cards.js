@@ -4,9 +4,20 @@ import { CardListResults } from "../../components/card/card-list-results";
 import { CardListToolbar } from "../../components/card/card-list-toolbar";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import axios from "axios";
+import { useState } from "react";
 
 const Page = ({ cards }) => {
-
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  const filteredCards = cards.filter((card) =>
+    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase())||
+    card.c_name && card.c_name.toLowerCase().includes(search.toLowerCase()) ||
+    card.c_phone && card.c_phone.toLowerCase().includes(search.toLowerCase()) ||
+    card.id && card.id == search
+  );
+    
   return (
     <>
       <Head>
@@ -20,9 +31,15 @@ const Page = ({ cards }) => {
         }}
       >
         <Container maxWidth={false}>
-          <CardListToolbar cards={cards} title="Active Cards" filename="nexus_active_cards" />
+          <CardListToolbar
+            cards={cards}
+            title="Active Cards"
+            filename="nexus_active_cards"
+            search={search}
+            handleSearch={handleSearch}
+          />
           <Box sx={{ mt: 3 }}>
-            <CardListResults cards={cards} status="active" />
+            <CardListResults cards={filteredCards} status="active" />
           </Box>
         </Container>
       </Box>

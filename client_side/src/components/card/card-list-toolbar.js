@@ -2,29 +2,25 @@ import { Box, Card, CardContent, TextField, InputAdornment, Typography } from '@
 import { SearchOutlined } from '@mui/icons-material';
 import CsvDownloadButton from 'react-json-to-csv'
 
-export const CardListToolbar = ({cards, title, filename}) => {
+export const CardListToolbar = ({ cards, title, filename,search,handleSearch }) => {
 
-  return(
+  return (
     <Box>
       <Box>
-        <Typography
-          variant="h4"
-        >
-          {title}
-        </Typography>
+        <Typography variant="h4">{title}</Typography>
       </Box>
       <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
             <Box
-              sx= {{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap'
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
               }}
             >
-              <Box sx={{ width: 500, maxWidth: '100%' }}>
+              <Box sx={{ width: 500, maxWidth: "100%" }}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -32,15 +28,17 @@ export const CardListToolbar = ({cards, title, filename}) => {
                       <InputAdornment position="start">
                         <SearchOutlined />
                       </InputAdornment>
-                    )
+                    ),
                   }}
                   placeholder="Search"
                   variant="outlined"
+                  value={search}
+                  onChange={handleSearch}
                 />
               </Box>
-              <CsvDownloadButton 
-                data={cards} 
-                filename={filename} 
+              <CsvDownloadButton
+                data={cards}
+                filename={filename}
                 className="export_btn"
               >
                 Export CSV
