@@ -8,10 +8,9 @@ import {
   Typography,
 } from "@mui/material";
 import { SearchOutlined, FileDownloadOutlined } from "@mui/icons-material";
-import axios from "axios";
 import json2csv from "json2csv";
 
-export const CustomerListToolbar = ({title,customers}) => {
+export const CustomerListToolbar = ({title,customers,search,handleSearch}) => {
   const handleDownload = async () => {
     const data = customers;
     const csv = json2csv.parse(data);
@@ -52,6 +51,8 @@ export const CustomerListToolbar = ({title,customers}) => {
                   }}
                   placeholder="Search"
                   variant="outlined"
+                  search ={search}
+                  onChange = {handleSearch}
                 />
               </Box>
               <Button
