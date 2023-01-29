@@ -9,7 +9,6 @@ const pool = new Pool({
   password: 'pass@123',
   port: 5432,
 })
-const axios = require("axios");
 
 
 const getAllCards = (req, res) => {
@@ -327,7 +326,6 @@ const checkCustomerExists = (req,res) => {
                     }
                     console.log(results.rowCount);
                     if (results.rowCount==0){
-                        console.log('very bad');
                         res.status(500).json({message:"customer not found"})
                     }
                     console.log('bad -place');
@@ -348,7 +346,7 @@ const checkCustomerExists = (req,res) => {
             }
             
         }else{
-            res.redirect('/unassigned-cards')
+            res.status(500).json({message:"card not found"})
         }
     })
 }
