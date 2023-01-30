@@ -21,14 +21,12 @@ export const SettingsPassword = (props) => {
     const current_password = event.target.current_password.value
     const new_password = event.target.new_password.value
     const confirm_password = event.target.confirm_password.value
-    console.log(email, current_password,new_password, confirm_password);
     const data = {
       email: email,
       current_password: current_password,
       new_password: new_password,
       confirm_password: confirm_password
     } 
-    console.log(data);
     const url = 'http://localhost:8000/update_password'
     const res = await axios.post(url,data)
    

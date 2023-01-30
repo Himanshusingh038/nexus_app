@@ -1,16 +1,18 @@
 import Head from "next/head";
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Grid, Box, Container, Typography, Button, Card, CardHeader, CardContent, TextField, Divider } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
+import Swal from 'sweetalert2';
 import axios from "axios"
-import { useRouter } from 'next/router';
-
 
 const Page = () => {
+
   const router = useRouter();
 	const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const {id, name, email, mobile} = router.query;
+
   const formik = useFormik({
     initialValues: {
       name: name,
@@ -19,36 +21,56 @@ const Page = () => {
       mobile: mobile,
     },
     validationSchema: Yup.object({
-      name: Yup.string(),
+      name: Yup.string()
+      .required("Name is required"),
       designation: Yup.string(),
       email: Yup.string()
         .email("Must be a valid email")
-        .max(255),
+        .max(255)
+        .required("Email is required"),
       mobile: Yup.string()
 				.matches(phoneRegExp, 'Must be a valid phone number')
     }),
-    onSubmit: async(values, {setSubmitting, setErrors}) => {
+    onSubmit: async(values, {setSubmitting, resetForm}) => {
       try{
-        console.log('hello update');
+        const { name, designation, email, mobile} = values;
         const url = `http://localhost:8000/edit_customer`
         const data ={
-          name: values.name,
-          designation: values.designation,
-          email: values.email,
-          mobile: values.mobile,
+          name: name,
+          designation: designation,
+          email: email,
+          mobile: mobile,
           cst_id: id
         }
-        const res = await axios.post(url, data, { headers: { "Content-Type": "application/json"},withCredentials:true})
-        if (res.statusText=='OK') {
-          alert('edited successfully');
-          router.push('/customers');
-        } else {
-          setErrors({ incorrect_data: "please the the data" });
-        }
-      }catch(err){
-        console.log(err);
-        return { props: { error: err.message } };
-      }finally{
+        await axios.post(
+          url, 
+          data, 
+          { headers: { "Content-Type": "application/json"},withCredentials:true}
+        ).then(function (response) {
+          if (response.statusText=='OK') {
+            Swal.fire({
+              icon: 'success',
+              title: 'Yeah...',
+              text: 'Customer details updated successfully',
+              confirmButtonText: 'Great',
+            }).then(() => {
+              router.push('/customers');
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              confirmButtonText: 'Try again'
+            }).then(() => {
+              resetForm({ values: ''});
+            })
+          }
+        });
+        
+      } catch(error){
+        console.error(error);
+      } finally{
         setSubmitting(false)
       }
     },
