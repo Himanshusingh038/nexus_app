@@ -1,13 +1,15 @@
 import Head from "next/head";
+import { useState } from "react";
 import { Box, Container } from "@mui/material";
 import { CardListResults } from "../../components/card/card-list-results";
 import { CardListToolbar } from "../../components/card/card-list-toolbar";
 import { DashboardLayout } from "../../components/dashboard-layout";
 import axios from "axios";
-import { useState } from "react";
 
 const Page = ({ cards }) => {
+
   const [search, setSearch] = useState("");
+  
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
