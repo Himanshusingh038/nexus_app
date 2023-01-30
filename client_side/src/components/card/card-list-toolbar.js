@@ -2,7 +2,7 @@ import { Box, Card, CardContent, TextField, InputAdornment, Typography } from '@
 import { SearchOutlined } from '@mui/icons-material';
 import CsvDownloadButton from 'react-json-to-csv'
 
-export const CardListToolbar = ({ cards, title, filename,search,handleSearch }) => {
+export const CardListToolbar = ({ cards, title, filename, search, handleSearch }) => {
 
   return (
     <Box>

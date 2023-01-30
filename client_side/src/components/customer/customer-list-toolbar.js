@@ -1,28 +1,9 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  Typography,
-} from "@mui/material";
-import { SearchOutlined, FileDownloadOutlined } from "@mui/icons-material";
-import json2csv from "json2csv";
+import { Box, Card, CardContent, TextField, InputAdornment, Typography } from "@mui/material";
+import { SearchOutlined } from "@mui/icons-material";
+import CsvDownloadButton from 'react-json-to-csv'
 
-export const CustomerListToolbar = ({title,customers,search,handleSearch}) => {
-  const handleDownload = async () => {
-    const data = customers;
-    const csv = json2csv.parse(data);
-    const blob = new Blob([csv], { type: "text/csv" });
-    console.log(blob);
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", `customers.csv`);
-    document.body.appendChild(link);
-    link.click();
-  };
+export const CustomerListToolbar = ({ customers, search, handleSearch}) => {
+  
   return (
     <Box>
       <Box>
@@ -55,12 +36,13 @@ export const CustomerListToolbar = ({title,customers,search,handleSearch}) => {
                   onChange = {handleSearch}
                 />
               </Box>
-              <Button
-                onClick={handleDownload}
-                startIcon={<FileDownloadOutlined />}
+              <CsvDownloadButton
+                data={customers}
+                filename="nexus_customers"
+                className="export_btn"
               >
-                Export
-              </Button>
+                Export CSV
+              </CsvDownloadButton>
             </Box>
           </CardContent>
         </Card>
