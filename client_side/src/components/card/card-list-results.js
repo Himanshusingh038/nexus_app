@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import NextLink from "next/link";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-import { RemarksForm } from "./remarks-form"
+import { CardRemarks } from "./card-remarks"
 import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField, Button } from "@mui/material";
 import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -266,32 +266,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                   </TableCell>
                   {status === "unassigned" && (
                     <TableCell>
-                      <Box
-                        sx={{
-                          display: "flex",
-                        }}
-                      >
-                        <Typography
-                          color="textPrimary"
-                          variant="body2"
-                          sx={{
-                            fontWeight: "bold",
-                            mr: 1,
-                          }}
-                        >
-                          Remarks:
-                        </Typography>
-                        <Typography color="textPrimary" variant="body2">
-                          {card.remarks}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          mt: 1,
-                        }}
-                      >
-                        <RemarksForm cardId={card.id} />
-                      </Box>                      
+                      <CardRemarks cardId={card.id} cardRemark={card.remarks} />
                     </TableCell>
                   )}
                   <TableCell>
