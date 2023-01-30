@@ -8,6 +8,8 @@ import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, Tab
 import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import Swal from 'sweetalert2';
+import axios from "axios";
 
 export const CardListResults = ({ cards, status, ...rest }) => {
   const router = useRouter();

@@ -1,29 +1,17 @@
 import { useState } from "react";
+import { useRouter } from "next/router"
 import PropTypes from "prop-types";
 import NextLink from "next/link";
 import { format } from "date-fns";
-import {
-  Box,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TablePagination,
-  TableRow,
-  Typography,
-  Button,
-} from "@mui/material";
-import {
-  LockOpenOutlined,
-  ModeEditOutlineOutlined,
-  DeleteOutlineOutlined,
-} from "@mui/icons-material";
+import { Box, Card, Table, TableBody,TableCell, TableHead, TablePagination, TableRow, Typography, Button } from "@mui/material";
+import { LockOpenOutlined, ModeEditOutlineOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import Swal from 'sweetalert2';
 import axios from "axios";
 
 export const CustomerListResults = ({ customers, ...rest }) => {
+  const router = useRouter();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -35,14 +23,48 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
-  const handleDelete = async (cst_id) => {
-    console.log('helper delete');
-    const res = await axios.get(
-      `http://localhost:8000/customer_actions?action=delete&cst_id=${cst_id}`, {withCredentials: true}
-    );
-    window.location.reload();
-    console.log(res);
+  const handleDelete = (customer_id) =>{
+    Swal.fire({
+      icon: 'question',
+      title: 'Are you sure?',
+      text: "Deleted card cannot be recovered",
+      showCancelButton: true,
+      cancelButtonText: 'No, keep it',
+      confirmButtonText: 'Yes, delete it',
+    }).then((result) => {
+      if(result.isConfirmed) {
+        deleteCustomer(customer_id);
+      }
+    });
   };
+
+  const deleteCustomer = async(customer_id) => {
+    try {
+      await axios.get(
+        `http://localhost:8000/customer_actions?action=delete&cst_id=${customer_id}`,{withCredentials:true}
+      ).then(function (response) {
+        if (response.statusText=='OK') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Yeah...',
+            text: 'Customer deleted successfully',
+            confirmButtonText: 'Great',
+          }).then(() => {
+            router.reload();
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+            confirmButtonText: 'Try again'
+          })
+        }
+      });
+    } catch(error) {
+			console.error(error);
+		}
+  }
 
   return (
     <Card {...rest}>
@@ -127,7 +149,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   <TableCell>
                     <Box>
                       <Typography color="textPrimary" variant="body2">
-                        {customer.phone}
+                        {customer.phone==null? `-` : customer.phone}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -167,7 +189,6 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                           />
                         </Button>
                       </NextLink>
-
                       <Button
                         color="primary"
                         sx={{
