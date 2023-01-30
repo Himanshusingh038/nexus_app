@@ -1,24 +1,18 @@
 import { useState } from "react";
 import { useRouter } from "next/router"
 import NextLink from "next/link";
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+import { RemarksForm } from "./remarks-form"
 import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, TextField, Button } from "@mui/material";
-import { CheckOutlined } from '@mui/icons-material';
 import { RemoveRedEyeOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import Swal from 'sweetalert2';
-import axios from "axios";
 
 export const CardListResults = ({ cards, status, ...rest }) => {
   const router = useRouter();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  const [remark, setRemark] = useState('')
-  
 
   const handleCopyText = (event) => {
     if ("clipboard" in navigator) {
@@ -83,58 +77,6 @@ export const CardListResults = ({ cards, status, ...rest }) => {
     } catch(error) {
 			console.error(error);
 		}
-  }
-
-  const formik = useFormik({
-    initialValues: {
-      remarks: ""
-    },
-    validationSchema: Yup.object({
-      remarks: Yup.string()
-        .max(255)
-        .required("remark is required"),
-    }),
-  });
-  const validationSchema = Yup.object().shape({
-    remarks: Yup.string()
-      .min(3, 'Remarks must be at least 3 characters long')
-      .required('Remarks is required'),
-  });
-  
-  const handleRemark = async(event,id)=>{
-    event.preventDefault();
-    const url = 'http://localhost:8000/update_remarks'
-    try{
-      const {remarks} = formik.values;
-      validationSchema.validateSync({remarks}, {abortEarly: false});
-      const data ={
-        card_id:id,
-        remarks: remarks,
-      }
-      var res = await axios.post(url, data, {withCredentials:true});
-    }catch(err){
-      console.log(err.inner);
-    }
-    if (res && res.statusText=='OK') {
-      Swal.fire({
-        icon: 'success',
-        title: 'Yeah...',
-        text: 'Card activated successfully',
-        confirmButtonText: 'Great',
-      }).then(() => {
-        router.push('/cards/unassigned-cards');
-      })
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
-        confirmButtonText: 'Try again'
-      }).then(() => {
-        setRemark("");
-        router.push('/cards/unassigned-cards');
-      })
-    }
   }
 
   return (
@@ -322,49 +264,40 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                       </Typography>
                     </Box>
                   </TableCell>
+                  {status === "unassigned" && (
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        <Typography
+                          color="textPrimary"
+                          variant="body2"
+                          sx={{
+                            fontWeight: "bold",
+                            mr: 1,
+                          }}
+                        >
+                          Remarks:
+                        </Typography>
+                        <Typography color="textPrimary" variant="body2">
+                          {card.remarks}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          mt: 1,
+                        }}
+                      >
+                        <RemarksForm cardId={card.id} />
+                      </Box>                      
+                    </TableCell>
+                  )}
                   <TableCell>
                     <Box className={`badge badge--${status}`}>
                       {card.status}
                     </Box>
-                    {status === "unassigned" && (
-                      <Box
-                        sx={{
-                          mt: 3,
-                        }}
-                      >
-                        <form  onSubmit={(event)=>handleRemark(event,card.id)}>
-                          <Box
-                            sx= {{
-                              display: 'flex'
-                            }}
-                          >
-                            <TextField
-                              id={card.id.toString()}
-                              label="Remarks"
-                              name="remarks"
-                              type="text"
-                              onChange={formik.handleChange}
-                              value={formik.values.remarks}
-                              variant="outlined"
-                              error={Boolean(formik.touched.remarks && formik.errors.remarks)}
-                              helperText={formik.touched.remarks && formik.errors.remarks}
-                            />
-                            <input type="hidden" name="cardId" value={card.id} />
-                            <Button
-                              color="primary"
-                              variant="contained"
-                              type="submit"
-                              sx= {{
-                                ml: 1,
-                                height: 'auto'
-                              }}
-                            >
-                              <CheckOutlined fontSize="small"/>
-                            </Button>
-                          </Box>
-                        </form>
-                      </Box>
-                    )}
                   </TableCell>
                   <TableCell>
                     {format(new Date(card.reg_date),'dd-MM-yyyy')}
