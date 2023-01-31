@@ -17,6 +17,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
@@ -81,7 +82,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              { customers.length > 0 ? customers.slice(0, limit).map((customer) => (
+              { customers.length > 0 ? customers.slice(page * limit, page * limit + limit).map((customer) => (
                 <TableRow hover key={customer.id}>
                   <TableCell>
                     <Box

@@ -32,6 +32,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
+    setPage(0);
   };
 
   const handlePageChange = (event, newPage) => {
@@ -98,7 +99,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              { cards.length > 0 ? cards.slice(0, limit).map((card) => (
+              { cards.length > 0 ? cards.slice(page * limit, page * limit + limit).map((card) => (
                   <TableRow hover key={card.id}>
                     {status !== "unassigned" && (
                       <TableCell>
@@ -383,11 +384,13 @@ export const CardListResults = ({ cards, status, ...rest }) => {
       <TablePagination
         component="div"
         count={cards.length}
+        rowsPerPage={limit}
+        page={page}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10]}
+        showFirstButton={true}
+        showLastButton={true}
       />
     </Card>
   );
