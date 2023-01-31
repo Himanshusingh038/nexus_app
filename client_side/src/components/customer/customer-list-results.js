@@ -81,7 +81,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              { customers.length > 0 ? customers.slice(0, limit).map((customer) => (
                 <TableRow hover key={customer.id}>
                   <TableCell>
                     <Box
@@ -206,7 +206,14 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     </Box>
                   </TableCell>
                 </TableRow>
-              ))}
+              )) : (
+                <TableRow>
+                  <TableCell colSpan={12}>
+                    No results found
+                  </TableCell>
+                </TableRow>
+              )
+            }
             </TableBody>
           </Table>
         </Box>
