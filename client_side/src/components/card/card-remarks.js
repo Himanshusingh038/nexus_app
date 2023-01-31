@@ -41,7 +41,6 @@ export const CardRemarks = ( { cardRemark, cardId } ) => {
 						}).then(() => {
 							resetForm({ values: ''});
 							setRemarks(remarks);
-							console.log("success");
 						})
 					}
 					else {
