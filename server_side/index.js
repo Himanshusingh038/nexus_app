@@ -59,7 +59,6 @@ app.use(
     cookie: { maxAge: 4 * 60 * 60 * 1000, domain: "localhost" },
   })
 );
-console.log(isAuth);
 app.post("/generate_promotional", isAuth, generatePromotional);
 app.post("/generate_existing", isAuth, db.generateExisting);
 app.get("/get_unassigned_card", isAuth, getUnassignedCard);

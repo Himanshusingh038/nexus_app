@@ -31,7 +31,6 @@ const Page = () => {
           email: email,
           password: password
         });
-        console.log('point 1');
         const response = await axios.post(
           "http://localhost:8000/login",
           datad,
@@ -41,7 +40,6 @@ const Page = () => {
         const sessionCookie =data;
         document.cookie = sessionCookie;
         if (response.data.status=='success') {
-          console.log('success');
           Router.push('/dashboard');
         } else {
           if (response.data.status=='email not found'){
