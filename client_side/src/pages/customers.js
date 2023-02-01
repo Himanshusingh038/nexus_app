@@ -20,7 +20,7 @@ const Page = ({ customers }) => {
   return (
     <>
       <Head>
-        <title>Customers | Material Kit</title>
+        <title>Customers | Nexus</title>
       </Head>
       <Box
         component="main"
