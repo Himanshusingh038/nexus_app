@@ -2,7 +2,7 @@ const pool = require("../dbconn");
 
 module.exports = (req, res) => {
   const { card_id, action } = req.query;
-  sql = `select * from cards where card_id = ${card_id}`;
+  sql = `select * from cards where card_id = '${card_id}'`;
   pool.query(sql, (err, results) => {
     if (err) {
       throw err;

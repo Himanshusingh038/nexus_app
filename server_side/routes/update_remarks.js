@@ -1,12 +1,14 @@
 const pool = require("../dbconn");
 
 module.exports = async (req, res) => {
+  console.log('update remark');
   try {
     const { card_id, remarks } = req.body;
     if (card_id == null || remarks == null) {
       res.status(500).json({ status: "failed" });
     } else {
-      sql = `update cards set remarks='${remarks}' where card_id=${card_id} returning *`;
+      sql = `update cards set remarks='${remarks}' where card_id='${card_id}' returning *`;
+      console.log(sql);
       var data = await pool.query(sql);
       console.log(data.rows[0].card_id, data.rows[0].remarks);
       const row = data.rowCount;
