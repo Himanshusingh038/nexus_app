@@ -82,7 +82,6 @@ const Page = ({data}) => {
 			setSubmitting(false);
 			setErrors({});
 		}
-		  router.push("/cards/active-cards").catch(console.error);
     },
   });
   
