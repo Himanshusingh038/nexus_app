@@ -1,11 +1,11 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 
-export const StatisticsCard = ({title, value, icon, bg}) => {
+export const StatisticsCard = ({ title, value, icon, bg }) => {
   var ComponentName = icon;
   return (
     <>
       <Card
-        sx = {{
+        sx={{
           backgroundColor: bg
         }}
       >
@@ -16,7 +16,7 @@ export const StatisticsCard = ({title, value, icon, bg}) => {
             sx={{ justifyContent: 'space-between' }}
           >
             <Grid item>
-            <Typography
+              <Typography
                 color="primary.contrastText"
                 variant="h4"
               >

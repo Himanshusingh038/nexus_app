@@ -16,19 +16,19 @@ export const GenerateNew = (props) => {
         .required('Quantity is required')
         .min(1, 'Quantity must be greater than or equal to 1')
     }),
-    onSubmit: async(values, {resetForm}) => {
+    onSubmit: async (values, { resetForm }) => {
       try {
-        const {quantity} = values;
-        const body = {'card_count':quantity}
-        const response = await axios.post('http://localhost:8000/generate_promotional',body,{ withCredentials: true });
-        if(response.statusText=='OK') {
+        const { quantity } = values;
+        const body = { 'card_count': quantity }
+        const response = await axios.post('http://localhost:8000/generate_promotional', body, { withCredentials: true });
+        if (response.statusText == 'OK') {
           Swal.fire({
             icon: 'success',
             title: 'Yeah...',
             text: 'Card generation successful',
             confirmButtonText: 'Great',
           }).then((result) => {
-            resetForm({ values: ''});
+            resetForm({ values: '' });
           })
         } else {
           Swal.fire({
@@ -37,10 +37,10 @@ export const GenerateNew = (props) => {
             text: 'Something went wrong!',
             confirmButtonText: 'Try again'
           }).then(() => {
-            resetForm({ values: ''});
+            resetForm({ values: '' });
           })
         }
-      } catch(error) {
+      } catch (error) {
         console.error(error);
       }
     }
@@ -52,7 +52,7 @@ export const GenerateNew = (props) => {
         <Card>
           <CardHeader
             title="Generate cards for new users"
-            sx = {{
+            sx={{
               color: "secondary.dark"
             }}
           />
@@ -78,7 +78,7 @@ export const GenerateNew = (props) => {
               px: 3
             }}
           >
-            <Button  
+            <Button
               color="primary"
               type="submit"
               variant="contained"
@@ -98,6 +98,6 @@ export const GenerateNew = (props) => {
         </Card>
       </form>
     </div>
-    
+
   );
 };

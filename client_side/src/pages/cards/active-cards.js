@@ -9,17 +9,17 @@ import axios from "axios";
 const Page = ({ cards }) => {
 
   const [search, setSearch] = useState("");
-  
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
   const filteredCards = cards.filter((card) =>
-    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase())||
+    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase()) ||
     card.c_name && card.c_name.toLowerCase().includes(search.toLowerCase()) ||
     card.c_phone && card.c_phone.toLowerCase().includes(search.toLowerCase()) ||
     card.id && card.id == search
   );
-    
+
   return (
     <>
       <Head>
@@ -57,10 +57,10 @@ export const getServerSideProps = async (context) => {
   const url = "http://localhost:8000/active";
   const cookie = context.req.cookies
   let val = undefined
-  if (cookie.loggedIn){
-     val = (cookie.loggedIn).toString()
+  if (cookie.loggedIn) {
+    val = (cookie.loggedIn).toString()
   }
-  const res = await axios.get(url,{ headers: { Cookie: `loggedIn=${val};` }});
+  const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
   const data = await res.data;
   var cards = Object.values(data);
   return {

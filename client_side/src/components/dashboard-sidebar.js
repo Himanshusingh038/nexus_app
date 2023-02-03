@@ -23,7 +23,7 @@ const items = [
     collapse: true,
     href: 'cards',
     icon: (<CreditCard />),
-    title: 'Manage Cards',    
+    title: 'Manage Cards',
     links: [
       {
         href: 'active-cards',
@@ -37,7 +37,7 @@ const items = [
         href: 'inactive-cards',
         title: 'Inactive'
       }
-  ]
+    ]
   },
   {
     collapse: false,
@@ -103,7 +103,7 @@ export const DashboardSidebar = (props) => {
         <Box sx={{ flexGrow: 1 }}>
           {
             items.map((item) => {
-              if(item.collapse) {
+              if (item.collapse) {
                 return (
                   <NavItem
                     key={item.title}

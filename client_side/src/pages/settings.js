@@ -24,7 +24,7 @@ const Page = () => (
         >
           Account Settings
         </Typography>
-        <SettingsPassword />        
+        <SettingsPassword />
       </Container>
     </Box>
   </>

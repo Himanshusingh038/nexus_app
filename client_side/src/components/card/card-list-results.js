@@ -39,7 +39,7 @@ export const CardListResults = ({ cards, status, ...rest }) => {
     setPage(newPage);
   };
 
-  const handleDelete = (card_id) =>{
+  const handleDelete = (card_id) => {
     Swal.fire({
       icon: 'question',
       title: 'Are you sure?',
@@ -48,18 +48,18 @@ export const CardListResults = ({ cards, status, ...rest }) => {
       cancelButtonText: 'No, keep it',
       confirmButtonText: 'Yes, delete it',
     }).then((result) => {
-      if(result.isConfirmed) {
+      if (result.isConfirmed) {
         deleteCard(card_id);
       }
     });
   };
 
-  const deleteCard = async(card_id) => {
+  const deleteCard = async (card_id) => {
     try {
       await axios.get(
-        `http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`,{withCredentials:true}
+        `http://localhost:8000/unassigned_action?action=delete&card_id=${card_id}`, { withCredentials: true }
       ).then(function (response) {
-        if (response.statusText=='OK') {
+        if (response.statusText == 'OK') {
           Swal.fire({
             icon: 'success',
             title: 'Yeah...',
@@ -77,9 +77,9 @@ export const CardListResults = ({ cards, status, ...rest }) => {
           })
         }
       });
-    } catch(error) {
-			console.error(error);
-		}
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -99,283 +99,283 @@ export const CardListResults = ({ cards, status, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              { cards.length > 0 ? cards.slice(page * limit, page * limit + limit).map((card) => (
-                  <TableRow hover key={card.id}>
+              {cards.length > 0 ? cards.slice(page * limit, page * limit + limit).map((card) => (
+                <TableRow hover key={card.id}>
+                  {status !== "unassigned" && (
+                    <TableCell>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          mb: 1,
+                        }}
+                      >
+                        <Typography
+                          color="primary.dark"
+                          variant="body1"
+                          sx={{
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {card.c_name == '' ? `Customer` : card.c_name}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        <Typography
+                          color="textPrimary"
+                          variant="body2"
+                          sx={{
+                            fontWeight: "bold",
+                            mr: 1,
+                          }}
+                        >
+                          Phone:
+                        </Typography>
+                        <Typography color="textPrimary" variant="body2">
+                          {card.c_phone == null ? `-` : card.c_phone}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        <Typography
+                          color="textPrimary"
+                          variant="body2"
+                          sx={{
+                            fontWeight: "bold",
+                            mr: 1,
+                          }}
+                        >
+                          Email:
+                        </Typography>
+                        <Typography color="textPrimary" variant="body2">
+                          {card.c_email}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                        }}
+                      >
+                        <Typography
+                          color="textPrimary"
+                          variant="body2"
+                          sx={{
+                            fontWeight: "bold",
+                            mr: 1,
+                          }}
+                        >
+                          Custom URL:
+                        </Typography>
+                        <Typography color="textPrimary" variant="body2">
+                          {card.c_custom_url == null ? `-` : card.c_custom_url}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  )}
+                  <TableCell>
+                    <Box
+                      sx={{
+                        display: "flex",
+                      }}
+                    >
+                      <Typography
+                        color="textPrimary"
+                        variant="body2"
+                        sx={{
+                          fontWeight: "bold",
+                          mr: 1,
+                        }}
+                      >
+                        Card No:
+                      </Typography>
+                      <Typography color="textPrimary" variant="body2">
+                        {card.card_no}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                      }}
+                    >
+                      <Typography
+                        color="textPrimary"
+                        variant="body2"
+                        sx={{
+                          fontWeight: "bold",
+                          mr: 1,
+                        }}
+                      >
+                        Card ID:
+                      </Typography>
+                      <Typography color="textPrimary" variant="body2">
+                        {card.id}
+                      </Typography>
+                    </Box>
                     {status !== "unassigned" && (
-                      <TableCell>
+                      <Box>
                         <Box
                           sx={{
                             display: "flex",
-                            mb: 1,
                           }}
                         >
+                          <Typography
+                            color="textPrimary"
+                            variant="body2"
+                            sx={{
+                              fontWeight: "bold",
+                              mr: 1,
+                            }}
+                          >
+                            Views:
+                          </Typography>
                           <Typography
                             color="primary.dark"
-                            variant="body1"
-                            sx={{
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {card.c_name==''? `Customer` : card.c_name}
-                          </Typography>
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                          }}
-                        >
-                          <Typography
-                            color="textPrimary"
                             variant="body2"
                             sx={{
                               fontWeight: "bold",
-                              mr: 1,
                             }}
                           >
-                            Phone:
-                          </Typography>
-                          <Typography color="textPrimary" variant="body2">
-                            {card.c_phone==null? `-` : card.c_phone}
+                            {card.views}
                           </Typography>
                         </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                          }}
-                        >
-                          <Typography
-                            color="textPrimary"
-                            variant="body2"
-                            sx={{
-                              fontWeight: "bold",
-                              mr: 1,
-                            }}
-                          >
-                            Email:
-                          </Typography>
-                          <Typography color="textPrimary" variant="body2">
-                            {card.c_email}
-                          </Typography>
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                          }}
-                        >
-                          <Typography
-                            color="textPrimary"
-                            variant="body2"
-                            sx={{
-                              fontWeight: "bold",
-                              mr: 1,
-                            }}
-                          >
-                            Custom URL:
-                          </Typography>
-                          <Typography color="textPrimary" variant="body2">
-                            {card.c_custom_url==null? `-` : card.c_custom_url}
-                          </Typography>
-                        </Box>
-                      </TableCell>
+                      </Box>
                     )}
+                    <Box
+                      sx={{
+                        mt: 1,
+                      }}
+                    >
+                      <TextField
+                        fullWidth
+                        type="text"
+                        value={`http://www.nexuscards.in/profile/?id=${card.id}`}
+                        variant="outlined"
+                        onClick={handleCopyText}
+                        inputProps={{ readOnly: true }}
+                        sx={{
+                          mb: 0.5,
+                        }}
+                      />
+                      <Typography color="textSecondary" variant="caption">
+                        Click on the link to Copy
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  {status === "unassigned" && (
                     <TableCell>
-                      <Box
-                        sx={{
-                          display: "flex",
-                        }}
-                      >
-                        <Typography
-                          color="textPrimary"
-                          variant="body2"
-                          sx={{
-                            fontWeight: "bold",
-                            mr: 1,
-                          }}
-                        >
-                          Card No:
-                        </Typography>
-                        <Typography color="textPrimary" variant="body2">
-                          {card.card_no}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                        }}
-                      >
-                        <Typography
-                          color="textPrimary"
-                          variant="body2"
-                          sx={{
-                            fontWeight: "bold",
-                            mr: 1,
-                          }}
-                        >
-                          Card ID:
-                        </Typography>
-                        <Typography color="textPrimary" variant="body2">
-                          {card.id}
-                        </Typography>
-                      </Box>
-                      {status !== "unassigned" && (
-                        <Box>
-                          <Box
+                      <CardRemarks cardId={card.id} cardRemark={card.remarks} />
+                    </TableCell>
+                  )}
+                  <TableCell>
+                    <Box className={`badge badge--${status}`}>
+                      {card.status}
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    {format(new Date(card.reg_date), 'dd-MM-yyyy')}
+                  </TableCell>
+                  <TableCell>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {
+                        status === 'active' &&
+                        <a href={`http://nexuscards.in/profile/?id=${card.id}`} target="_blank">
+                          <Button
+                            color="primary"
                             sx={{
-                              display: "flex",
+                              minWidth: 'unset',
+                              p: 1
                             }}
                           >
-                            <Typography
-                              color="textPrimary"
-                              variant="body2"
+                            <RemoveRedEyeOutlined
                               sx={{
-                                fontWeight: "bold",
-                                mr: 1,
+                                fontSize: '20px'
                               }}
-                            >
-                              Views:
-                            </Typography>
-                            <Typography
-                              color="primary.dark"
-                              variant="body2"
+                            />
+                          </Button>
+                        </a>
+                      }
+                      {
+                        status === 'inactive' &&
+                        <a href="http://nexuscards.in" target="_blank">
+                          <Button
+                            color="primary"
+                            sx={{
+                              minWidth: 'unset',
+                              p: 1
+                            }}
+                          >
+                            <RemoveRedEyeOutlined
                               sx={{
-                                fontWeight: "bold",
+                                fontSize: '20px'
                               }}
-                            >
-                              {card.views}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      )}
-                      <Box
+                            />
+                          </Button>
+                        </a>
+                      }
+                      {
+                        status === 'unassigned' &&
+                        <NextLink
+                          href={{
+                            pathname: '/activate-card',
+                            query: {
+                              id: card.id,
+                              num: card.id,
+                              reg: card.reg_date
+                            }
+                          }}
+                          passHref
+                        >
+                          <Typography
+                            variant="overline"
+                            color="success.main"
+                            sx={{
+                              cursor: 'pointer',
+                              mr: 1.5,
+                              textDecoration: 'underline',
+                              '&:hover': {
+                                color: 'success.dark'
+                              }
+                            }}
+                          >
+                            ACTIVATE
+                          </Typography>
+                        </NextLink>
+                      }
+                      <Button
+                        color="primary"
                         sx={{
-                          mt: 1,
+                          minWidth: 'unset',
+                          p: 1
                         }}
                       >
-                        <TextField
-                          fullWidth
-                          type="text"
-                          value={`http://www.nexuscards.in/profile/?id=${card.id}`}
-                          variant="outlined"
-                          onClick={handleCopyText}
-                          inputProps={{ readOnly: true }}
+                        <DeleteOutlineOutlined
+                          onClick={() => handleDelete(card.id)}
                           sx={{
-                            mb: 0.5,
+                            fontSize: '20px'
                           }}
                         />
-                        <Typography color="textSecondary" variant="caption">
-                          Click on the link to Copy
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    {status === "unassigned" && (
-                      <TableCell>
-                        <CardRemarks cardId={card.id} cardRemark={card.remarks} />
-                      </TableCell>
-                    )}
-                    <TableCell>
-                      <Box className={`badge badge--${status}`}>
-                        {card.status}
-                      </Box>
-                    </TableCell>
-                    <TableCell>
-                      {format(new Date(card.reg_date),'dd-MM-yyyy')}
-                    </TableCell>
-                    <TableCell>
-                      <Box
-                        sx= {{
-                          display: 'flex',	
-                          alignItems: 'center'
-                        }}
-                      >
-                        {
-                          status === 'active' &&
-                          <a href={`http://nexuscards.in/profile/?id=${card.id}`} target="_blank">
-                            <Button
-                              color="primary"
-                              sx= {{
-                                minWidth: 'unset',
-                                p: 1
-                              }}
-                            >
-                              <RemoveRedEyeOutlined 
-                                sx= {{
-                                  fontSize: '20px'
-                                }}
-                              />
-                            </Button>
-                          </a>
-                        }
-                        {
-                          status === 'inactive' &&
-                          <a href="http://nexuscards.in" target="_blank">
-                            <Button
-                              color="primary"
-                              sx= {{
-                                minWidth: 'unset',
-                                p: 1
-                              }}
-                            >
-                              <RemoveRedEyeOutlined 
-                                sx= {{
-                                  fontSize: '20px'
-                                }}
-                              />
-                            </Button>
-                          </a>
-                        }
-                        {
-                          status === 'unassigned' &&
-                          <NextLink
-                            href={{
-                                pathname: '/activate-card',
-                                query: {
-                                  id: card.id,
-                                  num: card.id,
-                                  reg: card.reg_date
-                                }
-                              }}
-                            passHref
-                          >
-                            <Typography
-                              variant= "overline"
-                              color="success.main"
-                              sx= {{
-                                cursor: 'pointer',
-                                mr: 1.5,
-                                textDecoration: 'underline',
-                                '&:hover': {
-                                  color: 'success.dark'
-                                }
-                              }}
-                            >
-                              ACTIVATE
-                            </Typography>
-                          </NextLink>
-                        }
-                        <Button
-                          color="primary"
-                          sx= {{
-                            minWidth: 'unset',
-                            p: 1
-                          }}
-                        >
-                          <DeleteOutlineOutlined 
-                            onClick = {()=> handleDelete(card.id)}
-                            sx= {{
-                              fontSize: '20px'
-                            }}
-                          />
-                        </Button>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                )) : (
-                  <TableRow>
-                    <TableCell colSpan={12}>
-                      No results found
-                    </TableCell>
-                  </TableRow>
-                )
+                      </Button>
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              )) : (
+                <TableRow>
+                  <TableCell colSpan={12}>
+                    No results found
+                  </TableCell>
+                </TableRow>
+              )
               }
             </TableBody>
           </Table>

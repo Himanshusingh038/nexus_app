@@ -10,8 +10,8 @@ import axios from "axios"
 const Page = () => {
 
   const router = useRouter();
-	const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-  const {id, name, email, mobile} = router.query;
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const { id, name, email, mobile } = router.query;
 
   const formik = useFormik({
     initialValues: {
@@ -22,20 +22,20 @@ const Page = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
-      .required("Name is required"),
+        .required("Name is required"),
       designation: Yup.string(),
       email: Yup.string()
         .email("Must be a valid email")
         .max(255)
         .required("Email is required"),
       mobile: Yup.string()
-				.matches(phoneRegExp, 'Must be a valid phone number')
+        .matches(phoneRegExp, 'Must be a valid phone number')
     }),
-    onSubmit: async(values, {setSubmitting, resetForm}) => {
-      try{
-        const { name, designation, email, mobile} = values;
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        const { name, designation, email, mobile } = values;
         const url = `http://localhost:8000/edit_customer`
-        const data ={
+        const data = {
           name: name,
           designation: designation,
           email: email,
@@ -43,11 +43,11 @@ const Page = () => {
           cst_id: id
         }
         await axios.post(
-          url, 
-          data, 
-          { headers: { "Content-Type": "application/json"},withCredentials:true}
+          url,
+          data,
+          { headers: { "Content-Type": "application/json" }, withCredentials: true }
         ).then(function (response) {
-          if (response.statusText=='OK') {
+          if (response.statusText == 'OK') {
             Swal.fire({
               icon: 'success',
               title: 'Yeah...',
@@ -63,19 +63,19 @@ const Page = () => {
               text: 'Something went wrong!',
               confirmButtonText: 'Try again'
             }).then(() => {
-              resetForm({ values: ''});
+              resetForm({ values: '' });
             })
           }
         });
-        
-      } catch(error){
+
+      } catch (error) {
         console.error(error);
-      } finally{
+      } finally {
         setSubmitting(false)
       }
     },
   });
-  
+
 
   return (
     <>
@@ -123,7 +123,7 @@ const Page = () => {
                       onChange={formik.handleChange}
                       type="text"
                       value={formik./* `values` is an object that contains all the values of the form. */
-                      values.designation}
+                        values.designation}
                       variant="outlined"
                     />
                     <TextField

@@ -2,8 +2,8 @@ import { Box, Card, CardContent, TextField, InputAdornment, Typography } from "@
 import { SearchOutlined } from "@mui/icons-material";
 import CsvDownloadButton from 'react-json-to-csv'
 
-export const CustomerListToolbar = ({ customers, search, handleSearch}) => {
-  
+export const CustomerListToolbar = ({ customers, search, handleSearch }) => {
+
   return (
     <Box>
       <Box>
@@ -32,8 +32,8 @@ export const CustomerListToolbar = ({ customers, search, handleSearch}) => {
                   }}
                   placeholder="Search"
                   variant="outlined"
-                  search ={search}
-                  onChange = {handleSearch}
+                  search={search}
+                  onChange={handleSearch}
                 />
               </Box>
               <CsvDownloadButton

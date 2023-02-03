@@ -15,7 +15,7 @@ export const SettingsPassword = (props) => {
     });
   };
   const router = useRouter();
-  const handleSubmit = async(event)=>{
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.email.value
     const current_password = event.target.current_password.value
@@ -26,14 +26,14 @@ export const SettingsPassword = (props) => {
       current_password: current_password,
       new_password: new_password,
       confirm_password: confirm_password
-    } 
+    }
     const url = 'http://localhost:8000/update_password'
-    const res = await axios.post(url,data)
-   
-    if(res.statusCode === 200) {
+    const res = await axios.post(url, data)
+
+    if (res.statusCode === 200) {
       router.push('/update_password')
-      
-    }window.location.reload()
+
+    } window.location.reload()
   }
 
   return (
@@ -123,7 +123,7 @@ export const SettingsPassword = (props) => {
             variant="contained"
             sx={{ mr: 2 }}
             type="submit"
-            
+
           >
             Update Password
           </Button>

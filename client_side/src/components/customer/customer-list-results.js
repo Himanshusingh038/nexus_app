@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import PropTypes from "prop-types";
 import NextLink from "next/link";
 import { format } from "date-fns";
-import { Box, Card, Table, TableBody,TableCell, TableHead, TablePagination, TableRow, Typography, Button } from "@mui/material";
+import { Box, Card, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography, Button } from "@mui/material";
 import { LockOpenOutlined, ModeEditOutlineOutlined, DeleteOutlineOutlined } from "@mui/icons-material";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -24,7 +24,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
     setPage(newPage);
   };
 
-  const handleDelete = (customer_id) =>{
+  const handleDelete = (customer_id) => {
     Swal.fire({
       icon: 'question',
       title: 'Are you sure?',
@@ -33,18 +33,18 @@ export const CustomerListResults = ({ customers, ...rest }) => {
       cancelButtonText: 'No, keep it',
       confirmButtonText: 'Yes, delete it',
     }).then((result) => {
-      if(result.isConfirmed) {
+      if (result.isConfirmed) {
         deleteCustomer(customer_id);
       }
     });
   };
 
-  const deleteCustomer = async(customer_id) => {
+  const deleteCustomer = async (customer_id) => {
     try {
       await axios.get(
-        `http://localhost:8000/customer_actions?action=delete&cst_id=${customer_id}`,{withCredentials:true}
+        `http://localhost:8000/customer_actions?action=delete&cst_id=${customer_id}`, { withCredentials: true }
       ).then(function (response) {
-        if (response.statusText=='OK') {
+        if (response.statusText == 'OK') {
           Swal.fire({
             icon: 'success',
             title: 'Yeah...',
@@ -62,9 +62,9 @@ export const CustomerListResults = ({ customers, ...rest }) => {
           })
         }
       });
-    } catch(error) {
-			console.error(error);
-		}
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -82,7 +82,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              { customers.length > 0 ? customers.slice(page * limit, page * limit + limit).map((customer) => (
+              {customers.length > 0 ? customers.slice(page * limit, page * limit + limit).map((customer) => (
                 <TableRow hover key={customer.id}>
                   <TableCell>
                     <Box
@@ -150,7 +150,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   <TableCell>
                     <Box>
                       <Typography color="textPrimary" variant="body2">
-                        {customer.phone==null? `-` : customer.phone}
+                        {customer.phone == null ? `-` : customer.phone}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -214,7 +214,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   </TableCell>
                 </TableRow>
               )
-            }
+              }
             </TableBody>
           </Table>
         </Box>

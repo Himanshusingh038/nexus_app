@@ -5,24 +5,24 @@ import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import axios from "axios";
 
-export const CardRemarks = ( { cardRemark, cardId } ) => {
+export const CardRemarks = ({ cardRemark, cardId }) => {
 
 	const [remarks, setRemarks] = useState(cardRemark);
 
 	const formik = useFormik({
 		initialValues: {
-      remarks: ""
-    },
+			remarks: ""
+		},
 		validationSchema: Yup.object({
-      remarks: Yup.string()
-        .max(255)
-        .min(3, 'Must be at least 3 characters long')
-        .required("Remark is required"),
-    }),
-		onSubmit:async(values, {setSubmitting, setErrors, resetForm}) => {
+			remarks: Yup.string()
+				.max(255)
+				.min(3, 'Must be at least 3 characters long')
+				.required("Remark is required"),
+		}),
+		onSubmit: async (values, { setSubmitting, setErrors, resetForm }) => {
 			try {
 				const { remarks } = values;
-				const data ={
+				const data = {
 					card_id: cardId,
 					remarks: remarks,
 				}
@@ -30,16 +30,16 @@ export const CardRemarks = ( { cardRemark, cardId } ) => {
 				await axios.post(
 					url,
 					data,
-					{withCredentials:true}
+					{ withCredentials: true }
 				).then(function (response) {
-					if (response.statusText=='OK') {
+					if (response.statusText == 'OK') {
 						Swal.fire({
 							icon: 'success',
 							title: 'Yeah...',
 							text: 'Remark updated successfully',
 							confirmButtonText: 'Great',
 						}).then(() => {
-							resetForm({ values: ''});
+							resetForm({ values: '' });
 							setRemarks(remarks);
 						})
 					}
@@ -50,11 +50,11 @@ export const CardRemarks = ( { cardRemark, cardId } ) => {
 							text: 'Something went wrong!',
 							confirmButtonText: 'Try again'
 						}).then(() => {
-							resetForm({ values: ''});
+							resetForm({ values: '' });
 						})
 					}
 				});
-			} catch(error) {
+			} catch (error) {
 				console.error(error);
 			} finally {
 				setSubmitting(false);
@@ -65,75 +65,75 @@ export const CardRemarks = ( { cardRemark, cardId } ) => {
 
 	return (
 		<>
-		<Box>
-			<Box
-				sx={{
-					display: "flex",
-				}}
-			>
-				<Typography
-					color="textPrimary"
-					variant="body2"
+			<Box>
+				<Box
 					sx={{
-						fontWeight: "bold",
-						mr: 1,
+						display: "flex",
 					}}
 				>
-					Remarks:
-				</Typography>
-				<Typography color="textPrimary" variant="body2">
-					{remarks}
-				</Typography>
-			</Box>
-			<Box
-				sx={{
-					mt: 1,
-				}}
-			>
-				<form onSubmit={formik.handleSubmit}>
-					<Box>
-						<TextField
-							fullWidth
-							label="Remarks"
-							name="remarks"
-							type="text"
-							onChange={formik.handleChange}
-							value={formik.values.remarks}
-							variant="outlined"
-							error={Boolean(formik.touched.remarks && formik.errors.remarks)}
-							helperText={formik.touched.remarks && formik.errors.remarks}
-						/>
-						<Box 
-							sx= {{
-								display: 'flex',
-								mt: 1.5
-							}}
-						>
-							<Button
-								size="small"
-								color="primary"
-								variant="contained"
-								type="submit"
-								disabled={formik.isSubmitting}
-							>
-								Submit
-							</Button>
-							<Button
-								size="small"
-								color="primary"
+					<Typography
+						color="textPrimary"
+						variant="body2"
+						sx={{
+							fontWeight: "bold",
+							mr: 1,
+						}}
+					>
+						Remarks:
+					</Typography>
+					<Typography color="textPrimary" variant="body2">
+						{remarks}
+					</Typography>
+				</Box>
+				<Box
+					sx={{
+						mt: 1,
+					}}
+				>
+					<form onSubmit={formik.handleSubmit}>
+						<Box>
+							<TextField
+								fullWidth
+								label="Remarks"
+								name="remarks"
+								type="text"
+								onChange={formik.handleChange}
+								value={formik.values.remarks}
 								variant="outlined"
-								onClick={formik.handleReset}
+								error={Boolean(formik.touched.remarks && formik.errors.remarks)}
+								helperText={formik.touched.remarks && formik.errors.remarks}
+							/>
+							<Box
 								sx={{
-									ml: 1
+									display: 'flex',
+									mt: 1.5
 								}}
 							>
-								Reset
-							</Button>
+								<Button
+									size="small"
+									color="primary"
+									variant="contained"
+									type="submit"
+									disabled={formik.isSubmitting}
+								>
+									Submit
+								</Button>
+								<Button
+									size="small"
+									color="primary"
+									variant="outlined"
+									onClick={formik.handleReset}
+									sx={{
+										ml: 1
+									}}
+								>
+									Reset
+								</Button>
+							</Box>
 						</Box>
-					</Box>
-				</form>
+					</form>
+				</Box>
 			</Box>
-		</Box>
 		</>
 	)
 }

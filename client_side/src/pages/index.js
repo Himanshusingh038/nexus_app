@@ -26,7 +26,7 @@ const Page = () => {
     }),
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        const {email, password} = values;
+        const { email, password } = values;
         let datad = JSON.stringify({
           email: email,
           password: password
@@ -34,15 +34,15 @@ const Page = () => {
         const response = await axios.post(
           "http://localhost:8000/login",
           datad,
-          { headers: { "Content-Type": "application/json"},withCredentials:true}
+          { headers: { "Content-Type": "application/json" }, withCredentials: true }
         );
-        const {data} = response;
-        const sessionCookie =data;
+        const { data } = response;
+        const sessionCookie = data;
         document.cookie = sessionCookie;
-        if (response.data.status=='success') {
+        if (response.data.status == 'success') {
           Router.push('/dashboard');
         } else {
-          if (response.data.status=='email not found'){
+          if (response.data.status == 'email not found') {
             setErrors({ email: "Incorrect email " });
           } else {
             setErrors({ password: "Incorrect password" });
@@ -64,7 +64,7 @@ const Page = () => {
       </Head>
       <Box
         component="main"
-        sx={{        
+        sx={{
           alignItems: 'center',
           display: 'flex',
           flexGrow: 1,
@@ -80,7 +80,7 @@ const Page = () => {
           }}
         >
           <form onSubmit={formik.handleSubmit}>
-            <Box 
+            <Box
               align="center"
               sx={{ mb: 8 }}>
               <Logo
