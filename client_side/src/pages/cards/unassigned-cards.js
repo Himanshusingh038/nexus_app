@@ -5,7 +5,7 @@ import { CardListToolbar } from '../../components/card/card-list-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
 import axios from 'axios';
 
-const Page = ({cards}) => {
+const Page = ({ cards }) => {
   return (
     <>
       <Head>
@@ -28,7 +28,7 @@ const Page = ({cards}) => {
     </>
   );
 };
-  
+
 
 
 Page.getLayout = (page) => (
@@ -43,7 +43,7 @@ export const getServerSideProps = async (context) => {
   const url = "http://localhost:8000/get_unassigned_card";
   const cookie = context.req.cookies
   const val = (cookie.loggedIn).toString()
-  const res = await axios.get(url,{ headers: { Cookie: `loggedIn=${val};` }});
+  const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
   const data = await res.data;
   var cards = Object.values(data);
   return {

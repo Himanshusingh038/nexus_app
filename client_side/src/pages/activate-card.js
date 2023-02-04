@@ -8,8 +8,8 @@ import { format } from "date-fns";
 import Swal from 'sweetalert2';
 import axios from "axios";
 
-const Page = ({data}) => {
-  const cust_data= data;
+const Page = ({ data }) => {
+  const cust_data = data;
   const router = useRouter();
   const { query } = router
   const formik = useFormik({
@@ -32,59 +32,66 @@ const Page = ({data}) => {
         .max(255)
         .required("Password is required"),
     }),
-    onSubmit: async(values, {setSubmitting, setErrors, resetForm}) => {
-		try{
-			const {fname, lname, email, password} = values;
-			const card_id = query.id
-			const old_email = cust_data.email;
-			const cst_exists = cust_data.cst_exists;
-			const cst_unq_id = cust_data.cst_unq_id;
-			const cst_email = email;
-			let data = JSON.stringify({
-				fname,
-        lname,
-        cst_email,
-				password,
-				card_id,
-				old_email,
-        cst_exists,
-				cst_unq_id,
-			})
-			const url = 'http://localhost:8000/activate_card'
-			await axios.post(
-				url,
-        data,
-        { headers: { "Content-Type": "application/json"},withCredentials:true}
-			).then(function (response) {
-        if (response.statusText=='OK') {
-          Swal.fire({
-            icon: 'success',
-            title: 'Yeah...',
-            text: 'Card activated successfully',
-            confirmButtonText: 'Great',
-          }).then(() => {
-            router.push('/cards/active-cards');
-          })
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-            confirmButtonText: 'Try again'
-          }).then(() => {
-            resetForm({ values: ''});
-          })
-        }
-      });
-		} catch(error) {
-			console.error(error);
-		} finally {
-			setSubmitting(false);
-			setErrors({});
-		}
+    onSubmit: async (values, { setSubmitting, setErrors, resetForm }) => {
+      try {
+        const { fname, lname, email, password } = values;
+        const card_id = query.id
+        const old_email = cust_data.email;
+        const cst_exists = cust_data.cst_exists;
+        const cst_unq_id = cust_data.cst_unq_id;
+        const cst_email = email;
+        let data = JSON.stringify({
+          fname,
+          lname,
+          cst_email,
+          password,
+          card_id,
+          old_email,
+          cst_exists,
+          cst_unq_id,
+        })
+        const url = 'http://localhost:8000/activate_card'
+        await axios.post(
+          url,
+          data,
+          { headers: { "Content-Type": "application/json" }, withCredentials: true }
+        ).then(function (response) {
+          if (response.statusText == 'OK') {
+            Swal.fire({
+              icon: 'success',
+              title: 'Yeah...',
+              text: 'Card activated successfully',
+              confirmButtonText: 'Great',
+            }).then(() => {
+              router.push('/cards/active-cards');
+            })
+          } else if (response.statusText == '') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Email already exists',
+              text: 'Please use a unique email id to activate the card',
+              confirmButtonText: 'OK',
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Something went wrong!',
+              confirmButtonText: 'Try again'
+            }).then(() => {
+              resetForm({ values: '' });
+            })
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setSubmitting(false);
+        setErrors({});
+      }
     },
   });
-  
+
   return (
     <>
       <Head>
@@ -175,8 +182,8 @@ const Page = ({data}) => {
                     >
                       Activate
                     </Button>
-                    <Button 
-                      color="primary" 
+                    <Button
+                      color="primary"
                       variant="outlined"
                       onClick={formik.handleReset}
                     >
@@ -270,17 +277,17 @@ Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
 
-export const getServerSideProps = async(context) =>{
-	const { query } = context;
-	const {id} = query;
-	const url = `http://localhost:8000/check_customer_exists?card_id=${id}&action=activate`
+export const getServerSideProps = async (context) => {
+  const { query } = context;
+  const { id } = query;
+  const url = `http://localhost:8000/check_customer_exists?card_id=${id}&action=activate`
   const cookie = context.req.cookies
   const val = (cookie.loggedIn).toString()
-  const res = await axios.get(url,{ headers: { Cookie: `loggedIn=${val};` }});
-	const data = await res.data;
-	return {
+  const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
+  const data = await res.data;
+  return {
     props: {
       data
     },
-	}
+  }
 }

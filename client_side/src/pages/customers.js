@@ -8,15 +8,15 @@ import { useState } from 'react';
 
 const Page = ({ customers }) => {
   const [search, setSearch] = useState('')
-  const handleChange = async(e)=>{
+  const handleChange = async (e) => {
     setSearch(e.target.value);
   }
-  const filercustomers = customers.filter(customer => 
+  const filercustomers = customers.filter(customer =>
     customer.name && customer.name.toLowerCase().includes(search.toLowerCase()) ||
     customer.email && customer.email.toLowerCase().includes(search.toLowerCase()) ||
     customer.phone && customer.phone.toLowerCase().includes(search.toLowerCase()) ||
     customer.id && customer.id == search
-    )
+  )
   return (
     <>
       <Head>

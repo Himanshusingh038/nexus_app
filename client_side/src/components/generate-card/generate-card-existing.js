@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Box, Button, Card, CardContent, CardHeader, Divider, Select, InputLabel, MenuItem, FormControl } from '@mui/material';
 import axios from 'axios';
 
-export const GenerateExisting = ({customers = []}) => {
-  console.log('cust-->',customers);
+export const GenerateExisting = ({ customers = [] }) => {
+  console.log('cust-->', customers);
   const [value, setValue] = useState([]);
 
 
@@ -14,12 +14,12 @@ export const GenerateExisting = ({customers = []}) => {
     });
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const url = 'http://localhost:8000/generate_existing'
-    const data = {'cst_unq_id':customers[0].id}
-    const res = await axios.post(url,data,{ withCredentials: true })
-    console.log('res=>',res);
+    const data = { 'cst_unq_id': customers[0].id }
+    const res = await axios.post(url, data, { withCredentials: true })
+    console.log('res=>', res);
     alert('card generated successfully');
   }
 
@@ -28,26 +28,26 @@ export const GenerateExisting = ({customers = []}) => {
       <Card>
         <CardHeader
           title="Generate cards for existing users"
-					sx = {{
-						color: "primary.dark"
-					}}
+          sx={{
+            color: "primary.dark"
+          }}
         />
-				<Divider />
+        <Divider />
         <CardContent>
-					<FormControl fullWidth>
-						<InputLabel id="existing-customers">Customers</InputLabel>
-						<Select
-							labelId="existing-customers"
-							label="Customers"
-							onChange={handleChange}
-						>
+          <FormControl fullWidth>
+            <InputLabel id="existing-customers">Customers</InputLabel>
+            <Select
+              labelId="existing-customers"
+              label="Customers"
+              onChange={handleChange}
+            >
               {customers.map((customer) => (
                 <MenuItem value={customer.id} key={customer.id}>
                   {customer.name}
                 </MenuItem>
               ))}
-						</Select>
-					</FormControl>
+            </Select>
+          </FormControl>
         </CardContent>
         <Divider />
         <Box

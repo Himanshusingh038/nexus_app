@@ -15,16 +15,16 @@ export const NavItem = (props) => {
     setOpen(!open);
   };
 
-  if(props.collapse) {
+  if (props.collapse) {
     const subnav = props.links;
     return (
       <ListItem
-        sx = {{
+        sx={{
           display: 'block',
           mb: 0.5
         }}
       >
-        <ListItemButton 
+        <ListItemButton
           sx={{
             borderRadius: 1,
             color: open ? 'secondary.main' : 'neutral.300',
@@ -38,7 +38,7 @@ export const NavItem = (props) => {
           onClick={handleClick}
         >
           <ListItemIcon
-            sx = {{
+            sx={{
               color: open ? 'secondary.main' : 'neutral.400'
             }}
           >
@@ -48,9 +48,9 @@ export const NavItem = (props) => {
           {open ? <ExpandMore /> : <ChevronRight />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <List 
+          <List
             disablePadding
-            sx = {{
+            sx={{
               mt: 0.5
             }}
           >
@@ -102,7 +102,7 @@ export const NavItem = (props) => {
             }}
           >
             <ListItemIcon
-              sx = {{
+              sx={{
                 color: active ? 'secondary.main' : 'neutral.400'
               }}
             >
