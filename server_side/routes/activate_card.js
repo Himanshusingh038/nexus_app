@@ -86,7 +86,7 @@ const activateCards = (req, res) => {
         throw err;
       }
       if (results.rowCount > 0) {
-        res.status(500).send("Email Already Exists");
+        res.status(200).send("Email Already Exists");
       } else {
         sql = `insert into customers (customer_name,customer_email,customer_password,customer_num) values('${name}','${cst_email}','${new_pass}','${cst_unq_id}')`;
         pool.query(sql, (err, results) => {
