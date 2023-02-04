@@ -81,18 +81,20 @@ export const CardListResults = ({ cards, status, ...rest }) => {
       console.error(error);
     }
   }
-  const handleStatus = async (status,card_id)=>{
-    console.log(status);
-    if (status=='active') {
-      const res = await axios.get(`http://localhost:8000/unassigned_action?action=deactivate&card_id=${card_id}`,{withCredentials:true});
-      if (res.statusText=='OK') {
+
+  const handleStatus = async (status, card_id) => {
+    if (status == 'active') {
+      const res = await axios.get(`http://localhost:8000/unassigned_action?action=deactivate&card_id=${card_id}`, { withCredentials: true });
+      if (res.statusText == 'OK') {
         Swal.fire({
-          icon: 'Deactivated',
+          icon: 'success',
           title: 'Yeah...',
           text: 'Card Deactivated successfully',
           confirmButtonText: 'Great',
+        }).then(() => {
+          router.reload(window.location)
         })
-      }else{
+      } else {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -100,26 +102,26 @@ export const CardListResults = ({ cards, status, ...rest }) => {
           confirmButtonText: 'Try again'
         })
       }
-    }else if(status=='inactive'){
-      console.log('point 1');
-      const res = await axios.get(`http://localhost:8000/unassigned_action?action=activate&card_id=${card_id}`,{withCredentials:true});
-      console.log(res.statusText);
-      if (res.statusText=='OK') {
+    } else if (status == 'inactive') {
+      const res = await axios.get(`http://localhost:8000/unassigned_action?action=activate&card_id=${card_id}`, { withCredentials: true });
+      if (res.statusText == 'OK') {
         Swal.fire({
-          icon: 'Activated',
+          icon: 'success',
           title: 'Yeah...',
           text: 'Card Activated successfully',
           confirmButtonText: 'Great',
+        }).then(() => {
+          router.reload(window.location)
         })
-      }else{
+      } else {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Something went wrong!',
           confirmButtonText: 'Try again'
-      })
-    }}
-    window.location.reload();
+        })
+      }
+    }
   }
 
   return (
@@ -320,12 +322,74 @@ export const CardListResults = ({ cards, status, ...rest }) => {
                     )}
                     <TableCell>
                       <Box className={`badge badge--${status}`}>
-                        <Button
-                          onClick={() => handleStatus(card.status, card.id)}
-                        >
-                          {card.status}
-                        </Button>
+                        {card.status}
                       </Box>
+                      {status === "active" && (
+                        <Box
+                          sx={{
+                            mt: 0.5,
+                          }}
+                        >
+                          <Button
+                            sx={{
+                              p: 0,
+                              '&:hover': {
+                                backgroundColor: "transparent"
+                              }
+                            }}
+                            onClick={() => handleStatus("active", card.id)}
+                          >
+                            <Typography
+                              variant="overline"
+                              color="error.main"
+                              sx={{
+                                cursor: "pointer",
+                                fontSize: "0.6875rem",
+                                mr: 1.5,
+                                textDecoration: "underline",
+                                "&:hover": {
+                                  color: "error.dark",
+                                },
+                              }}
+                            >
+                              DEACTIVATE
+                            </Typography>
+                          </Button>
+                        </Box>
+                      )}
+                      {status === "inactive" && (
+                        <Box
+                          sx={{
+                            mt: 0.5,
+                          }}
+                        >
+                          <Button
+                            sx={{
+                              p: 0,
+                              '&:hover': {
+                                backgroundColor: "transparent"
+                              }
+                            }}
+                            onClick={() => handleStatus("inactive", card.id)}
+                          >
+                            <Typography
+                              variant="overline"
+                              color="success.main"
+                              sx={{
+                                cursor: "pointer",
+                                fontSize: "0.6875rem",
+                                mr: 1.5,
+                                textDecoration: "underline",
+                                "&:hover": {
+                                  color: "success.dark",
+                                },
+                              }}
+                            >
+                              ACTIVATE
+                            </Typography>
+                          </Button>
+                        </Box>
+                      )}
                     </TableCell>
                     <TableCell>
                       {format(new Date(card.reg_date), "dd-MM-yyyy")}

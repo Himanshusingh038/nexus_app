@@ -13,7 +13,7 @@ export const theme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
-        disableElevation: true,        
+        disableElevation: true,
       },
       styleOverrides: {
         root: {
