@@ -13,11 +13,16 @@ const Page = ({ cards }) => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
+  console.log(cards);
+
   const filteredCards = cards.filter((card) =>
-    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase()) ||
     card.c_name && card.c_name.toLowerCase().includes(search.toLowerCase()) ||
     card.c_phone && card.c_phone.toLowerCase().includes(search.toLowerCase()) ||
-    card.id && card.id == search
+    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase()) ||
+    card.custom_url && card.custom_url.toLowerCase().includes(search.toLowerCase()) ||
+    card.card_no && card.card_no.toLowerCase().includes(search.toLowerCase()) ||
+    card.id && card.id.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
