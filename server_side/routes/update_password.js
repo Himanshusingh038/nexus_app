@@ -6,7 +6,6 @@ module.exports = async (req, res) => {
   const sql = `select password from admin where email='${email}'`;
   var status = "failed";
   try {
-    console.log(sql);
     var data = await pool.query(sql);
     if (data.rows.length == 0) {
       res.status(500).json({ error: "incorrect mail address" });
@@ -18,6 +17,11 @@ module.exports = async (req, res) => {
       const sql = `update admin set password='${new_pass}' where email='${email}'`;
       var data = await pool.query(sql);
       status = "password changed";
+      res.status(200).json({status: status})
+    }else if(!isMatch){
+      res.status(200).json({error: "incorrect old password" });
+    }else{
+      res.status(200).json({error: "password didn't match"})
     }
   } catch (error) {
     console.log(error);
@@ -25,6 +29,5 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: error });
   } finally {
     console.log(status);
-    res.send({ status: status });
   }
 };

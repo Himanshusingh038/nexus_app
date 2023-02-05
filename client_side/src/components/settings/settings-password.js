@@ -1,71 +1,58 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Grid, Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
-import Swal from 'sweetalert2';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const SettingsPassword = (props) => {
-  // const router = useRouter();
-
-  const formik = useFormik({
-    initialValues: {
-      email: "admin@nexuscards.in",
-      current_password: "",
-      new_password: "",
-      confirm_password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Must be a valid email")
-        .max(255)
-        .required("Email is required"),
-      current_password: Yup
-        .string()
-        .max(255)
-        .required("This field is required"),
-      new_password: Yup
-        .string()
-        .min(8, 'Password must be at least 8 characters')
-        .max(255)
-        .required("This field is required"),
-      confirm_password: Yup
-        .string()
-        .oneOf([Yup.ref('new_password'), null], 'Passwords must match')
-        .required("This field is required"),
-    }),
-    onSubmit: async (values) => {
-      try {
-        const { email, current_password, new_password, confirm_password } = values;
-        const data = {
-          email: name,
-          current_password: current_password,
-          new_password: new_password,
-          confirm_password: confirm_password,
-        }
-        await axios.post(
-          url,
-          data,
-          { headers: { "Content-Type": "application/json" }, withCredentials: true }
-        ).then(function (response) {
-          if (response.statusCode === 200) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Yeah...',
-              text: 'Password updated successfully.',
-              confirmButtonText: 'Great',
-            }).then(() => {
-              router.push('/');
-            })
-          }
-        })
-      } catch (error) {
-        console.error(error);
-      }
+  const [values, setValues] = useState({
+    password: '',
+    confirm: ''
+  });
+  const handleChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value
+    });
+  };
+  const router = useRouter();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value
+    const current_password = event.target.current_password.value
+    const new_password = event.target.new_password.value
+    const confirm_password = event.target.confirm_password.value
+    const data = {
+      email: email,
+      current_password: current_password,
+      new_password: new_password,
+      confirm_password: confirm_password
     }
-  })
+    const url = 'http://localhost:8000/update_password'
+    const res = await axios.post(url, data)
+    console.log(res.data);
+    if (res.data.error =='incorrect old password'){
+      Swal.fire({
+        icon: 'Failed',
+        title: 'Oh Shit...',
+        text: 'Incorrect Old Password',
+        confirmButtonText: 'Try Again',
+      })
+    }else if (res.data.error =="password didn't match"){
+      Swal.fire({
+        icon: 'Failed',
+        title: 'Oh Shit...',
+        text: "New Password Didn't match",
+        confirmButtonText: 'Try Again',
+      })
+    }
+    if (res.data.status == 'password changed') {
+      router.push('/dashboard')
+    } 
+  }
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form {...props} onSubmit={handleSubmit}>
       <Card>
         <CardHeader
           title="Change Password"
@@ -78,69 +65,62 @@ export const SettingsPassword = (props) => {
           >
             <Grid
               item
-              lg={6}
+              lg={8}
               xs={12}
             >
               <TextField
                 fullWidth
-                margin="normal"
                 label="Email Id"
                 name="email"
-                onChange={formik.handleChange}
+                onChange={handleChange}
                 type="email"
-                value={formik.values.email}
+                value={values.email || 'admin@nexuscards.in'}
                 variant="outlined"
               />
             </Grid>
             <Grid
               item
-              lg={6}
+              lg={8}
               xs={12}
             >
               <TextField
                 fullWidth
                 label="Current Password"
                 name="current_password"
-                onChange={formik.handleChange}
+                onChange={handleChange}
                 type="password"
-                value={formik.values.current_password}
+                value={values.current_password}
                 variant="outlined"
-                error={Boolean(formik.touched.current_password && formik.errors.current_password)}
-                helperText={formik.touched.current_password && formik.errors.current_password}
               />
             </Grid>
             <Grid
               item
-              lg={6}
+              lg={8}
               xs={12}
             >
               <TextField
                 fullWidth
                 label="New Password"
                 name="new_password"
-                onChange={formik.handleChange}
+                onChange={handleChange}
                 type="password"
-                value={formik.values.new_password}
+                value={values.new_password}
                 variant="outlined"
-                error={Boolean(formik.touched.new_password && formik.errors.new_password)}
-                helperText={formik.touched.new_password && formik.errors.new_password}
               />
             </Grid>
             <Grid
               item
-              lg={6}
+              lg={8}
               xs={12}
             >
               <TextField
                 fullWidth
                 label="Confirm Password"
                 name="confirm_password"
-                onChange={formik.handleChange}
+                onChange={handleChange}
                 type="password"
-                value={formik.values.confirm_password}
+                value={values.confirm_password}
                 variant="outlined"
-                error={Boolean(formik.touched.confirm_password && formik.errors.confirm_password)}
-                helperText={formik.touched.confirm_password && formik.errors.confirm_password}
               />
             </Grid>
           </Grid>
@@ -158,16 +138,15 @@ export const SettingsPassword = (props) => {
             variant="contained"
             sx={{ mr: 2 }}
             type="submit"
-            disabled={formik.isSubmitting}
+
           >
             Update Password
           </Button>
           <Button
             color="primary"
             variant="outlined"
-            onClick={formik.handleReset}
           >
-            Reset
+            Cancel
           </Button>
         </Box>
       </Card>
