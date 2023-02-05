@@ -90,7 +90,10 @@ export default Dashboard;
 export const getServerSideProps = async (context) => {
   const url = "http://localhost:8000/dashboard_stats";
   const cookie = context.req.cookies
-  const val = (cookie.loggedIn).toString()
+  var val = false
+  if (cookie.loggedIn){
+    val = (cookie.loggedIn).toString()
+  }
   const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
   const data = await res.data;
   return {

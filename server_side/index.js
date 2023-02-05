@@ -68,16 +68,16 @@ app.get("/inactive", isAuth, getInactiveCards);
 app.get("/incompete", isAuth, getIncompleteCards);
 app.get("/get_customers", isAuth, getCustomers);
 app.get("/get_customers/:cst_id", isAuth, getCustomersById);
-app.get("/check_customer_exists", checkCustomerExists);
+app.get("/check_customer_exists",isAuth, checkCustomerExists);
 app.post("/activate_card", isAuth, activateCards);
 app.get("/dashboard_stats", isAuth, dashboardStats);
 app.post("/update_remarks", isAuth, updateRemark);
 app.post("/login", login);
-app.get("/logout", logout);
+app.get("/logout",isAuth, logout);
 app.get("/customer_actions", isAuth, customerAction);
 app.post("/edit_customer", isAuth, editCustomer);
 app.get("/all_cards", getAllCards);
-app.post("/update_password", updatePassword);
+app.post("/update_password",isAuth, updatePassword);
 
 app.listen(port, () => {
   console.log(`listining to the ${port} on node server`);
