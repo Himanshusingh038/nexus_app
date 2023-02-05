@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Grid, Box, Button, Card, CardContent, CardHeader, Divider, TextField } from '@mui/material';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const SettingsPassword = (props) => {
   const [values, setValues] = useState({
@@ -29,11 +30,25 @@ export const SettingsPassword = (props) => {
     }
     const url = 'http://localhost:8000/update_password'
     const res = await axios.post(url, data)
-
-    if (res.statusCode === 200) {
-      router.push('/update_password')
-
-    } window.location.reload()
+    console.log(res.data);
+    if (res.data.error =='incorrect old password'){
+      Swal.fire({
+        icon: 'Failed',
+        title: 'Oh Shit...',
+        text: 'Incorrect Old Password',
+        confirmButtonText: 'Try Again',
+      })
+    }else if (res.data.error =="password didn't match"){
+      Swal.fire({
+        icon: 'Failed',
+        title: 'Oh Shit...',
+        text: "New Password Didn't match",
+        confirmButtonText: 'Try Again',
+      })
+    }
+    if (res.data.status == 'password changed') {
+      router.push('/dashboard')
+    } 
   }
 
   return (
@@ -50,7 +65,7 @@ export const SettingsPassword = (props) => {
           >
             <Grid
               item
-              lg={4}
+              lg={8}
               xs={12}
             >
               <TextField
@@ -59,13 +74,13 @@ export const SettingsPassword = (props) => {
                 name="email"
                 onChange={handleChange}
                 type="email"
-                value={values.email}
+                value={values.email || 'admin@nexuscards.in'}
                 variant="outlined"
               />
             </Grid>
             <Grid
               item
-              lg={4}
+              lg={8}
               xs={12}
             >
               <TextField
@@ -80,7 +95,7 @@ export const SettingsPassword = (props) => {
             </Grid>
             <Grid
               item
-              lg={4}
+              lg={8}
               xs={12}
             >
               <TextField
@@ -95,12 +110,12 @@ export const SettingsPassword = (props) => {
             </Grid>
             <Grid
               item
-              lg={4}
+              lg={8}
               xs={12}
             >
               <TextField
                 fullWidth
-                label="Password"
+                label="Confirm Password"
                 name="confirm_password"
                 onChange={handleChange}
                 type="password"
