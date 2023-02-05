@@ -56,16 +56,16 @@ const Page = ({ data }) => {
           data,
           { headers: { "Content-Type": "application/json" }, withCredentials: true }
         ).then(function (response) {
-          if (response.data =='Email Already Exists'){
+          if (response.data == 'Email Already Exists') {
             Swal.fire({
-              icon: 'Failed',
-              title: 'Oh Shit...',
-              text: 'Email Already Exists',
-              confirmButtonText: 'Try Again',
+              icon: 'error',
+              title: 'Email already exists',
+              text: 'Please use a unique email id to activate the card',
+              confirmButtonText: 'OK',
             }).then(() => {
-              window.location.reload();
+              resetForm({ values: '' });
             })
-          }else if (response.statusText == 'OK') {
+          } else if (response.statusText == 'OK') {
             Swal.fire({
               icon: 'success',
               title: 'Yeah...',
@@ -73,13 +73,6 @@ const Page = ({ data }) => {
               confirmButtonText: 'Great',
             }).then(() => {
               router.push('/cards/active-cards');
-            })
-          } else if (response.statusText == '') {
-            Swal.fire({
-              icon: 'error',
-              title: 'Email already exists',
-              text: 'Please use a unique email id to activate the card',
-              confirmButtonText: 'OK',
             })
           } else {
             Swal.fire({

@@ -17,7 +17,8 @@ export const CardRemarks = ({ cardRemark, cardId }) => {
 			remarks: Yup.string()
 				.max(255)
 				.min(3, 'Must be at least 3 characters long')
-				.required("Remark is required"),
+				.required("Remark is required")
+				.matches(/^[\w\d\s_.-]+$/, "Invalid special characters"),
 		}),
 		onSubmit: async (values, { setSubmitting, setErrors, resetForm }) => {
 			try {
@@ -77,6 +78,7 @@ export const CardRemarks = ({ cardRemark, cardId }) => {
 						sx={{
 							fontWeight: "bold",
 							mr: 1,
+							mb: 1.5
 						}}
 					>
 						Remarks:
