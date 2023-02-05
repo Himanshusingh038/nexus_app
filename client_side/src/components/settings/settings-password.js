@@ -63,26 +63,6 @@ export const SettingsPassword = (props) => {
       }
     }
   })
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const email = event.target.email.value
-  //   const current_password = event.target.current_password.value
-  //   const new_password = event.target.new_password.value
-  //   const confirm_password = event.target.confirm_password.value
-  //   const data = {
-  //     email: email,
-  //     current_password: current_password,
-  //     new_password: new_password,
-  //     confirm_password: confirm_password
-  //   }
-  //   const url = 'http://localhost:8000/update_password'
-  //   const res = await axios.post(url, data)
-
-  //   if (res.statusCode === 200) {
-  //     router.push('/update_password')
-
-  //   } window.location.reload()
-  // }
 
   return (
     <form onSubmit={formik.handleSubmit}>
