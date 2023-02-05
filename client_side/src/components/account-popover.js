@@ -11,7 +11,8 @@ export const AccountPopover = (props) => {
   const handleLogout = async () => {
     onClose?.();
     try {
-      const res = await axios.get('http://localhost:8000/logout');
+      const response = await axios.get('http://localhost:8000/logout');
+      console.log(response);
       router.push('/');
     } catch (error) {
       console.error(error);

@@ -13,11 +13,14 @@ const Page = ({ cards }) => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
   const filteredCards = cards.filter((card) =>
-    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase()) ||
     card.c_name && card.c_name.toLowerCase().includes(search.toLowerCase()) ||
     card.c_phone && card.c_phone.toLowerCase().includes(search.toLowerCase()) ||
-    card.id && card.id == search
+    card.c_email && card.c_email.toLowerCase().includes(search.toLowerCase()) ||
+    card.custom_url && card.custom_url.toLowerCase().includes(search.toLowerCase()) ||
+    card.card_no && card.card_no.toLowerCase().includes(search.toLowerCase()) ||
+    card.id && card.id.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -56,10 +59,7 @@ export default Page;
 export const getServerSideProps = async (context) => {
   const url = "http://localhost:8000/active";
   const cookie = context.req.cookies
-  let val = undefined
-  if (cookie.loggedIn) {
-    val = (cookie.loggedIn).toString()
-  }
+  const val = (cookie.loggedIn).toString()
   const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
   const data = await res.data;
   var cards = Object.values(data);
@@ -69,5 +69,3 @@ export const getServerSideProps = async (context) => {
     },
   };
 };
-/* Sending a cookie to the server. */
-// {headers:{Cookie: "loggedIn=${val}"}}  `${JSON.stringify(cookie)};`
