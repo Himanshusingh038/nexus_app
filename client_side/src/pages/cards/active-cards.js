@@ -59,10 +59,7 @@ export default Page;
 export const getServerSideProps = async (context) => {
   const url = "http://localhost:8000/active";
   const cookie = context.req.cookies
-  let val = undefined
-  if (cookie.loggedIn) {
-    val = (cookie.loggedIn).toString()
-  }
+  const val = (cookie.loggedIn).toString()
   const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
   const data = await res.data;
   var cards = Object.values(data);
@@ -72,5 +69,3 @@ export const getServerSideProps = async (context) => {
     },
   };
 };
-/* Sending a cookie to the server. */
-// {headers:{Cookie: "loggedIn=${val}"}}  `${JSON.stringify(cookie)};`
