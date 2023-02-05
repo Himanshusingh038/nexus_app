@@ -47,7 +47,7 @@ export const SettingsPassword = (props) => {
       })
     }
     if (res.data.status == 'password changed') {
-      router.push('/dashboard')
+      router.push('/')
     } 
   }
 
