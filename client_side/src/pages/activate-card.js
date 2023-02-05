@@ -284,7 +284,10 @@ export const getServerSideProps = async (context) => {
   const { id } = query;
   const url = `http://localhost:8000/check_customer_exists?card_id=${id}&action=activate`
   const cookie = context.req.cookies
-  const val = (cookie.loggedIn).toString()
+  var val = false
+  if (cookie.loggedIn){
+    val = (cookie.loggedIn).toString()
+  }
   const res = await axios.get(url, { headers: { Cookie: `loggedIn=${val};` } });
   const data = await res.data;
   return {
