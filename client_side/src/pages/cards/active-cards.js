@@ -14,8 +14,6 @@ const Page = ({ cards }) => {
     setSearch(e.target.value);
   };
 
-  console.log(cards);
-
   const filteredCards = cards.filter((card) =>
     card.c_name && card.c_name.toLowerCase().includes(search.toLowerCase()) ||
     card.c_phone && card.c_phone.toLowerCase().includes(search.toLowerCase()) ||

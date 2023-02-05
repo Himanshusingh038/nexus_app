@@ -14,9 +14,12 @@ const Page = ({ cards }) => {
     setSearch(e.target.value);
   };
 
+  console.log(cards);
+
   const filteredCards = cards.filter((card) =>
     card.card_no && card.card_no.toLowerCase().includes(search.toLowerCase()) ||
-    card.id && card.id.toLowerCase().includes(search.toLowerCase())
+    card.id && card.id.toLowerCase().includes(search.toLowerCase()) ||
+    card.remarks && card.remarks.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
