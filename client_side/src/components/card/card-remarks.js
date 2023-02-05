@@ -78,6 +78,7 @@ export const CardRemarks = ({ cardRemark, cardId }) => {
 						sx={{
 							fontWeight: "bold",
 							mr: 1,
+							mb: 1.5
 						}}
 					>
 						Remarks:

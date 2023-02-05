@@ -15,6 +15,7 @@ export const GenerateNew = (props) => {
         .positive('Quantity must be a positive number')
         .required('Quantity is required')
         .min(1, 'Quantity must be greater than or equal to 1')
+        .max(20, 'Quantity must be lesser than or equal to 20')
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
