@@ -56,7 +56,16 @@ const Page = ({ data }) => {
           data,
           { headers: { "Content-Type": "application/json" }, withCredentials: true }
         ).then(function (response) {
-          if (response.statusText == 'OK') {
+          if (response.data =='Email Already Exists'){
+            Swal.fire({
+              icon: 'Failed',
+              title: 'Oh Shit...',
+              text: 'Email Already Exists',
+              confirmButtonText: 'Try Again',
+            }).then(() => {
+              window.location.reload();
+            })
+          }else if (response.statusText == 'OK') {
             Swal.fire({
               icon: 'success',
               title: 'Yeah...',
