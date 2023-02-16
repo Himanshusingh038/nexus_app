@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      { "src": "client_side/package.json", "use": "@vercel/static-build" },
+      { "src": "server_side/package.json", "use": "@vercel/node" }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "server_side/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "client_side/$1"
+      }
+    ]
+  }
+  
