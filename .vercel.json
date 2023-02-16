@@ -1,12 +1,12 @@
 {
     "version": 2,
     "builds": [
-      { "src": "client_side/package.json", "use": "@vercel/static-build" },
-      { "src": "server_side/package.json", "use": "@vercel/node" }
+      { "src": "client_side/**", "use": "@vercel/static-build" },
+      { "src": "server_side/**", "use": "@vercel/node" }
     ],
     "routes": [
       {
-        "src": "/api/(.*)",
+        "src": "/routes/(.*)",
         "dest": "server_side/$1"
       },
       {
