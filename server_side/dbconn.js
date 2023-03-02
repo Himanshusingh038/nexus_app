@@ -1,8 +1,7 @@
-const Pool = require('pg').Pool
-module.exports= new Pool({
-  user: 'postgres',
+const mysql = require('mysql');
+module.exports = mysql.createConnection({
   host: 'localhost',
-  database: 'nexusDB',
+  user: 'root',
   password: 'pass@123',
-  port: 5432,
-})
+  database: 'nexusDB'
+});
