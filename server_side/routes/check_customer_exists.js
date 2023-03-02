@@ -9,22 +9,23 @@ module.exports = (req, res) => {
     if (err) {
       throw err;
     }
-    if (results.rowCount > 0) {
-      data = results.rows;
-      cst_unq_id = data[0]["cst_unique_id"];
+    console.log(results);
+    if (results.length > 0) {
+      cst_unq_id = results[0]["cst_unique_id"];
+      console.log(cst_unq_id);
       if (cst_unq_id != null) {
         sql = `select * from customers where customer_num='${cst_unq_id}'`;
         pool.query(sql, (err, results) => {
           if (err) {
             throw err;
           }
-          console.log(results.rowCount);
-          if (results.rowCount == 0) {
+          console.log(results);
+          if (results.length == 0) {
             console.log("very bad");
             res.status(500).json({ message: "customer not found" });
           }
           console.log("bad -place");
-          data = results.rows;
+          data = results;
           name = data[0]["customer_name"].trim().split(" ");
           fname = name[0];
           lname = name[1];
