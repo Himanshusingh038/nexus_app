@@ -13,26 +13,26 @@ module.exports = (req, res) => {
     }
   });
   if (action == "activate") {
-    sql = `update cards set card_status='active' where card_id='${card_id}' returning *`;
+    sql = `update cards set card_status='active' where card_id='${card_id}' `;
     pool.query(sql, (err, results) => {
       if (err) {
         throw err;
       }
-      console.log(results.rows);
+      console.log(results.length);
       res.status(200).send("activated");
     });
   } else if (action == "deactivate") {
-    sql = `update cards set card_status='inactive' where card_id='${card_id}' returning *`;
+    sql = `update cards set card_status='inactive' where card_id='${card_id}' `;
     pool.query(sql, (err, results) => {
       if (err) {
         throw err;
       }
-      console.log(results.rows);
+      console.log(results.length);
       res.status(200).send("deactivated");
     });
   } else if (action == "delete") {
     console.log("delete_cards");
-    sql = `delete from cards where card_id='${card_id}' returning *`;
+    sql = `delete from cards where card_id='${card_id}' `;
     pool.query(sql, (err, results) => {
       if (err) {
         throw err;

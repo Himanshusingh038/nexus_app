@@ -5,9 +5,12 @@ module.exports = async (req, res) => {
     const cst_id = req.params.cst_id;
     console.log(cst_id);
     sql = `select * from customers where customer_id='${cst_id}'`;
-    var data = await pool.query(sql);
-    const row = data.rows;
-    res.status(200).json({ total_cst: row });
+    pool.query(sql, (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.status(200).json(results[0]);
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "cst not found" });

@@ -85,7 +85,7 @@ const activateCards = (req, res) => {
       if (err) {
         throw err;
       }
-      if (results.rowCount > 0) {
+      if (results.length > 0) {
         res.status(200).send("Email Already Exists");
       } else {
         sql = `insert into customers (customer_name,customer_email,customer_password,customer_num) values('${name}','${cst_email}','${new_pass}','${cst_unq_id}')`;
@@ -95,14 +95,14 @@ const activateCards = (req, res) => {
             throw err;
           }
           console.log("step 2");
-          if (results.rowCount > 0) {
+          if (results.affectedRows > 0) {
             sql = `update cards set fname='${fname}',lname='${lname}',email='${cst_email}',card_status='active',cst_unique_id='${cst_unq_id}' where card_id='${card_id}'`;
             pool.query(sql, (err, results) => {
               if (err) {
                 throw err;
               }
               console.log("step 3");
-              if (results.rowCount > 0) {
+              if (results.affectedRows > 0) {
                 res
                   .status(200)
                   .json({ message: "Account Activated successfully" });

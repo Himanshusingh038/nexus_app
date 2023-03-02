@@ -8,6 +8,6 @@ module.exports = (req, res) => {
     if (err) {
       throw err;
     }
-    res.status(200).json(results.rows);
+    res.status(200).json(results);
   });
 };

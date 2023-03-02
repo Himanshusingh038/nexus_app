@@ -8,7 +8,7 @@ module.exports = (req, res) => {
             c.website custom_url,
             c.card_status status,
             c.card_reg_date reg_date,
-            ROUND(date_part('epoch', c.card_reg_date)) regg_date,
+            ROUND(UNIX_TIMESTAMP( c.card_reg_date)) regg_date,
             c.remarks
         from cards c
             where  c.card_status='unassigned'
@@ -17,6 +17,6 @@ module.exports = (req, res) => {
     if (err) {
       throw err;
     }
-    res.status(200).json(results.rows);
+    res.status(200).json(results);
   });
 };
